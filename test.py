@@ -1,3 +1,4 @@
-#from sympy.printing.mathml import print_mathml, mathml
-#from sympy import Symbol, sympify
-import cac_thao_tac_khao_sat_ham_so
+from sympy import *
+
+t = sympify("a^5+a^4+1")
+print(latex((0,1)))

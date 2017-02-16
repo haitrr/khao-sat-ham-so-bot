@@ -1,10 +1,14 @@
+import time
 from matplotlib import pyplot, rc
-from sympy import latex
+import sympy as sp
+#from sympy import preview
 from PIL import Image
 import io
+rc("text", usetex=True)
 
 
-def ve_bieu_thuc_toan_ra_anh(bieu_thuc):
+def ve_bieu_thuc_toan_ra_anh2(bieu_thuc):
+    n = time.time()
     bieu_thuc = "$" + latex(bieu_thuc) + "$"
     rc("text", usetex=True)
     fig = pyplot.figure()
@@ -26,9 +30,37 @@ def ve_bieu_thuc_toan_ra_anh(bieu_thuc):
     text.set_position((0, -dy))
 
     buf = io.BytesIO()
-    fig.savefig(buf, format='png')
+    fig.savefig(buf)
     buf.seek(0)
     pyplot.close(fig)
     im = Image.open(buf)
+    print(time.time() - n)
     return im
     buf.close()
+
+
+def ve_bieu_thuc_toan_ra_anh(bieu_thuc, fontsize=4, dpi=300):
+    """Renders LaTeX formula into image.
+    """
+    #n = time.time()
+    fig = pyplot.figure(figsize=(0.01, 0.01))
+    bieu_thuc = "$" + sp.latex(bieu_thuc) + "$"
+    fig.text(0, 0, bieu_thuc, fontsize=fontsize)
+    buf = io.BytesIO()
+    fig.savefig(buf, dpi=dpi,
+                bbox_inches='tight', pad_inches=0.0)
+    pyplot.close(fig)
+    # buf.seek(0)
+    im = Image.open(buf)
+    #print(time.time() - n)
+    return im
+
+
+def ve_bieu_thuc_toan_ra_anh3(bieu_thuc):
+    n = time.time()
+    buf = io.BytesIO()
+    #preview(bieu_thuc, viewer='file', outputbuffer=buf, euler=False)
+    sp.preview(bieu_thuc, viewer='BytesIO', outputbuffer=buf, euler=False)
+    im = Image.open(buf)
+    print(time.time() - n)
+    return im

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Math Bot</title>
+    <link rel="stylesheet" type="text/css" href="chat_box_style.css">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <div class="chat_box">
+        <div class="chat_logs">
+            <div class="chat me">
+                <div class="user_photo">
+                    <img src="hinh_anh/me.png">
+                </div>
+                <p class="chat_message">Chào bạn</p>
+            </div>
+            <div class="chat bot">
+                <div class="user_photo">
+                    <img src="hinh_anh/bot.png">
+                </div>
+                <p class="chat_message">Chào</p>
+            </div>
+            <div class="chat me">
+                <div class="user_photo">
+                    <img src="hinh_anh/me.png">
+                </div>
+                <p class="chat_message">Khảo sát đồ thị hàm số:</p>
+            </div>
+            <div class="chat bot">
+                <div class="user_photo">
+                    <img src="hinh_anh/bot.png">
+                </div>
+                <p class="chat_message"><b>Bước 1:</b>Tập xác định của hàm số<br>\(D =\mathbb{R}\)<br><b>Bước 2:</b>Xét chiều biến thiên của hàm số<br>Đạo hàm của
+    hàm số :<br>\(y'(x) = - 8 x^{3} + 8 x\)<br>\(\Leftrightarrow y'(x) = 8 x \left(- x^{2} + 1\right)\)<br>Nghiệm của đạo
+    hàm của hàm số: <br>\(y'(x) = 0\)<br>\(\Leftrightarrow 8 x \left(- x^{2} + 1\right)=0\)<br>\(\Leftrightarrow x = \begin{cases}-1
+    \\ 0 \\ 1 \\ \end{cases}\)<br>Giới hạn của hàm số: <br>\(lim_{x\to-\infty}- 2 x^{4} + 4 x^{2} + 6=-\infty\)<br>\(lim_{x\to\infty}-
+    2 x^{4} + 4 x^{2} + 6=-\infty\)<br><b>Bước 3:</b>Vẽ bảng biến thiên<br><img src="./bang_bien_thien.png"><br><b>Bước 4:</b>Cực
+    trị của hàm số<br>Hàm số đạt cực tiểu tại điểm : \(\left ( 0, \quad 6\right )\)<br>Hàm số đạt cực đại tại điểm : \(\begin{cases}\left
+    ( -1, \quad 8\right ) \\ \left ( 1, \quad 8\right ) \\ \end{cases}\)<br><b>Bước 5:</b>Đồ thị của hàm số<br><img src="./do_thi.png"><br></p>
+            </div>
+        </div>
+        <div class="chat_form">
+            <textarea rows="" cols=""></textarea>
+            <button type="">Send</button>
+        </div>
+    </div>
+</body>
+
+</html>
