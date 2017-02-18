@@ -1,7 +1,6 @@
 import time
 from matplotlib import pyplot, rc
 import sympy as sp
-#from sympy import preview
 from PIL import Image
 import io
 rc("text", usetex=True)

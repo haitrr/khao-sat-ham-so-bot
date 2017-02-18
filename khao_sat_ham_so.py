@@ -94,6 +94,18 @@ def khao_sat_ham_so(ham_so, bien):
             cac_diem = tao_chuoi_latex(cuc_dai[0])
         buoc_4.append("Hàm số đạt cực đại tại điểm : " +
                       boc_latex_mathjax(cac_diem))
+
+    # Diem uon
+    diem_uon = tim_diem_uon(ham_so,bien)
+    if len(diem_uon) == 0:
+        buoc_4.append("Hàm số không có điểm uốn")
+    else:
+        if len(diem_uon) > 1:
+            cac_diem = tao_ngoac_nhon_latex(diem_uon)
+        else:
+            cac_diem = tao_chuoi_latex(diem_uon[0])
+        buoc_4.append("Hàm số có điểm uốn : " +
+                      boc_latex_mathjax(cac_diem))
     loi_giai.append(buoc_4)
 
     buoc_5 = []

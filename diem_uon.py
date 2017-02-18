@@ -2,7 +2,7 @@ from dao_ham import *
 from bieu_thuc import *
 from tap_xac_dinh import *
 
-def diem_uon(ham_so, bien):
+def tim_diem_uon(ham_so, bien):
     dao_ham_cap_1 = tinh_dao_ham_cap_1(ham_so, bien)
     dao_ham_cap_2 = tinh_dao_ham_cap_2(dao_ham_cap_1, bien)
     nghiem_dao_ham_cap_2 = tim_nghiem_thuc(dao_ham_cap_2, bien)

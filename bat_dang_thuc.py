@@ -1,6 +1,7 @@
 import sympy
 
 
+# Giai he bat dang thuc
 def giai_he_bat_dang_thuc(he_bat_dang_thuc, bien):
     mien_nghiem_he = sympy.S.Reals
     for bat_dang_thuc in he_bat_dang_thuc:
