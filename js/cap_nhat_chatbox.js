@@ -1,13 +1,10 @@
 var gui_tin_nhan = function () {
-    var mathFieldSpan = document.getElementById('input_toan1');
-    var MQ = MathQuill.getInterface(2);
-    var mathField = MQ.MathField(mathFieldSpan, {
-        spaceBehavesLikeTab: true
-    });
-    var tin_nhan = mathField.latex();
+    var tin_nhan = o_chat.latex();
     if (tin_nhan == '') return false;
-    $("#hoi_thoai").append($('<div class="chat me"><div class="user_photo"><img src="hinh_anh/me.png"></div><p class="chat_message">' +"\\("+ tin_nhan +"\\)"+ '</p></div>'))
-    $('#tin_nhan').val('');
+    tin_nhan = tin_nhan.replace(/\$(.*)\$/,"\\($1\\)");
+    $("#hoi_thoai").append($('<div class="chat me"><div class="user_photo"><img src="hinh_anh/me.png"></div><p class="chat_message">' + tin_nhan + '</p></div>'));
+    o_chat.select();
+    o_chat.write("");
     MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
     $("#hoi_thoai").animate({
         scrollTop: $('#hoi_thoai').prop('scrollHeight')
@@ -15,29 +12,19 @@ var gui_tin_nhan = function () {
     return true;
 };
 $(function () {
-    $("#gui").click(gui_tin_nhan);
-    return true;
-});
-
-$(function () {
-    $('#tin_nhan').keydown(function (event) {
+    $('#nhap_tin_nhan').keydown(function (event) {
         if (event.keyCode == 13) {
-            gui_tin_nhan()
+            gui_tin_nhan();
+            event.preventDefault();
             return true;
         }
     })
 });
-$(function () {
-    var mathFieldSpan = document.getElementById('input_toan1');
-
-    var MQ = MathQuill.getInterface(2); // for backcompat
-    var mathField = MQ.MathField(mathFieldSpan, {
-        spaceBehavesLikeTab: true
-    });
+$(function() {
+    MQ = MathQuill.getInterface(2);
+    o_chat = document.getElementById('nhap_tin_nhan');
+    o_chat=MQ.TextField(o_chat);
 });
-
-them_span = function(text){
-    if(text==true){
-        
-    }
-}
+$(function () {
+    o_chat.focus();
+});
