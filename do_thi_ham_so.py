@@ -100,7 +100,7 @@ def ve_do_thi(ham_so, bien, xuat_file):
     # mpld3.save_html(fig,"do_thi.html")
     # mpld3.display_d3(fig)
     pyplot.savefig(xuat_file, bbox_inches='tight', pad_inches=0.0)
-    pyplot.closefig(fig)
+    pyplot.close(fig)
     # pyplot.show()
     # plot_mpl(fig,strip_style=True)
 
