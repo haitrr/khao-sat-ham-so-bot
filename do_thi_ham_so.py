@@ -8,9 +8,11 @@ import matplotlib as mpl
 import numpy
 import mpld3
 from plotly.offline import iplot_mpl, init_notebook_mode, plot_mpl
+import os
+import tempfile
+from hang_so import *
 
-
-def ve_do_thi(ham_so, bien, xuat_file):
+def ve_do_thi(ham_so, bien):
     mpl.rcParams.update(
         {'font.size': 8})
     dcd = diem_cuc_dai(ham_so, bien)
@@ -34,10 +36,10 @@ def ve_do_thi(ham_so, bien, xuat_file):
     gioi_han_x = [min(cac_diem_can_ve_x), max(cac_diem_can_ve_x)]
     gioi_han_y = [min(cac_diem_can_ve_y), max(cac_diem_can_ve_y)]
 
-    gioi_han_x[0] -= abs(gioi_han_x[0]) / 2
-    gioi_han_x[1] += abs(gioi_han_x[1]) / 2
-    gioi_han_y[0] -= abs(gioi_han_y[0]) / 2
-    gioi_han_y[1] += abs(gioi_han_y[1]) / 2
+    gioi_han_x[0] -= abs(gioi_han_x[0]) 
+    gioi_han_x[1] += abs(gioi_han_x[1])
+    gioi_han_y[0] -= abs(gioi_han_y[0])
+    gioi_han_y[1] += abs(gioi_han_y[1])
 
     if gioi_han_x[0] == 0:
         gioi_han_x[0] = -3
@@ -89,24 +91,17 @@ def ve_do_thi(ham_so, bien, xuat_file):
     mpl.rc("text", usetex=True)
     pyplot.xticks(cac_diem_can_ve_x_float, cac_diem_can_danh_dau_x)
     pyplot.yticks(cac_diem_can_ve_y_float, cac_diem_can_danh_dau_y)
-    # for gia_tri in cac_diem_can_ve_y:
-    #    pyplot.yticks([float(gia_tri)], [str(gia_tri)])
-    #gioi_han_y = 10
+
     pyplot.ylim(numpy.float64(gioi_han_y[0]),
                 numpy.float64(gioi_han_y[1]))
-    # pyplot.ylim(- 10, 5)
-    # pyplot.show()
-    # print(mpld3.fig_to_html(fig))
-    # mpld3.save_html(fig,"do_thi.html")
-    # mpld3.display_d3(fig)
-    pyplot.savefig(xuat_file, bbox_inches='tight', pad_inches=0.0)
+    file_tam = tempfile.NamedTemporaryFile(
+        suffix=".png", prefix="dt", delete=False, dir=THU_MUC_TAM)
+    fig.savefig(file_tam, bbox_inches='tight', pad_inches=0.1,format='png')
     pyplot.close(fig)
-    # pyplot.show()
-    # plot_mpl(fig,strip_style=True)
+    return os.path.basename(file_tam.name)
 
 
 if __name__ == '__main__':
     x = sympy.Symbol('x')
-    t = sympy.sympify("-2*x^4 +4*(x^2)+6")
-    ve_do_thi(t, x, None)
-    # interact(ve_do_thi,ham_so)
+    t = sympy.sympify("x^2 +2*x+5")
+    print(ve_do_thi(t, x))

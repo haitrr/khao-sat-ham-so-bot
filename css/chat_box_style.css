@@ -5,15 +5,16 @@
     box-sizing: border-box;
 }
 
-body {
-    background: #0ff;
+body,
+html {
+    background: #00b3b3;
+    height: 90vh;
 }
-
 .chat {
-    width: auto;
+    height: 100%;
+    width: 100%;
     min-width: 390px;
-    height: 94%;
-    background: #ffb3ff;
+    background: #cfc;
     padding: 25px;
     margin: 20px auto;
     box-shadow: 0 3px #ccc;
@@ -68,7 +69,7 @@ body {
     color: #000;
 }
 
-.toi .tin_nhan{
+.toi .tin_nhan {
     background: #093;
     color: #fff;
     order: -1;
@@ -76,54 +77,14 @@ body {
     margin-left: auto;
     justify-content: space-between;
 }
-
-.hop_nhap{
+.o_chat {
     background: #fbfbfb;
     width: 100%;
-    height: 10%;
+    height: auto;
+    min-height: 8%;
     border: 2px solid #eee;
     border-radius: 3px;
-    resize: none;
     padding: 10px;
-    font-size: 100%; 
-    color: #999;
-}
-/*
-.o_chat {
-    height: 50%;
-    margin-top: 20px;
-    display: flex;
-    align-items: flex-start;
-}
-
-
-.o_chat button {
-    width: 10%;
-    background: #1ddced;
-    padding: 5px 15px;
-    font-size: auto;
-    color: #fff;
-    border: none;
-    margin: 0 10px;
-    border-radius: 3px;
-    box-shadow: 0 3px 0 #0eb2c1;
-    cursor: pointer;
-    -webkit-transition: background .2s ease;
-    -moz-transition: background .2s ease;
-    -o-transition: background .2s ease;
-}
-
-.o_chat button:hover {
-    background: #13c8d9;
-}
-*/
-.o_chat {
-  background: #fbfbfb;
-    width: 100%;
-    border: 2px solid #eee;
-    border-radius: 3px;
-    resize: none;
-    padding: 10px;
-    font-size: 100%; 
+    font-size: 100%;
     color: #999;
 }

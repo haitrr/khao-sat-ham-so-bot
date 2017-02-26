@@ -1,8 +1,8 @@
-from bieu_thuc import *
+import phuong_trinh
 
 
 def giao_diem_voi_truc_hoanh(ham_so, bien):
-    nghiem_giao_diem = tim_nghiem_thuc(ham_so, bien)
+    nghiem_giao_diem = phuong_trinh.tim_nghiem_thuc(ham_so, bien)
     giao_diem = []
     for nghiem in nghiem_giao_diem:
         if nghiem.is_infinite:

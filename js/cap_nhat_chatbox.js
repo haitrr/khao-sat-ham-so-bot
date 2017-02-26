@@ -8,8 +8,8 @@ $(function () {
     })
 });
 $(function () {
-    MQ = MathQuill.getInterface(2);
-    o_chat = document.getElementById('nhap_tin_nhan');
+    var MQ = MathQuill.getInterface(2);
+    var o_chat = document.getElementById('nhap_tin_nhan');
     o_chat = MQ.TextField(o_chat);
 });
 $(function () {
@@ -28,9 +28,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 var gui_tin_nhan = function () {
     var tin_nhan = o_chat.latex();
     if (tin_nhan == '') return false;
+    console.log(tin_nhan);
+    socket.emit('tin_nhan', tin_nhan);
     tin_nhan = tin_nhan.replace(/\$(.*)\$/, "\\($1\\)");
     $("#hoi_thoai").append($('<div class="o_tin_nhan toi"><div class="anh_dai_dien"><img src="hinh_anh/toi.png"></div><p class="tin_nhan">' + tin_nhan + '</p></div>'));
-    socket.emit('tin_nhan', tin_nhan)
     o_chat.select();
     o_chat.write("");
     MathJax.Hub.Queue(["Typeset", MathJax.Hub]);

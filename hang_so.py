@@ -1,0 +1,1 @@
+THU_MUC_TAM = "./file_tam/"

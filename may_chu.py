@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask.ext.socketio import SocketIO, emit
 import os
 from tao_loi_giai import *
+from bot import lay_cau_tra_loi
 
 may_chu = Flask(__name__, static_url_path='', static_folder='')
 io = SocketIO(may_chu)
@@ -32,11 +33,8 @@ def ngat_ket_noi():
 @io.on('tin_nhan')
 def nhan_tin_nhan(tin_nhan):
     # Thu nghiem
-    print(tin_nhan)
-    x = sympy.Symbol('x')
-    t = sympy.sympify("x^3 +3*(x^2)-4")
-    loi_giai = xuat_html(khao_sat_ham_so(t, x))
-    emit('phan_hoi', loi_giai, room=request.sid)
+    tra_loi = lay_cau_tra_loi(str(tin_nhan))
+    emit('phan_hoi', tra_loi, room=request.sid)
 
 if __name__ == '__main__':
     io.run(may_chu)
