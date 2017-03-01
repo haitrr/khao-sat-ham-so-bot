@@ -7,9 +7,10 @@ $(function () {
         }
     })
 });
+var o_chat
 $(function () {
     var MQ = MathQuill.getInterface(2);
-    var o_chat = document.getElementById('nhap_tin_nhan');
+    o_chat = document.getElementById('nhap_tin_nhan');
     o_chat = MQ.TextField(o_chat);
 });
 $(function () {

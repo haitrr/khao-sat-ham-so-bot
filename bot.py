@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 import re
 import random
-from xu_ly_chuoi import chuyen_thanh_khong_dau_thuong, chuyen_latex_thanh_sympy
-from khao_sat_ham_so import khao_sat_ham_so
-from tao_loi_giai import xuat_html
+import xu_ly_chuoi
+import khao_sat_ham_so
+import tao_loi_giai
 import sympy
-from chatterbot import ChatBot
-chatbot = ChatBot(
+import chatterbot
+chatbot = chatterbot.ChatBot(
     'Bot',
     trainer='chatterbot.trainers.ListTrainer'
 )
 
+tuong_duong = []
 chat_lung_tung=[
     'chào',
     'chào bạn',
@@ -54,13 +55,13 @@ def kiem_tra(phan_hoi):
     pass
 
 def lay_cau_tra_loi(tin_nhan):
-    lenh = tra_loi(chuyen_thanh_khong_dau_thuong(tin_nhan))
+    lenh = tra_loi(xu_ly_chuoi.chuyen_thanh_khong_dau_thuong(tin_nhan))
     toan = re.match(r'kshs \$(.+)\$', lenh)
     if toan:
-        ham_so = chuyen_latex_thanh_sympy(toan.groups()[0])
+        ham_so = xu_ly_chuoi.chuyen_latex_thanh_sympy(toan.groups()[0])
         ham_so = sympy.sympify(ham_so)
         bien = list(ham_so.free_symbols)[0]
-        return xuat_html(khao_sat_ham_so(ham_so,bien))
+        return tao_loi_giai.xuat_html(khao_sat_ham_so.khao_sat_ham_so(ham_so,bien))
     else:
         phan_hoi = chatbot.get_response(tin_nhan)
         return phan_hoi.text

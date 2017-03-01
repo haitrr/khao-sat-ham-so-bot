@@ -1,19 +1,18 @@
-import sympy
-from matplotlib import pyplot
-import matplotlib as mpl
-import dao_ham
-import tinh_xac_dinh
-import xu_ly_chuoi
-import gioi_han
-import tempfile
 import os
+import tempfile
+import matplotlib as mpl
+from matplotlib import pyplot
+import gioi_han
 import hang_so
 import phuong_trinh
-
+import tinh_xac_dinh
+import xu_ly_chuoi
+import dao_ham
+import sympy
 
 def ve_bang_bien_thien(ham_so, bien):
     # Tinh toan cac gia tri can thiet
-    dao_ham_cap_1 = sympy.simplify(sympy.diff(ham_so, bien))
+    dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so,bien)
     nghiem_dao_ham_cap_1 = phuong_trinh.tim_nghiem_thuc(dao_ham_cap_1, bien)
     dao_ham_cap_1_kxd = tinh_xac_dinh.tim_khong_xac_dinh(dao_ham_cap_1, bien)
     ham_so_kxd = tinh_xac_dinh.tim_khong_xac_dinh(ham_so, bien)
@@ -58,7 +57,7 @@ def ve_bang_bien_thien(ham_so, bien):
     # Dien vao hang x va hang y'
     for i in range(len(cac_gia_tri_can_dien_vao_x)):
         bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i, chieu_cao_bang / 5 * 4.5,
-                             xu_ly_chuoi.boc_latex_mpl(cac_gia_tri_can_dien_vao_x[i]), verticalalignment='center',
+                             xu_ly_chuoi.boc_mpl(cac_gia_tri_can_dien_vao_x[i]), verticalalignment='center',
                              horizontalalignment='center')
         if i != 0 and i != len(cac_gia_tri_can_dien_vao_x) - 1:
             if cac_gia_tri_can_dien_vao_x[i] in dao_ham_cap_1_kxd:
@@ -70,7 +69,7 @@ def ve_bang_bien_thien(ham_so, bien):
                      khoang_cach * i + 2], [chieu_cao_bang / 5 * 4, chieu_cao_bang / 5 * 3])
             else:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i, chieu_cao_bang /
-                                     5 * 3.5, xu_ly_chuoi.boc_latex_mpl("0"), verticalalignment='center',
+                                     5 * 3.5, xu_ly_chuoi.boc_mpl("0"), verticalalignment='center',
                                      horizontalalignment='center')
 
     # Gioi han cua ham so tai vo cuc
@@ -116,41 +115,41 @@ def ve_bang_bien_thien(ham_so, bien):
         if cac_dau_can_dien[i][-1] == '+':
             if 's' in cac_dau_can_dien[i]:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i + phong_kxd, chieu_cao_bang /
-                                     5 * 0.5, xu_ly_chuoi.boc_latex_mpl(gia_tri_ham_so[i][1]),
+                                     5 * 0.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i][1]),
                                      verticalalignment='center', horizontalalignment='center')
             else:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i, chieu_cao_bang / 5 *
-                                     0.5, xu_ly_chuoi.boc_latex_mpl(gia_tri_ham_so[i]), verticalalignment='center',
+                                     0.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i]), verticalalignment='center',
                                      horizontalalignment='center')
             if 'e' in cac_dau_can_dien[i]:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * (i + 1) - phong_kxd,
                                      chieu_cao_bang /
-                                     5 * 2.5, xu_ly_chuoi.boc_latex_mpl(gia_tri_ham_so[i + 1][0]),
+                                     5 * 2.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i + 1][0]),
                                      verticalalignment='center', horizontalalignment='center')
         else:
             if 's' in cac_dau_can_dien[i]:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i + phong_kxd, chieu_cao_bang /
-                                     5 * 2.5, xu_ly_chuoi.boc_latex_mpl(gia_tri_ham_so[i][1]),
+                                     5 * 2.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i][1]),
                                      verticalalignment='center', horizontalalignment='center')
             else:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i, chieu_cao_bang / 5 *
-                                     2.5, xu_ly_chuoi.boc_latex_mpl(gia_tri_ham_so[i]), verticalalignment='center',
+                                     2.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i]), verticalalignment='center',
                                      horizontalalignment='center')
             if 'e' in cac_dau_can_dien[i]:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * (i + 1) - phong_kxd,
                                      chieu_cao_bang /
-                                     5 * 0.5, xu_ly_chuoi.boc_latex_mpl(gia_tri_ham_so[i + 1][0]),
+                                     5 * 0.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i + 1][0]),
                                      verticalalignment='center', horizontalalignment='center')
 
     # Dien cac dau + va - vao dong y'
     for i in range(len(cac_dau_can_dien)):
         if cac_dau_can_dien[i][-1] == '+':
             bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * (i + 0.5), chieu_cao_bang /
-                                 5 * 3.5, xu_ly_chuoi.boc_latex_mpl("+"), verticalalignment='center',
+                                 5 * 3.5, xu_ly_chuoi.boc_mpl("+"), verticalalignment='center',
                                  horizontalalignment='center')
         else:
             bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * (i + 0.5), chieu_cao_bang /
-                                 5 * 3.5, xu_ly_chuoi.boc_latex_mpl("-"), verticalalignment='center',
+                                 5 * 3.5, xu_ly_chuoi.boc_mpl("-"), verticalalignment='center',
                                  horizontalalignment='center')
 
     # Ve cac mui ten len xuong
@@ -190,11 +189,11 @@ def ve_bang_bien_thien(ham_so, bien):
     # Dien gia tri y cuoi cung ( gia tri cua y o duong vo cung)
     if cac_dau_can_dien[-1][-1] == '-':
         bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * (len(cac_gia_tri_can_dien_vao_x) - 1),
-                             chieu_cao_bang / 5 * 0.5, xu_ly_chuoi.boc_latex_mpl(gia_tri_ham_so[-1]),
+                             chieu_cao_bang / 5 * 0.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[-1]),
                              verticalalignment='center', horizontalalignment='center')
     else:
         bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * (len(cac_gia_tri_can_dien_vao_x) - 1),
-                             chieu_cao_bang / 5 * 2.5, xu_ly_chuoi.boc_latex_mpl(gia_tri_ham_so[-1]),
+                             chieu_cao_bang / 5 * 2.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[-1]),
                              verticalalignment='center', horizontalalignment='center')
     file_tam = tempfile.NamedTemporaryFile(
         suffix=".png", prefix="bbt", delete=False, dir=hang_so.THU_MUC_TAM)

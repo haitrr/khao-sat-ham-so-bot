@@ -3,7 +3,7 @@ import phuong_trinh
 import tinh_xac_dinh
 
 
-def diem_cuc_tieu(ham_so, bien):
+def tim_diem_cuc_tieu(ham_so, bien):
     dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
     dao_ham_cap_2 = dao_ham.tinh_dao_ham_cap_2(ham_so, bien)
     nghiem_dao_ham_cap_1 = phuong_trinh.tim_nghiem_thuc(dao_ham_cap_1, bien)
@@ -21,7 +21,7 @@ def diem_cuc_tieu(ham_so, bien):
     return dct
 
 
-def diem_cuc_dai(ham_so, bien):
+def tim_diem_cuc_dai(ham_so, bien):
     dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
     dao_ham_cap_2 = dao_ham.tinh_dao_ham_cap_2(ham_so, bien)
     nghiem_dao_ham_cap_1 = phuong_trinh.tim_nghiem_thuc(dao_ham_cap_1, bien)

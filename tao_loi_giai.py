@@ -2,20 +2,31 @@ import io
 
 
 def xuat_html(loi_giai, file=None):
+    """
+    Xuat loi giai ra dang html de hien thi tren web
+    :param loi_giai: list
+    :param file: string
+    :return: string
+    """
 
     # Moi file hoac tao file khi chua co
 
     output = io.StringIO()
+    # In ra de bai
+    output.write(loi_giai[0])
 
     # In moi buoc giai ra
-    for buoc in range(len(loi_giai)):
+    for buoc in range(1,len(loi_giai)):
+        # In ra ten buoc
+        output.write("<b>Bước {0} : {1}<b><br>".format(buoc,loi_giai[buoc][0]))
 
-        # Ten buoc
-        output.write("<b>Bước " + str(buoc + 1) +
-                     ":</b>" + loi_giai[buoc][0] + "<br>")
         # In ra cac thao tac
-        for thao_tac in range(1, len(loi_giai[buoc])):
-            output.write(loi_giai[buoc][thao_tac] + "<br>")
+        for thao_tac in loi_giai[buoc][1:-1]:
+            if isinstance(thao_tac,list):
+                output.write(xuat_html(thao_tac)+"<br>")
+            else:
+                output.write(thao_tac+"<br>")
+
 
     if file:
         # Moi file hoac tao file khi chua co

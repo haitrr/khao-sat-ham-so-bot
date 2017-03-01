@@ -36,9 +36,26 @@ def loai_ham_so(ham_so, bien):
     return "ham_bac_ba"
 
 
+def gop_da_thuc(da_thuc,bien):
+    return sympy.collect(da_thuc,bien)
+
+
+def the_bien(bieu_thuc,bien,gia_tri):
+    with sympy.evaluate(False):
+        bieu_thuc = bieu_thuc.replace(bien, gia_tri)
+    return bieu_thuc
+
+def phan_tich_thanh_nhan_tu(bieu_thuc):
+    return sympy.factor(bieu_thuc)
+
+
+def lay_he_so(da_thuc,bien,so_mu):
+    return da_thuc.coeff(bien,so_mu)
+
+def nhan_vao(da_thuc):
+    return sympy.expand(da_thuc)
+
 # Thu nghiem
 if __name__ == '__main__':
     x = sympy.Symbol('x')
-    t = sympy.sympify("x^4 - 2*(x^2)-3")
-    kq = rut_gon(t)
-    print(kq)
+    t = sympy.sympify("x^4 - 2*(x^2)-3+m^2-2*m")
