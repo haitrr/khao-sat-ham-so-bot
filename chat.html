@@ -5,20 +5,44 @@
 <head>
     <title>Math Bot</title>
     <link rel="stylesheet" href="css/mathquill.css">
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/hop_chon.css">
     <link rel="stylesheet" type="text/css" href="css/chat_box.css">
     <script src="js/jquery-3.1.1.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="js/mathquill.js" charset="utf-8"></script>
     <script src="js/socket.io.min.js" charset="utf-8"></script>
     <script src="js/cap_nhat_chatbox.js " charset="utf-8"></script>
+    <script src="js/hop_chon.js" charset="utf-8"></script>
+    <script src="js/loi_giai.js" charset="utf-8"></script>
 </head>
 
 <body>
-    <div class="chat">
-        <div id="hoi_thoai" class="khung_chat">
-        </div>
-        <span id="nhap_tin_nhan" class="o_chat"></span>
+<div class="chat">
+    <div id="hop_chat" class="khung_chat">
     </div>
+    <span id="nhap_tin_nhan" class="o_chat"></span>
+</div>
+
+<div id="hop_chon" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Bạn muốn làm gì với biểu thức này</h2>
+        </div>
+        <div id="cac_lua_chon" class="modal-body">
+            <div class="w3-button lua_chon">Khảo sát hàm số</div><br>
+            <div class="w3-button lua_chon">Phân tích đa thức thành nhân tử</div><br>
+            <div class="w3-button lua_chon">Rút gọn biểu thức</div><br>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+
+</div>
 </body>
 
 </html>

@@ -4,45 +4,49 @@ import bang_bien_thien
 import do_thi_ham_so
 import xu_ly_chuoi as xlc
 import cuc_tri
-import hang_so
 import tinh_xac_dinh
-import phuong_trinh
+import phuong_trinh as pt
 import diem_uon
 import huong_dan_giai as hdg
 
 
-def khao_sat_ham_so(ham_so, bien):
+def khao_sat_ham_so(ham_so):
     """
     Khao sat ham so va xuat loi giai
     :param ham_so: Sympy expression
-    :param bien: sympy.Symbol
     :return: string
     """
+    # Xac dinh bien
+    cac_bien = pt.lay_cac_bien(ham_so)
+    if len(cac_bien) == 0 or len(cac_bien) > 1:
+        raise ValueError("Ham so khong hop le")
+    bien = cac_bien[0]
+
     de_bai = "Khảo sát hàm số : {0}".format(xlc.boc_mathjax(
         "f({0}) = {1}".format(xlc.tao_latex(bien), xlc.tao_latex(ham_so))))
     loi_giai = hdg.LoiGiai(de_bai)
 
     # Buoc 1 : Tap xac dinh
-    buoc_1 = hdg.BuocGiai("Tìm tập xác định của hàm số","1")
+    buoc_1 = hdg.LoiGiai("Tìm tập xác định của hàm số")
 
     txd = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
     buoc_1.them_thao_tac(xlc.boc_mathjax("D=" + xlc.tao_latex(txd)))
 
     # Them ket qua
-    buoc_1.ket_qua=txd
+    buoc_1.dap_an = txd
 
     # Them vao loi giai
-    loi_giai.them_buoc(buoc_1)
+    loi_giai.them_thao_tac(buoc_1)
 
     # Buoc 2: Đạo hàm của hàm số
-    buoc_2=hdg.BuocGiai("Tính đạo hàm và tìm nghiệm của đạo hàm hàm số","2")
+    buoc_2 = hdg.LoiGiai("Tính đạo hàm và tìm nghiệm của đạo hàm hàm số")
     # Tính đạo hàm
-    buoc_2_1 = hdg.BuocGiai("Tính đạo hàm của hàm số","2.1")
+    buoc_2_1 = hdg.LoiGiai("Tính đạo hàm của hàm số")
 
     dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
     buoc_2_1.them_thao_tac(xlc.boc_mathjax(
         "f'({0}) = ".format(xlc.tao_latex(bien)) + xlc.tao_latex(dao_ham_cap_1)))
-    temp = phuong_trinh.rut_gon(dao_ham_cap_1)
+    temp = pt.rut_gon(dao_ham_cap_1)
     if dao_ham_cap_1 != temp:
         dao_ham_cap_1 = temp
         buoc_2_1.them_thao_tac(xlc.boc_mathjax(
@@ -50,16 +54,16 @@ def khao_sat_ham_so(ham_so, bien):
                 dao_ham_cap_1)))
 
     # Them ket qua
-    buoc_2_1.ket_qua = dao_ham_cap_1
+    buoc_2_1.dap_an = dao_ham_cap_1
     buoc_2.them_thao_tac(buoc_2_1)
 
     # Tìm nghiệm của đạo hàm hàm số
-    buoc_2_2 = hdg.BuocGiai("Tìm nghiệm của đạo hàm của hàm số: ","2.2")
+    buoc_2_2 = hdg.LoiGiai("Tìm nghiệm của đạo hàm của hàm số: ")
 
     buoc_2_2.them_thao_tac(xlc.boc_mathjax("f'({0}) = 0".format(xlc.tao_latex(bien))))
     buoc_2_2.them_thao_tac(xlc.boc_mathjax("\Leftrightarrow " +
-                                            xlc.tao_latex(dao_ham_cap_1) + "=0"))
-    nghiem_dao_ham_cap_1 = phuong_trinh.tim_nghiem_thuc(dao_ham_cap_1, bien)
+                                           xlc.tao_latex(dao_ham_cap_1) + "=0"))
+    nghiem_dao_ham_cap_1 = pt.tim_nghiem_thuc(dao_ham_cap_1, bien)
     # In ra cac nghiem
     if len(nghiem_dao_ham_cap_1) == 0:
         cac_nghiem_latex = "Vô nghiệm."
@@ -72,14 +76,14 @@ def khao_sat_ham_so(ham_so, bien):
             cac_nghiem_latex += xlc.tao_latex(nghiem_dao_ham_cap_1[0])
         buoc_2_2.them_thao_tac(xlc.boc_mathjax("\Leftrightarrow " + cac_nghiem_latex))
     # Them ket qua
-    buoc_2_2.ket_qua = nghiem_dao_ham_cap_1
+    buoc_2_2.dap_an = nghiem_dao_ham_cap_1
 
     # Them vao loi giai
     buoc_2.them_thao_tac(buoc_2_2)
-    loi_giai.them_buoc(buoc_2)
+    loi_giai.them_thao_tac(buoc_2)
 
     # Buoc 3: Tim gioi han tai vo cuc
-    buoc_3 = hdg.BuocGiai("Tìm giới hạn của hàm số tại vô cực ","3")
+    buoc_3 = hdg.LoiGiai("Tìm giới hạn của hàm số tại vô cực ")
 
     gioi_han_vo_cuc = gioi_han.tim_gioi_han_tai_vo_cuc(ham_so, bien)
 
@@ -94,13 +98,13 @@ def khao_sat_ham_so(ham_so, bien):
                                                   gioi_han_vo_cuc[1]))))
 
     # Them ket qua
-    buoc_3.ket_qua=gioi_han_vo_cuc
+    buoc_3.dap_an = gioi_han_vo_cuc
 
     # Them vao loi giai
-    loi_giai.them_buoc(buoc_3)
+    loi_giai.them_thao_tac(buoc_3)
 
     # Buoc 4 : Ve bang bien thien
-    buoc_4 = hdg.BuocGiai("Vẽ bảng biến thiên","4")
+    buoc_4 = hdg.LoiGiai("Vẽ bảng biến thiên")
 
     # Luu bang bien thien vao file tam
     file_tam = bang_bien_thien.ve_bang_bien_thien(ham_so, bien)
@@ -131,7 +135,7 @@ def khao_sat_ham_so(ham_so, bien):
             cac_diem = xlc.tao_ngoac_nhon(cuc_dai)
         else:
             cac_diem = xlc.tao_latex(cuc_dai[0])
-            buoc_4.them_thao_tac("Hàm số đạt cực đại tại điểm : {0}".format(xlc.boc_mathjax(cac_diem)))
+        buoc_4.them_thao_tac("Hàm số đạt cực đại tại điểm : {0}".format(xlc.boc_mathjax(cac_diem)))
 
     # Diem uon
     diem_uon_hs = diem_uon.tim_diem_uon(ham_so, bien)
@@ -142,15 +146,15 @@ def khao_sat_ham_so(ham_so, bien):
             cac_diem = xlc.tao_ngoac_nhon(diem_uon_hs)
         else:
             cac_diem = xlc.tao_latex(diem_uon_hs[0])
-            buoc_4.them_thao_tac("Hàm số có điểm uốn : {0}".format(
-                xlc.boc_mathjax(cac_diem)))
+        buoc_4.them_thao_tac("Hàm số có điểm uốn : {0}".format(
+            xlc.boc_mathjax(cac_diem)))
 
     # Them vao loi giai
-    buoc_4.ket_qua=None
-    loi_giai.them_buoc(buoc_4)
+    buoc_4.dap_an = None
+    loi_giai.them_thao_tac(buoc_4)
 
     # Buoc 5: Do thi ham so
-    buoc_5=hdg.BuocGiai("Vẽ đồ thị của hàm số","5")
+    buoc_5 = hdg.LoiGiai("Vẽ đồ thị của hàm số")
 
     # Ve do thi ham so ra file tam
     file_tam = do_thi_ham_so.ve_do_thi(ham_so, bien)
@@ -158,8 +162,8 @@ def khao_sat_ham_so(ham_so, bien):
     buoc_5.them_thao_tac(xlc.tao_anh_html(file_tam))
 
     # Them loi giai
-    buoc_5.ket_qua=None
-    loi_giai.them_buoc(buoc_5)
+    buoc_5.dap_an = None
+    loi_giai.them_thao_tac(buoc_5)
 
     return loi_giai
 
@@ -167,7 +171,7 @@ def khao_sat_ham_so(ham_so, bien):
 if __name__ == '__main__':
     import sympy
 
-    hs = sympy.sympify("2*x^3-3*x^2+1",evaluate=False)
+    hs = sympy.sympify("x^3+3*x^2-4", evaluate=False)
     b = sympy.Symbol('x')
     khao_sat_ham_so(
-        hs, b).xuat_html("loi_giai.html")
+        hs).xuat_html("loi_giai.html")

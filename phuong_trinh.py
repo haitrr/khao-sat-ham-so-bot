@@ -1,5 +1,6 @@
 import sympy
 
+
 # Rut gon ham so
 def rut_gon(ham_so):
     return sympy.simplify(ham_so)
@@ -7,7 +8,6 @@ def rut_gon(ham_so):
 
 # Tim nghiem thuc cua ham so
 def tim_nghiem_thuc(ham_so, bien):
-
     # Nghiem bao gom ca phuc va thuc
     nghiem = sympy.solve(ham_so, bien)
 
@@ -29,31 +29,59 @@ ham_da_thuc = ["ham_bac_ba", "ham_bac_bon"]
 
 
 def loai_ham_so(ham_so, bien):
-
     # Dang thu , chua biet
-    if sympy.denom(ham_so) !=1:
+    if sympy.denom(ham_so) != 1:
         return "ham_phan_thuc"
     return "ham_bac_ba"
 
 
-def gop_da_thuc(da_thuc,bien):
-    return sympy.collect(da_thuc,bien)
+def gop_da_thuc(da_thuc, bien):
+    return sympy.collect(da_thuc, bien)
 
 
-def the_bien(bieu_thuc,bien,gia_tri):
-    with sympy.evaluate(False):
-        bieu_thuc = bieu_thuc.replace(bien, gia_tri)
+def the_bien(bieu_thuc, bien, gia_tri):
+    #with sympy.evaluate(False):
+    bieu_thuc = bieu_thuc.replace(bien, gia_tri)
     return bieu_thuc
+
 
 def phan_tich_thanh_nhan_tu(bieu_thuc):
     return sympy.factor(bieu_thuc)
 
 
-def lay_he_so(da_thuc,bien,so_mu):
-    return da_thuc.coeff(bien,so_mu)
+def lay_he_so(da_thuc, bien, so_mu):
+    return da_thuc.coeff(bien, so_mu)
+
 
 def nhan_vao(da_thuc):
     return sympy.expand(da_thuc)
+
+
+def chuyen_thanh_da_thuc(bieu_thuc):
+    return sympy.Poly(bieu_thuc)
+
+
+def lay_cac_bien(bieu_thuc):
+    """
+    Lay tat ca cac bien tu  1 bieu thuc
+    :param bieu_thuc: Sympy expression
+    :return: list
+    """
+    return list(bieu_thuc.free_symbols)
+
+
+def kiem_tra_bang_nha(bieu_thuc_1, bieu_thuc_2):
+    """
+    Kiem tra su bang nhau cua 2 bieu thuc
+    :param bieu_thuc_1: Sympy expression
+    :param bieu_thuc_2: Sympy expression
+    :return: bool
+    """
+    if rut_gon(bieu_thuc_1 - bieu_thuc_2) == 0:
+        return True
+    else:
+        return False
+
 
 # Thu nghiem
 if __name__ == '__main__':

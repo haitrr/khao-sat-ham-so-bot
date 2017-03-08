@@ -4,7 +4,7 @@ import sympy
 def tim_gioi_han_tai_vo_cuc(ham_so, bien):
     am_vo_cuc = sympy.limit(ham_so, bien, -sympy.oo)
     duong_vo_cuc = sympy.limit(ham_so, bien, sympy.oo)
-    return (am_vo_cuc, duong_vo_cuc)
+    return am_vo_cuc, duong_vo_cuc
 
 
 def tim_gioi_han_hai_phia(ham_so, bien, diem):

@@ -10,9 +10,10 @@ import xu_ly_chuoi
 import dao_ham
 import sympy
 
+
 def ve_bang_bien_thien(ham_so, bien):
     # Tinh toan cac gia tri can thiet
-    dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so,bien)
+    dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
     nghiem_dao_ham_cap_1 = phuong_trinh.tim_nghiem_thuc(dao_ham_cap_1, bien)
     dao_ham_cap_1_kxd = tinh_xac_dinh.tim_khong_xac_dinh(dao_ham_cap_1, bien)
     ham_so_kxd = tinh_xac_dinh.tim_khong_xac_dinh(ham_so, bien)
@@ -153,12 +154,10 @@ def ve_bang_bien_thien(ham_so, bien):
                                  horizontalalignment='center')
 
     # Ve cac mui ten len xuong
-    cong_them = phong_kxd
 
     for i in range(len(cac_dau_can_dien)):
         vi_tri = i
-        while (vi_tri != len(cac_dau_can_dien) - 1 and cac_dau_can_dien[vi_tri][-1] == cac_dau_can_dien[vi_tri + 1][
-            -1]):
+        while vi_tri != len(cac_dau_can_dien) - 1 and cac_dau_can_dien[vi_tri][-1] == cac_dau_can_dien[vi_tri + 1][-1]:
             if 's' in cac_dau_can_dien[vi_tri + 1]:
                 break
             else:

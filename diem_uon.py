@@ -4,7 +4,7 @@ import tinh_xac_dinh
 
 def tim_diem_uon(ham_so, bien):
     dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
-    dao_ham_cap_2 = dao_ham.tinh_dao_ham_cap_2(dao_ham_cap_1, bien)
+    dao_ham_cap_2 = dao_ham.tinh_dao_ham_cap_1(dao_ham_cap_1, bien)
     nghiem_dao_ham_cap_2 = phuong_trinh.tim_nghiem_thuc(dao_ham_cap_2, bien)
     txd = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
     nghiem_diem_uon = []
