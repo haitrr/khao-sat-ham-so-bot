@@ -35,9 +35,12 @@ def nhan_tin_nhan(tin_nhan):
     # Thu nghiem
     ma_nguoi_dung = flask.request.sid
     nguoi_gui = cac_nguoi_dung[ma_nguoi_dung]
-    tra_loi = bot.lay_cau_tra_loi(str(tin_nhan),nguoi_dung)
-    flask_socketio.emit('phan_hoi', tra_loi, room=ma_nguoi_dung)
-
+    tra_loi = bot.lay_cau_tra_loi(str(tin_nhan),nguoi_gui)
+    if isinstance(tra_loi,list):
+        for tl in tra_loi:
+            flask_socketio.emit('phan_hoi', tl, room=ma_nguoi_dung)
+    else:
+        flask_socketio.emit('phan_hoi', tra_loi, room=ma_nguoi_dung)
 
 if __name__ == '__main__':
     io.run(may_chu)

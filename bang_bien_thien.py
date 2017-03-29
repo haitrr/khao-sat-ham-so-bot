@@ -13,7 +13,7 @@ import sympy
 
 def ve_bang_bien_thien(ham_so, bien):
     # Tinh toan cac gia tri can thiet
-    dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
+    dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien).dap_an
     nghiem_dao_ham_cap_1 = phuong_trinh.tim_nghiem_thuc(dao_ham_cap_1, bien)
     dao_ham_cap_1_kxd = tinh_xac_dinh.tim_khong_xac_dinh(dao_ham_cap_1, bien)
     ham_so_kxd = tinh_xac_dinh.tim_khong_xac_dinh(ham_so, bien)

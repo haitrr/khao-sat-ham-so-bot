@@ -1,10 +1,23 @@
 import sympy
+import huong_dan_giai
+import xu_ly_chuoi
+import hang_so
 
 
 # Rut gon ham so
 def rut_gon(ham_so):
     return sympy.simplify(ham_so)
 
+def so_sanh(bieu_thuc_1,bieu_thuc_2):
+    if bieu_thuc_1==bieu_thuc_2:
+        return True
+    try:
+        if bieu_thuc_1-bieu_thuc_2==0:
+            return True
+        else:
+            return False
+    except:
+        return False
 
 # Tim nghiem thuc cua ham so
 def tim_nghiem_thuc(ham_so, bien):
@@ -14,7 +27,7 @@ def tim_nghiem_thuc(ham_so, bien):
     # loc ra cac nghiem thuc
     nghiem_thuc = []
     for i in nghiem:
-        if i.is_real:
+        if i.is_real is True or i.is_real is None:
             if str(i).find("CRootOf") != -1:
                 nghiem_thuc.append(sympy.N(i))
             nghiem_thuc.append(i)
@@ -25,23 +38,65 @@ def lay_mau_so(ham_so):
     return sympy.denom(ham_so)
 
 
-ham_da_thuc = ["ham_bac_ba", "ham_bac_bon"]
+ham_da_thuc = ["ham bac ba", "ham bac bon","ham bac hai","ham bac nhat"]
+ham_phan_thuc = ["ham nhat bien","ham huu ty"]
 
 
-def loai_ham_so(ham_so, bien):
+def loai_ham_so(ham_so,bien=None):
     # Dang thu , chua biet
-    if sympy.denom(ham_so) != 1:
-        return "ham_phan_thuc"
-    return "ham_bac_ba"
+    cac_bien = list(ham_so.free_symbols)
+    if len(cac_bien) >2:
+        return None
+    elif len(cac_bien)==0:
+        return None
+    elif len(cac_bien)==1 or (len(cac_bien)==2 and bien != None):
+        ham_so=sympy.factor(ham_so,bien)
+        mau = lay_mau_so(ham_so)
+        if bien in mau.free_symbols:
+            tu = lay_tu_so(ham_so)
+            dang_mau = loai_ham_so(mau,bien)
+            dang_tu = loai_ham_so(tu,bien)
+            if dang_tu =='ham bac hai' and dang_mau=='ham bac nhat':
+                return 'ham huu ty'
+            elif dang_tu=='ham bac nhat' and dang_mau=='ham bac nhat':
+                return 'ham nhat bien'
+            else:
+                return 'ham phan thuc'
+        else:
+            try:
+                ham_so=sympy.Poly(ham_so,bien)
+            except:
+                return None
+            he_so = ham_so.all_coeffs()
+            if len(he_so)==5:
+                return 'ham bac bon'
+            elif len(he_so)==4:
+                return 'ham bac ba'
+            elif len(he_so)==3:
+                return 'ham bac hai'
+            elif len(he_so)==2:
+                return 'ham bac nhat'
+            else:
+                raise ValueError
+    elif len(cac_bien)==2:
+        return 'can bien'
+    else:
+        raise ValueError
 
 
 def gop_da_thuc(da_thuc, bien):
     return sympy.collect(da_thuc, bien)
 
+def the_bieu_thuc(bieu_thuc, bien, gia_tri):
+    bieu_thuc = bieu_thuc.subs(bien, gia_tri)
+    return bieu_thuc
 
 def the_bien(bieu_thuc, bien, gia_tri):
-    #with sympy.evaluate(False):
-    bieu_thuc = bieu_thuc.replace(bien, gia_tri)
+    try:
+        with sympy.evaluate(False):
+            bieu_thuc = bieu_thuc.subs(bien, gia_tri,simultaneous=True)
+    except :
+        bieu_thuc = bieu_thuc.subs(bien, gia_tri, simultaneous=True)
     return bieu_thuc
 
 
@@ -69,6 +124,10 @@ def lay_cac_bien(bieu_thuc):
     """
     return list(bieu_thuc.free_symbols)
 
+def lay_tham_so(ham_so,bien):
+    cac_bien =list(ham_so.free_symbols)
+    cac_bien.remove(bien)
+    return cac_bien[0]
 
 def kiem_tra_bang_nha(bieu_thuc_1, bieu_thuc_2):
     """
@@ -83,7 +142,76 @@ def kiem_tra_bang_nha(bieu_thuc_1, bieu_thuc_2):
         return False
 
 
+def tao_ham(ten_ham, ham_so, bien):
+    """
+    Tao mot ham so theo dang f(bien) = ham_so
+    :param ten_ham: char
+    :param ham_so: bieu_thuc
+    :param bien: sympy.Symbol
+    :return: sympy.Eq
+    """
+    return sympy.Eq(sympy.Function(ten_ham)(bien), ham_so)
+
+
+def giai_phuong_trinh(ham_so, bien):
+    """
+    Giai phuong trinh va tra ve loi giai
+    :param ham_so: bieu_thuc
+    :param bien: sympy.Symbols
+    :return: LoiGiai
+    """
+    pt = sympy.Eq(ham_so, 0)
+    loi_giai = huong_dan_giai.LoiGiai(
+        "Giải phương trình {phuong_trinh}".format(phuong_trinh=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt))))
+    # In ra pt
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt)))
+
+    # Rut gon
+    pt_rut_gon = rut_gon(pt)
+    if pt_rut_gon != pt:
+        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_rut_gon)))
+
+    # Phan tich thanh nhan tu
+    pt_da_thuc = phan_tich_thanh_nhan_tu(pt_rut_gon)
+    if pt_da_thuc != pt_rut_gon:
+        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_da_thuc)))
+
+    # Tim nghiem
+    nghiem_thuc = tim_nghiem_thuc(ham_so, bien)
+
+    if len(nghiem_thuc) == 0:
+        loi_giai.them_thao_tac(
+            "{tuong_duong} Phương trình vô nghiệm".format(tuong_duong=xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG)))
+    else:
+        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+            "{tuong_duong} {bien_cac_nghiem}".format(tuong_duong=hang_so.DAU_TUONG_DUONG,
+                                                     bien_cac_nghiem="{bien}={cac_nghiem}".format(bien = xu_ly_chuoi.tao_latex(bien), cac_nghiem = xu_ly_chuoi.tao_ngoac_nhon(nghiem_thuc)))))
+
+    # Luu dap an
+    loi_giai.dap_an=nghiem_thuc
+
+    return loi_giai
+
+def lay_tu_so(bieu_thuc):
+    """
+    Tra ve tu so cua 1 bieu thuc
+    :param bieu_thuc: bieu thuc
+    :return: bieu thuc
+    """
+    return sympy.numer(bieu_thuc)
+
+def lay_so_bien(bieu_thuc):
+    """
+    Tra ve so bien trong mot bieu thuc
+    :param bieu_thuc: bieu_thuc
+    :return: int
+    """
+    return len(list(bieu_thuc.free_symbols))
+
 # Thu nghiem
 if __name__ == '__main__':
     x = sympy.Symbol('x')
-    t = sympy.sympify("x^4 - 2*(x^2)-3+m^2-2*m")
+    t = sympy.sympify("(4*x+1+m)/(x+1)")
+    #giai_phuong_trinh(t,x).xuat_html('loi_giai.html')
+    lay_tham_so(t,x)
+    print(    lay_tham_so(t,x))

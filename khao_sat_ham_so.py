@@ -10,30 +10,19 @@ import diem_uon
 import huong_dan_giai as hdg
 
 
-def khao_sat_ham_so(ham_so):
+def khao_sat_ham_so(ham_so,bien):
     """
     Khao sat ham so va xuat loi giai
     :param ham_so: Sympy expression
     :return: string
     """
-    # Xac dinh bien
-    cac_bien = pt.lay_cac_bien(ham_so)
-    if len(cac_bien) == 0 or len(cac_bien) > 1:
-        raise ValueError("Ham so khong hop le")
-    bien = cac_bien[0]
-
     de_bai = "Khảo sát hàm số : {0}".format(xlc.boc_mathjax(
         "f({0}) = {1}".format(xlc.tao_latex(bien), xlc.tao_latex(ham_so))))
     loi_giai = hdg.LoiGiai(de_bai)
 
     # Buoc 1 : Tap xac dinh
-    buoc_1 = hdg.LoiGiai("Tìm tập xác định của hàm số")
-
-    txd = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
-    buoc_1.them_thao_tac(xlc.boc_mathjax("D=" + xlc.tao_latex(txd)))
-
-    # Them ket qua
-    buoc_1.dap_an = txd
+    buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so,bien)
+    buoc_1.ten_loi_giai='Tìm tập xác định của hàm số'
 
     # Them vao loi giai
     loi_giai.them_thao_tac(buoc_1)
@@ -41,42 +30,14 @@ def khao_sat_ham_so(ham_so):
     # Buoc 2: Đạo hàm của hàm số
     buoc_2 = hdg.LoiGiai("Tính đạo hàm và tìm nghiệm của đạo hàm hàm số")
     # Tính đạo hàm
-    buoc_2_1 = hdg.LoiGiai("Tính đạo hàm của hàm số")
-
-    dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
-    buoc_2_1.them_thao_tac(xlc.boc_mathjax(
-        "f'({0}) = ".format(xlc.tao_latex(bien)) + xlc.tao_latex(dao_ham_cap_1)))
-    temp = pt.rut_gon(dao_ham_cap_1)
-    if dao_ham_cap_1 != temp:
-        dao_ham_cap_1 = temp
-        buoc_2_1.them_thao_tac(xlc.boc_mathjax(
-            "\Leftrightarrow f'({0}) = ".format(xlc.tao_latex(bien)) + xlc.tao_latex(
-                dao_ham_cap_1)))
-
-    # Them ket qua
-    buoc_2_1.dap_an = dao_ham_cap_1
+    buoc_2_1 = dao_ham.tinh_dao_ham_cap_1(ham_so,bien)
+    buoc_2_1.ten_loi_giai="Tính đạo hàm của hàm số"
+    dao_ham_cap_1 = buoc_2_1.dap_an
     buoc_2.them_thao_tac(buoc_2_1)
 
     # Tìm nghiệm của đạo hàm hàm số
-    buoc_2_2 = hdg.LoiGiai("Tìm nghiệm của đạo hàm của hàm số: ")
-
-    buoc_2_2.them_thao_tac(xlc.boc_mathjax("f'({0}) = 0".format(xlc.tao_latex(bien))))
-    buoc_2_2.them_thao_tac(xlc.boc_mathjax("\Leftrightarrow " +
-                                           xlc.tao_latex(dao_ham_cap_1) + "=0"))
-    nghiem_dao_ham_cap_1 = pt.tim_nghiem_thuc(dao_ham_cap_1, bien)
-    # In ra cac nghiem
-    if len(nghiem_dao_ham_cap_1) == 0:
-        cac_nghiem_latex = "Vô nghiệm."
-        buoc_2_2.them_thao_tac(cac_nghiem_latex)
-    else:
-        cac_nghiem_latex = "{0} = ".format(xlc.tao_latex(bien))
-        if len(nghiem_dao_ham_cap_1) > 1:
-            cac_nghiem_latex += xlc.tao_ngoac_nhon(nghiem_dao_ham_cap_1)
-        else:
-            cac_nghiem_latex += xlc.tao_latex(nghiem_dao_ham_cap_1[0])
-        buoc_2_2.them_thao_tac(xlc.boc_mathjax("\Leftrightarrow " + cac_nghiem_latex))
-    # Them ket qua
-    buoc_2_2.dap_an = nghiem_dao_ham_cap_1
+    buoc_2_2 = pt.giai_phuong_trinh(dao_ham_cap_1,bien)
+    buoc_2_2.ten_loi_giai="Tìm nghiệm của phương phương trình đạo hàm"
 
     # Them vao loi giai
     buoc_2.them_thao_tac(buoc_2_2)
@@ -173,5 +134,6 @@ if __name__ == '__main__':
 
     hs = sympy.sympify("x^3+3*x^2-4", evaluate=False)
     b = sympy.Symbol('x')
+    khao_sat_ham_so(hs).xuat_loi_huong_dan()
     khao_sat_ham_so(
         hs).xuat_html("loi_giai.html")

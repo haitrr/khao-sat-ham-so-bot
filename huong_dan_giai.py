@@ -18,20 +18,50 @@ class LoiGiai:
         self.ma_loi_giai = uuid.uuid4()
         self.lop_cuoi = True
 
-    def them_thao_tac(self, buoc, ten_buoc=None):
+    def them_thao_tac(self, buoc):
         """
         Them buoc giai vao loi giai
         :param buoc: BuocGiai
-        :param ten_buoc: string
         :return: None
         """
         self.cac_buoc_giai.append(buoc)
         if isinstance(buoc, LoiGiai):
             self.lop_cuoi = False
 
+    def them_danh_sach_thao_tac(self, cac_thao_tac):
+        """
+        Them mot danh sach cac thao tac vao loi giai
+        :param cac_thao_tac: list
+        :return: None
+        """
+        for thao_tac in cac_thao_tac:
+            self.cac_buoc_giai.append(thao_tac)
+            if isinstance(thao_tac, LoiGiai):
+                self.lop_cuoi = False
+
+    def xuat_loi_huong_dan(self, chinh=True):
+        cac_loi_huong_dan = list()
+        if chinh:
+            cac_loi_huong_dan.append((self.ten_loi_giai + '<br>Đầu tiên bạn phải {0}'.format(
+                self.cac_buoc_giai[0].ten_loi_giai), self.cac_buoc_giai[0].dap_an, self.cac_buoc_giai[0].xuat_html()))
+        else:
+            cac_loi_huong_dan.append(("Tiếp theo bạn hãy " + self.ten_loi_giai + '<br>Đầu tiên bạn phải {0}'.format(
+                self.cac_buoc_giai[0].ten_loi_giai), self.cac_buoc_giai[0].dap_an, self.cac_buoc_giai[0].xuat_html()))
+        for buoc in self.cac_buoc_giai[1:-1]:
+            if buoc.lop_cuoi is True:
+                cac_loi_huong_dan.append(
+                    ("Tiếp theo bạn hãy {0}".format(buoc.ten_loi_giai), buoc.dap_an, buoc.xuat_html()))
+            else:
+                cac_loi_huong_dan += buoc.xuat_loi_huong_dan(chinh=False)
+        cac_loi_huong_dan.append(('Cuối cùng hãy {0}'.format(
+            self.cac_buoc_giai[-1].ten_loi_giai), self.cac_buoc_giai[-1].dap_an, self.cac_buoc_giai[-1].xuat_html()))
+        return cac_loi_huong_dan
+
     def xuat_html(self, xuat_file=None, stt_loi_giai='', chinh=True):
         """
         Xuat loi giai ra dang html
+        :param chinh: boolean
+        :param stt_loi_giai: string
         :param xuat_file: string
         :return: string
         """
@@ -40,7 +70,7 @@ class LoiGiai:
         stt = 1
         # In moi buoc giai ra
         if chinh:
-            output.write("<div class = 'w3-container'></div>")
+            output.write("<div class='w3-container'>")
             output.write(self.ten_loi_giai + "<br>")
         else:
             output.write(
@@ -52,7 +82,7 @@ class LoiGiai:
             for buoc in self.cac_buoc_giai:
                 if chinh:
                     output.write(buoc.xuat_html(stt_loi_giai=str(stt),
-                                            chinh=False))
+                                                chinh=False))
                 else:
                     output.write(buoc.xuat_html(stt_loi_giai=stt_loi_giai + '.' + str(stt),
                                                 chinh=False))

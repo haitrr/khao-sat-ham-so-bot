@@ -53,10 +53,16 @@ def chuyen_latex_thanh_sympy(bieu_thuc):
         return xet_tap_hop(bieu_thuc)
     except:
         pass
+    try:
+        return xet_nhieu_bieu_thuc(bieu_thuc)
+    except:
+        pass
     return sympy.sympify(process_sympy(bieu_thuc))
+
 
 def latex_thanh_sympy(bieu_thuc):
     return sympy.sympify(process_sympy(bieu_thuc))
+
 
 def tao_anh_html(file_tam):
     """
@@ -67,9 +73,12 @@ def tao_anh_html(file_tam):
     return "<img src=\"{0}\">".format(hang_so.THU_MUC_TAM + file_tam)
 
 
-khop_tap_hop = r'^(?:(?:\s?\\left(\(|\))\s?([^,]+)\,\s?([^,\\]+)\\right(\)|\])\s?(?:(\\cup|\\cap)\s?\\left(\(|\))\s?([^,]+)\,\s?([^,\\]+)\\right(\)|\])\s?)*)|(\s?\\varnothing\s?))$'
+khop_tap_bieu_thuc = r'^\s?(?:([^;]+)\s?(?:\;\s?([^;]+)\s?)+)\s?$'
+khop_tap_hop = r'^(?:(?:\s?\\left(\(|\))\s?([^,]+)\,\s?(.*?)\\right(\)|\])\s?(?:(\\cup|\\cap)\s?\\left(\(|\))\s?([^,]+)\,\s?(.*?)\\right(\)|\])\s?)*)|(\s?\\varnothing\s?))$'
+
+
 def xet_tap_hop(tin_nhan):
-    khop = regex.match(khop_tap_hop,tin_nhan)
+    khop = regex.match(khop_tap_hop, tin_nhan)
     if khop:
         if khop.groups()[-1] is not None:
             return sympy.EmptySet()
@@ -77,15 +86,16 @@ def xet_tap_hop(tin_nhan):
             tap_hop = tao_tap_hop(khop.groups()[0:4])
             if khop.groups()[4] is not None:
                 toan_tu = khop.captures(5)
-                du_lieu=list(zip(khop.captures(6),khop.captures(7),khop.captures(8),khop.captures(9)))
+                du_lieu = list(zip(khop.captures(6), khop.captures(7), khop.captures(8), khop.captures(9)))
                 for i in range(len(toan_tu)):
-                    if toan_tu[i]=='\cup':
-                        tap_hop=tap_hop.union(tao_tap_hop(du_lieu[i]))
+                    if toan_tu[i] == '\cup':
+                        tap_hop = tap_hop.union(tao_tap_hop(du_lieu[i]))
                     else:
                         tap_hop = tap_hop.intersect(tao_tap_hop(du_lieu[i]))
             return tap_hop
 
     raise ValueError
+
 
 def tao_tap_hop(du_lieu):
     trai = True
@@ -104,6 +114,21 @@ def tao_tap_hop(du_lieu):
     tap_hop = sympy.Interval(bat_dau, ket_thuc, trai, phai)
     return tap_hop
 
-if __name__=='__main__':
-    print(xet_tap_hop('\left(2,3\\right)\cup\left(3,4\\right)\cup\left(8,16\\right)'))
-    #print(regex.match(khop_tap_hop,'\left(2,3\\right]\cup\left(3,4\\right)\cup\left(8,16\\right)').captures(8))
+
+def xet_nhieu_bieu_thuc(tin_nhan):
+    khop = regex.match(khop_tap_bieu_thuc, tin_nhan)
+    if khop:
+        du_lieu = khop.captures(2)
+        cac_bieu_thuc = list()
+        cac_bieu_thuc.append(latex_thanh_sympy(khop.groups()[1]))
+        for bt in du_lieu:
+            cac_bieu_thuc.append(latex_thanh_sympy(bt))
+        return cac_bieu_thuc
+    else:
+        raise ValueError
+
+
+if __name__ == '__main__':
+    t = xet_tap_hop('\left(2,3\\right)\cup\left(3,4\\right)\cup\left(8,16\\right)')
+    print(isinstance(sympy.EmptySet(), sympy.Set))
+    # print(regex.match(khop_tap_hop,'\left(2,3\\right]\cup\left(3,4\\right)\cup\left(8,16\\right)').captures(8))

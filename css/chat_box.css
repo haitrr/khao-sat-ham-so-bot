@@ -20,6 +20,9 @@ html {
     box-shadow: 0 3px #ccc;
 }
 
+.an {
+    visibility: hidden;
+}
 .khung_chat {
     padding: 10px;
     width: 100%;
