@@ -96,6 +96,12 @@ def xet_tap_hop(tin_nhan):
 
     raise ValueError
 
+def tao_du_lieu_hop_chon(tap_lua_chon,tua_de):
+    du_lieu = 'mo_hop_chon{'+tua_de+"}{"
+    for lua_chon in tap_lua_chon:
+        du_lieu+=lua_chon+';'
+    du_lieu=du_lieu[:-1]+'}'
+    return du_lieu
 
 def tao_tap_hop(du_lieu):
     trai = True

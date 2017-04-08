@@ -134,6 +134,5 @@ if __name__ == '__main__':
 
     hs = sympy.sympify("x^3+3*x^2-4", evaluate=False)
     b = sympy.Symbol('x')
-    khao_sat_ham_so(hs).xuat_loi_huong_dan()
     khao_sat_ham_so(
-        hs).xuat_html("loi_giai.html")
+        hs,b).xuat_html("loi_giai.html")

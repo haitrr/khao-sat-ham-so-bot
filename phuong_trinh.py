@@ -2,10 +2,11 @@ import sympy
 import huong_dan_giai
 import xu_ly_chuoi
 import hang_so
-
+import bat_dang_thuc
 
 # Rut gon ham so
 def rut_gon(ham_so):
+    ham_so=ham_so.doit()
     return sympy.simplify(ham_so)
 
 def so_sanh(bieu_thuc_1,bieu_thuc_2):
@@ -38,8 +39,6 @@ def lay_mau_so(ham_so):
     return sympy.denom(ham_so)
 
 
-ham_da_thuc = ["ham bac ba", "ham bac bon","ham bac hai","ham bac nhat"]
-ham_phan_thuc = ["ham nhat bien","ham huu ty"]
 
 
 def loai_ham_so(ham_so,bien=None):
@@ -56,12 +55,12 @@ def loai_ham_so(ham_so,bien=None):
             tu = lay_tu_so(ham_so)
             dang_mau = loai_ham_so(mau,bien)
             dang_tu = loai_ham_so(tu,bien)
-            if dang_tu =='ham bac hai' and dang_mau=='ham bac nhat':
-                return 'ham huu ty'
-            elif dang_tu=='ham bac nhat' and dang_mau=='ham bac nhat':
-                return 'ham nhat bien'
+            if dang_tu ==hang_so.HAM_BAC_HAI and dang_mau==hang_so.HAM_BAC_NHAT:
+                return hang_so.HAM_HUU_TY
+            elif dang_tu==hang_so.HAM_BAC_NHAT and dang_mau==hang_so.HAM_BAC_NHAT:
+                return hang_so.HAM_NHAT_BIEN
             else:
-                return 'ham phan thuc'
+                return hang_so.HAM_PHAN_THUC
         else:
             try:
                 ham_so=sympy.Poly(ham_so,bien)
@@ -69,13 +68,13 @@ def loai_ham_so(ham_so,bien=None):
                 return None
             he_so = ham_so.all_coeffs()
             if len(he_so)==5:
-                return 'ham bac bon'
+                return hang_so.HAM_BAC_BON
             elif len(he_so)==4:
-                return 'ham bac ba'
+                return hang_so.HAM_BAC_BA
             elif len(he_so)==3:
-                return 'ham bac hai'
+                return hang_so.HAM_BAC_HAI
             elif len(he_so)==2:
-                return 'ham bac nhat'
+                return hang_so.HAM_BAC_NHAT
             else:
                 raise ValueError
     elif len(cac_bien)==2:
@@ -152,6 +151,24 @@ def tao_ham(ten_ham, ham_so, bien):
     """
     return sympy.Eq(sympy.Function(ten_ham)(bien), ham_so)
 
+def thay_bien(ham_so,bien,thay):
+    loi_giai = huong_dan_giai.LoiGiai('Thế {b} vào {hs}'.format(
+        b=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien,thay))),
+        hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
+    ))
+    loi_giai.them_thao_tac('Thế {b} vào {hs} ta được:'.format(
+        b=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien,thay))),
+        hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
+    ))
+    ham_the = the_bien(ham_so,bien,thay)
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_the)))
+    ham_the=rut_gon(ham_the)
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG+ xu_ly_chuoi.tao_latex(ham_the)))
+    loi_giai.dap_an=ham_the
+    return loi_giai
+
+def tao_ten_ham(ten_ham,bien):
+    return sympy.Function(ten_ham)(bien)
 
 def giai_phuong_trinh(ham_so, bien):
     """

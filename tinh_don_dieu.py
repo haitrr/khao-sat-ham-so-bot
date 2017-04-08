@@ -16,39 +16,35 @@ def tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
         xu_ly_chuoi.boc_mathjax("f({0})={1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so)))))
 
     # Buoc 1 tim tap xac dinh
-    buoc_1 = huong_dan_giai.LoiGiai("Tìm tập xác định của hàm số")
-
-    tap_xac_dinh = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax("D=" + xu_ly_chuoi.tao_latex(tap_xac_dinh)))
-
-    buoc_1.dap_an = tap_xac_dinh
-
+    buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so,bien)
+    buoc_1.ten_loi_giai='Tìm tập xác định của hàm số'
     loi_giai.them_thao_tac(buoc_1)
 
     # Buoc 2 tim dao ham
-    buoc_2 = huong_dan_giai.LoiGiai("Tìm đạo hàm của hàm số")
+    buoc_2 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
 
-    dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(
-        "f'({0})={1}".format(bien, xu_ly_chuoi.tao_latex(dao_ham_cap_1))))
+    buoc_2.ten_loi_giai="Tính đạo hàm của hàm số"
 
-    dao_ham_cap_1_rut_gon = phuong_trinh.rut_gon(dao_ham_cap_1)
-    if dao_ham_cap_1_rut_gon != dao_ham_cap_1:
-        buoc_2.them_thao_tac(
-            xu_ly_chuoi.boc_mathjax("\Leftrightarrow " + xu_ly_chuoi.tao_latex(dao_ham_cap_1)))
-    # buoc_2.them_thao_tac("Để hàm số đồng biến trên D thì " +
-    #                xu_ly_chuoi.boc_mathjax(
-    #                   "f'(x)\geq0,\\forall " + xu_ly_chuoi.tao_latex(bien) + " \in D"))
-    buoc_2.dap_an = dao_ham_cap_1_rut_gon
+
     loi_giai.them_thao_tac(buoc_2)
 
     # Buoc 3 tim tham so de dao ham lon hon hoac bang 0 tren R
-    buoc_3 = phuong_trinh_bac_2.tim_tham_so_de_ham_so_lon_hon_hoac_bang_0(dao_ham_cap_1_rut_gon, bien, tham_so)
+    buoc_3 = phuong_trinh_bac_2.tim_tham_so_de_ham_so_lon_hon_hoac_bang_0(buoc_2.dap_an, bien, tham_so)
+    buoc_3.ten_loi_giai='Tìm tham số để {bdt}'.format(bdt=xu_ly_chuoi.boc_mathjax("{dh}\ \\forall \in \mathbb{{R}}").format(dh=xu_ly_chuoi.tao_latex(bat_dang_thuc.lon_hon_hoac_bang(phuong_trinh.tao_ham("f'",bien,bien).lhs,0))))
     loi_giai.them_thao_tac(buoc_3)
     loi_giai.dap_an = buoc_3.dap_an
 
+    buoc_4 = huong_dan_giai.LoiGiai("Kết luận")
+    if phuong_trinh.so_sanh(buoc_3.dap_an,sympy.EmptySet()):
+        buoc_4.them_thao_tac('Vậy hàm số không đồng biến trên tập xác định với bất kỳ giá trị {ts} nào'.format(
+            ts = xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so))
+        ))
+    else:
+        buoc_4.them_thao_tac('Vậy hàm số đồng biến trên tập xác định khi {ts}'.format(
+            ts=xu_ly_chuoi.boc_mathjax("{ts}\ \in {ng}").format(ts=xu_ly_chuoi.tao_latex(tham_so),ng=xu_ly_chuoi.tao_latex(buoc_3.dap_an)
+        )))
+    loi_giai.them_thao_tac(buoc_4)
     return loi_giai
-
 
 def tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
     # De bai
@@ -57,39 +53,34 @@ def tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
         xu_ly_chuoi.boc_mathjax("f({0})={1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so)))))
 
     # Buoc 1 tim tap xac dinh
-    buoc_1 = huong_dan_giai.LoiGiai("Tìm tập xác định của hàm số")
-
-    tap_xac_dinh = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax("D=" + xu_ly_chuoi.tao_latex(tap_xac_dinh)))
-
-    buoc_1.dap_an = tap_xac_dinh
-
+    buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so,bien)
+    buoc_1.ten_loi_giai='Tìm tập xác định của hàm số'
     loi_giai.them_thao_tac(buoc_1)
 
     # Buoc 2 tim dao ham
-    buoc_2 = huong_dan_giai.LoiGiai("Tìm đạo hàm của hàm số")
+    buoc_2 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
 
-    dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(
-        "f'({0})={1}".format(bien, xu_ly_chuoi.tao_latex(dao_ham_cap_1))))
+    buoc_2.ten_loi_giai="Tính đạo hàm của hàm số"
 
-    dao_ham_cap_1_rut_gon = phuong_trinh.rut_gon(dao_ham_cap_1)
-    if dao_ham_cap_1_rut_gon != dao_ham_cap_1:
-        buoc_2.them_thao_tac(
-            xu_ly_chuoi.boc_mathjax("\Leftrightarrow " + xu_ly_chuoi.tao_latex(dao_ham_cap_1)))
 
-    # buoc_2.them_thao_tac("Để hàm số đồng biến trên D thì " +
-    #                xu_ly_chuoi.boc_mathjax(
-    #                   "f'(x)\geq0,\\forall " + xu_ly_chuoi.tao_latex(bien) + " \in D"))
-
-    buoc_2.dap_an = dao_ham_cap_1_rut_gon
     loi_giai.them_thao_tac(buoc_2)
 
     # Buoc 3 tim tham so de dao ham lon hon hoac bang 0 tren R
-    buoc_3 = phuong_trinh_bac_2.tim_tham_so_de_ham_so_nho_hon_hoac_bang_0(dao_ham_cap_1_rut_gon, bien, tham_so)
+    buoc_3 = phuong_trinh_bac_2.tim_tham_so_de_ham_so_nho_hon_hoac_bang_0(buoc_2.dap_an, bien, tham_so)
+    buoc_3.ten_loi_giai='Tìm tham số để {bdt}'.format(bdt=xu_ly_chuoi.boc_mathjax("{dh}\ \\forall \in \mathbb{{R}}").format(dh=xu_ly_chuoi.tao_latex(bat_dang_thuc.nho_hon_hoac_bang(phuong_trinh.tao_ham("f'",bien,bien).lhs,0))))
     loi_giai.them_thao_tac(buoc_3)
     loi_giai.dap_an = buoc_3.dap_an
 
+    buoc_4 = huong_dan_giai.LoiGiai("Kết luận")
+    if phuong_trinh.so_sanh(buoc_3.dap_an,sympy.EmptySet()):
+        buoc_4.them_thao_tac('Vậy hàm số không nghịch biến trên tập xác định với bất kỳ giá trị {ts} nào'.format(
+            ts = xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so))
+        ))
+    else:
+        buoc_4.them_thao_tac('Vậy hàm số nghịch biến trên tập xác định khi {ts}'.format(
+            ts=xu_ly_chuoi.boc_mathjax("{ts}\ \in {ng}").format(ts=xu_ly_chuoi.tao_latex(tham_so),ng=xu_ly_chuoi.tao_latex(buoc_3.dap_an)
+        )))
+    loi_giai.them_thao_tac(buoc_4)
     return loi_giai
 
 
@@ -160,7 +151,7 @@ def tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k(ham_so, bien, tham_so, d
     loi_giai.them_thao_tac(buoc_4)
 
     # buoc 5 : tong hop ket qua
-    buoc_5 = huong_dan_giai.LoiGiai('Tổng hợp kết quả')
+    buoc_5 = huong_dan_giai.LoiGiai('Tổng hợp kết quả và kết luận')
     buoc_5.them_thao_tac('Tổng hợp kết quả ta được:')
     thoa_man = []
     for nghiem in buoc_4.dap_an:
@@ -170,7 +161,10 @@ def tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k(ham_so, bien, tham_so, d
     if thoa_man==[]:
         buoc_5.them_thao_tac('Không có {ts} nào thỏa mãn điều kiện đề bài'.format(ts=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so))))
     else:
-        buoc_5.them_thao_tac('Với {ts} thì thỏa mãn'.format(ts=xu_ly_chuoi.boc_mathjax('{tham_so}={nghiem}'.format(tham_so=xu_ly_chuoi.tao_latex(tham_so),nghiem=xu_ly_chuoi.tao_ngoac_nhon(thoa_man)))))
+        buoc_5.them_thao_tac('Với {ts} thì hàm số {hs} đơn điệu trên khoảng có độ dài {do_dai}'.format(
+            ts=xu_ly_chuoi.boc_mathjax('{tham_so}={nghiem}'.format(tham_so=xu_ly_chuoi.tao_latex(tham_so),nghiem=xu_ly_chuoi.tao_ngoac_nhon(thoa_man))),
+            hs = xu_ly_chuoi.boc_mathjax("f({0})={1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so))),
+            do_dai=str(do_dai_khoang)))
 
     buoc_5.dap_an=thoa_man
     loi_giai.them_thao_tac(buoc_5)
@@ -180,8 +174,21 @@ def tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k(ham_so, bien, tham_so, d
 
 if __name__ == '__main__':
     import sympy
-
-    hs = sympy.sympify("x^3+3*x**2+m*x+m")
     b = sympy.Symbol('x')
     ts = sympy.Symbol('m')
-    tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k(hs, b, ts, 1).xuat_html('loi_giai.html')
+
+    def tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh_test():
+        hs = sympy.sympify("x^3+3*x**2+m*x+m")
+        tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh(hs, b, ts).xuat_html('loi_giai.html')
+
+    def tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh_test():
+        hs = sympy.sympify("x^3+3*x**2+m*x+m")
+        tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(hs, b, ts).xuat_html('loi_giai.html')
+
+    def tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k_test():
+        hs = sympy.sympify("x^3+3*x^2+m*x+m")
+        k=1
+        tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k(hs,b,ts,k).xuat_html('loi_giai.html')
+    #tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh_test()
+    #tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh_test()
+    tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k_test()

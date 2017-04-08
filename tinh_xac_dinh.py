@@ -3,16 +3,17 @@ import sympy
 import bat_dang_thuc
 import huong_dan_giai
 import xu_ly_chuoi
+import hang_so
 
 
 def tim_khong_xac_dinh(ham_so, bien):
     # Ham da thuc,xac dinh tren R
-    if phuong_trinh.loai_ham_so(ham_so, bien) in phuong_trinh.ham_da_thuc:
+    if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.CAC_HAM_DA_THUC:
         return []
 
     # Ham phan thuc khong xac dinh khi mau bang 0
     else:
-        if phuong_trinh.loai_ham_so(ham_so, bien) in phuong_trinh.ham_phan_thuc:
+        if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.CAC_HAM_PHAN_THUC:
             mau_so = phuong_trinh.lay_mau_so(ham_so)
             return phuong_trinh.tim_nghiem_thuc(mau_so, bien)
     return []
@@ -25,14 +26,14 @@ def tim_tap_xac_dinh(ham_so, bien):
     loai_ham = phuong_trinh.loai_ham_so(ham_so, bien)
 
     # Ham da thuc tap xac dinh la R
-    if loai_ham in phuong_trinh.ham_da_thuc:
+    if loai_ham in hang_so.CAC_HAM_DA_THUC:
         txd = sympy.S.Reals
         loi_giai.them_thao_tac("Hàm số là hàm đa thức nên luôn xác định trên tập số thực")
         loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax("D={r}".format(r=xu_ly_chuoi.tao_latex(txd))))
         loi_giai.dap_an=txd
 
     # Ham phan thuc mau khong xac dinh
-    elif loai_ham == "ham_phan_thuc":
+    elif loai_ham in hang_so.CAC_HAM_PHAN_THUC:
         # Xac dinh mau so
         dieu_kien = []
         mau_so = phuong_trinh.lay_mau_so(ham_so)

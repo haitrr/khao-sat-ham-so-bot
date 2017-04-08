@@ -5,9 +5,6 @@ import phuong_trinh
 sympy.init_printing(order='old',use_latex='mathjax')
 x=sympy.Symbol('x')
 m=sympy.Symbol('m')
-
-hs = -4*m*x +m
-print(sympy.oo==sympy.oo)
-print(hs.subs(m*x,m))
-print(sympy.Interval(m,x,True))
-print(phuong_trinh.so_sanh(sympy.oo,sympy.oo))
+hs = x**3-2*x**2-x+1
+k = 3*x**2-4*x-1
+print((hs/k))

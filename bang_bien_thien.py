@@ -9,7 +9,8 @@ import tinh_xac_dinh
 import xu_ly_chuoi
 import dao_ham
 import sympy
-
+import huong_dan_giai
+import cuc_tri
 
 def ve_bang_bien_thien(ham_so, bien):
     # Tinh toan cac gia tri can thiet
@@ -200,6 +201,50 @@ def ve_bang_bien_thien(ham_so, bien):
     pyplot.close(fig)
     return os.path.basename(file_tam.name)
 
+
+def lap_bang_bien_thien(ham_so,bien):
+    """
+    Lap bang bien thien cua ham so
+    :param ham_so: 
+    :param bien: 
+    :return: 
+    """
+    ham_f = phuong_trinh.tao_ham('f',ham_so,bien)
+    loi_giai = huong_dan_giai.LoiGiai("Lập bảng biến thiên của hàm số {hs}".format(
+        hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))
+    ))
+
+    # Luu bang bien thien vao file tam
+    file_tam = ve_bang_bien_thien(ham_so, bien)
+
+    # Chen ma html
+    loi_giai.them_thao_tac(xu_ly_chuoi.tao_anh_html(file_tam))
+
+    # Nhận xét hàm số
+    loi_giai.them_thao_tac("Nhận xét :")
+
+    # Cuc tieu
+    cuc_tieu = cuc_tri.tim_diem_cuc_tieu(ham_so, bien)
+    if len(cuc_tieu) == 0:
+        loi_giai.them_thao_tac("Hàm số không có cực tiểu")
+    else:
+        if len(cuc_tieu) > 1:
+            cac_diem = xu_ly_chuoi.tao_ngoac_nhon(cuc_tieu)
+        else:
+            cac_diem = xu_ly_chuoi.tao_latex(cuc_tieu[0])
+        loi_giai.them_thao_tac("Hàm số đạt cực tiểu tại điểm : {0}".format(xu_ly_chuoi.boc_mathjax(cac_diem)))
+
+    # Cuc dai
+    cuc_dai = cuc_tri.tim_diem_cuc_dai(ham_so, bien)
+    if len(cuc_dai) == 0:
+        loi_giai.them_thao_tac("Hàm số không có cực đại")
+    else:
+        if len(cuc_dai) > 1:
+            cac_diem = xu_ly_chuoi.tao_ngoac_nhon(cuc_dai)
+        else:
+            cac_diem = xu_ly_chuoi.tao_latex(cuc_dai[0])
+        loi_giai.them_thao_tac("Hàm số đạt cực đại tại điểm : {0}".format(xu_ly_chuoi.boc_mathjax(cac_diem)))
+    return loi_giai
 
 if __name__ == '__main__':
     import sympy

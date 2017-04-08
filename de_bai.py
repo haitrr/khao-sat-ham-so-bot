@@ -2,6 +2,7 @@ class DeBai():
     def __init__(self):
         self.bai_toan = None
         self.du_kien = dict()
+        self.co_tham_so = False
 
     def giai(self):
         """
@@ -17,3 +18,10 @@ class DuKien():
         self.gia_tri = None
         self.chu_thich = None
         self.khop = '.+'
+
+class YeuCau():
+    def __init__(self,khop,co_tham_so,ham_giai,du_kien):
+        self.khop=khop
+        self.co_tham_so = co_tham_so
+        self.ham_giai = ham_giai
+        self.du_kien = du_kien
