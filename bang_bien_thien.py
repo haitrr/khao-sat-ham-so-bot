@@ -12,7 +12,7 @@ import sympy
 import huong_dan_giai
 import cuc_tri
 
-def ve_bang_bien_thien(ham_so, bien):
+def ve_bang_bien_thien(ham_so, bien,khoang=None):
     # Tinh toan cac gia tri can thiet
     dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien).dap_an
     nghiem_dao_ham_cap_1 = phuong_trinh.tim_nghiem_thuc(dao_ham_cap_1, bien)
@@ -21,7 +21,18 @@ def ve_bang_bien_thien(ham_so, bien):
     cac_gia_tri_can_dien_vao_x = list(
         set(nghiem_dao_ham_cap_1 + dao_ham_cap_1_kxd + ham_so_kxd))
     cac_gia_tri_can_dien_vao_x.sort()
-    cac_gia_tri_can_dien_vao_x = [-sympy.oo] + cac_gia_tri_can_dien_vao_x + [sympy.oo]
+
+    # Neu la khoang
+    if khoang:
+        nam_ngoai_khoang = list()
+        for gt in cac_gia_tri_can_dien_vao_x:
+            if gt<=khoang.left or gt>=khoang.right:
+                nam_ngoai_khoang.append(gt)
+        for gt in nam_ngoai_khoang:
+            cac_gia_tri_can_dien_vao_x.remove(gt)
+        cac_gia_tri_can_dien_vao_x = [khoang.left] + cac_gia_tri_can_dien_vao_x + [khoang.right]
+    else:
+        cac_gia_tri_can_dien_vao_x = [-sympy.oo] + cac_gia_tri_can_dien_vao_x + [sympy.oo]
 
     # Tinh chinh bang
     mpl.rc("text", usetex=True)
@@ -45,11 +56,11 @@ def ve_bang_bien_thien(ham_so, bien):
     mpl.rcParams.update(
         {'font.size': co_font * (fig.get_size_inches()[1] * fig.dpi) / chieu_rong_bang})
     bang_bien_thien.text(chieu_rong_cot_ngan / 2, chieu_cao_bang / 5 * 4.5,
-                         r"$x$", verticalalignment='center', horizontalalignment='center')
+                         r"${b}$".format(b=str(bien)), verticalalignment='center', horizontalalignment='center')
     bang_bien_thien.text(chieu_rong_cot_ngan / 2, chieu_cao_bang /
-                         5 * 3.5, r"$y'$", verticalalignment='center', horizontalalignment='center')
+                         5 * 3.5, r"$f'$", verticalalignment='center', horizontalalignment='center')
     bang_bien_thien.text(chieu_rong_cot_ngan / 2, chieu_cao_bang /
-                         5 * 1.5, r"$y$", verticalalignment='center', horizontalalignment='center')
+                         5 * 1.5, r"$f$", verticalalignment='center', horizontalalignment='center')
 
     # Tinh khoang cach giua cac gia tri
     phong_hai_dau = co_font * 2
@@ -93,28 +104,39 @@ def ve_bang_bien_thien(ham_so, bien):
             else:
                 gia_tri_ham_so.append(ham_so.subs(bien, gia_tri))
 
+
+    # So sanh cac gia tri cua y de lay ra dau cua bang
+    # s,e de danh dau vi tri de sau nay dien so va ke mui ten
     cac_dau_can_dien = []
     for i in range(len(gia_tri_ham_so) - 1):
         kq = ""
+
+        # Neu phia truoc khong xac dinh thi lay gioi han phai
         if isinstance(gia_tri_ham_so[i], tuple):
             gia_tri = gia_tri_ham_so[i][1]
             kq += "s"
         else:
             gia_tri = gia_tri_ham_so[i]
+
+        # Neu phia sau khong xac dinh thi lay gioi han trai
         if isinstance(gia_tri_ham_so[i + 1], tuple):
             gia_tri_so_sanh = gia_tri_ham_so[i + 1][0]
             kq += "e"
         else:
             gia_tri_so_sanh = gia_tri_ham_so[i + 1]
+
+        # So sanh hai gia tri de lay dau
         if gia_tri < gia_tri_so_sanh:
             cac_dau_can_dien.append(kq + "+")
         else:
             cac_dau_can_dien.append(kq + "-")
 
     phong_kxd = co_font * 1.5
+
     # Dien vao dong y
     for i in range(len(cac_dau_can_dien)):
         if cac_dau_can_dien[i][-1] == '+':
+            # Phai truoc khong xac dinh
             if 's' in cac_dau_can_dien[i]:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i + phong_kxd, chieu_cao_bang /
                                      5 * 0.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i][1]),
@@ -123,12 +145,16 @@ def ve_bang_bien_thien(ham_so, bien):
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i, chieu_cao_bang / 5 *
                                      0.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i]), verticalalignment='center',
                                      horizontalalignment='center')
+
+
+            # Phia sau khong xac dinh
             if 'e' in cac_dau_can_dien[i]:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * (i + 1) - phong_kxd,
                                      chieu_cao_bang /
                                      5 * 2.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i + 1][0]),
                                      verticalalignment='center', horizontalalignment='center')
         else:
+            # Phia truoc khong xac dinh
             if 's' in cac_dau_can_dien[i]:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i + phong_kxd, chieu_cao_bang /
                                      5 * 2.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i][1]),
@@ -137,6 +163,8 @@ def ve_bang_bien_thien(ham_so, bien):
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i, chieu_cao_bang / 5 *
                                      2.5, xu_ly_chuoi.boc_mpl(gia_tri_ham_so[i]), verticalalignment='center',
                                      horizontalalignment='center')
+
+            # Phia sau khong xac dinh
             if 'e' in cac_dau_can_dien[i]:
                 bang_bien_thien.text(chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * (i + 1) - phong_kxd,
                                      chieu_cao_bang /
@@ -158,11 +186,15 @@ def ve_bang_bien_thien(ham_so, bien):
 
     for i in range(len(cac_dau_can_dien)):
         vi_tri = i
+
+        # Neu co 2 dau + hoac - lien tiep thi tang vi tri len
         while vi_tri != len(cac_dau_can_dien) - 1 and cac_dau_can_dien[vi_tri][-1] == cac_dau_can_dien[vi_tri + 1][-1]:
             if 's' in cac_dau_can_dien[vi_tri + 1]:
                 break
             else:
                 vi_tri += 1
+
+        # Phia truoc khong xac dinh
         if 's' in cac_dau_can_dien[i]:
             x1 = chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i + phong_kxd * 2
             bang_bien_thien.plot(
@@ -173,12 +205,16 @@ def ve_bang_bien_thien(ham_so, bien):
                  khoang_cach * i + 2], [chieu_cao_bang / 5 * 3, 0])
         else:
             x1 = chieu_rong_cot_ngan + phong_hai_dau + khoang_cach * i + phong_kxd
+
+        # Phia sau khong xac dinh
         if 'e' in cac_dau_can_dien[vi_tri]:
             x2 = chieu_rong_cot_ngan + phong_hai_dau + \
                  khoang_cach * (vi_tri + 1) - phong_kxd * 2
         else:
             x2 = chieu_rong_cot_ngan + phong_hai_dau + \
                  khoang_cach * (vi_tri + 1) - phong_kxd
+
+        # Ve mui ten len tren hay xuong duoi phu thuoc vao dau
         if cac_dau_can_dien[i][-1] == '+':
             bang_bien_thien.arrow(x1, chieu_cao_bang / 5, x2 - x1, chieu_cao_bang /
                                   5, head_width=co_font / 3, head_length=co_font / 2)
@@ -202,7 +238,7 @@ def ve_bang_bien_thien(ham_so, bien):
     return os.path.basename(file_tam.name)
 
 
-def lap_bang_bien_thien(ham_so,bien):
+def lap_bang_bien_thien_ve_nhan_xet_cuc_tri(ham_so, bien):
     """
     Lap bang bien thien cua ham so
     :param ham_so: 
@@ -246,9 +282,25 @@ def lap_bang_bien_thien(ham_so,bien):
         loi_giai.them_thao_tac("Hàm số đạt cực đại tại điểm : {0}".format(xu_ly_chuoi.boc_mathjax(cac_diem)))
     return loi_giai
 
+def lap_bang_bien_thien(ham_so,bien,khoang=None):
+    ham_f = phuong_trinh.tao_ham('f',ham_so,bien)
+    loi_giai = huong_dan_giai.LoiGiai("Lập bảng biến thiên của hàm số {hs}".format(
+        hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))
+    ))
+
+    # Luu bang bien thien vao file tam
+    file_tam = ve_bang_bien_thien(ham_so, bien,khoang)
+
+    # Chen ma html
+    loi_giai.them_thao_tac(xu_ly_chuoi.tao_anh_html(file_tam))
+    return loi_giai
+
+
+
 if __name__ == '__main__':
     import sympy
 
     x = sympy.Symbol('x')
-    t = sympy.sympify("-2*x^4 +4*(x^2)+6")
-    print(ve_bang_bien_thien(t, x))
+    hs = sympy.sympify("x^3-3*x^2+1")
+    k=sympy.Interval(1,4)
+    lap_bang_bien_thien(hs,x,k).xuat_html('loi_giai.html')

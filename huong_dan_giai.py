@@ -1,6 +1,7 @@
 import io
 import uuid
-
+import re
+import xu_ly_chuoi
 
 class LoiGiai:
     """
@@ -17,6 +18,7 @@ class LoiGiai:
         self.dap_an = None
         self.ma_loi_giai = uuid.uuid4()
         self.lop_cuoi = True
+        self.cac_cau_hoi = list()
 
     def them_thao_tac(self, buoc):
         """
@@ -108,3 +110,37 @@ class LoiGiai:
         # Dong file
         output.close()
         return loi_giai_html
+
+class HoiDap:
+    """
+    Cau hoi de huong dan hoc sinh lam bai
+    bao gom:
+    Cau hoi,
+    cau tra loi,
+    cac tu khoa de xac dinh cau tra loi cua hoc sinh la dung
+    """
+    def __init__(self,cau_hoi):
+        self.cau_hoi = cau_hoi
+        self.dap_an = list()
+
+    def kiem_tra_dap_an(self,cau_tra_loi):
+        cau_tra_loi = xu_ly_chuoi.chuyen_thanh_khong_dau_thuong(cau_tra_loi)
+        for da in self.dap_an:
+            khop=True
+            for tu_khoa in da.cac_tu_khoa:
+                tu_khoa=r'\b{tk}\b'.format(tk=tu_khoa)
+                tim = re.search(tu_khoa,cau_tra_loi)
+                if tim:
+                    cau_tra_loi = cau_tra_loi[tim.end():]
+                    continue
+                else:
+                    khop=False
+                    break
+            if khop:
+                return da
+        return None
+
+class DapAnCauHoi:
+    def __init__(self,dap_an,tu_khoa):
+        self.dap_an = dap_an
+        self.cac_tu_khoa = self.cac_tu_khoa

@@ -1,3 +1,7 @@
+"""
+Tinh xac dinh cua ham so
+"""
+
 import phuong_trinh
 import sympy
 import bat_dang_thuc
@@ -7,6 +11,12 @@ import hang_so
 
 
 def tim_khong_xac_dinh(ham_so, bien):
+    """
+    Tim cac gia tri khong xac dinh cua ham so phan thuc
+    :param ham_so: 
+    :param bien: 
+    :return: 
+    """
     # Ham da thuc,xac dinh tren R
     if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.CAC_HAM_DA_THUC:
         return []
@@ -19,10 +29,17 @@ def tim_khong_xac_dinh(ham_so, bien):
     return []
 
 def tim_tap_xac_dinh(ham_so, bien):
+    """
+    Tim tap xac dinh cua ham so 
+    :param ham_so: 
+    :param bien: 
+    :return: 
+    """
     ham_f = phuong_trinh.tao_ham('f',ham_so,bien)
     loi_giai = huong_dan_giai.LoiGiai("Tìm tập xác định của hàm số {0}".format(
         xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
-    
+
+    # Tim loai ham so
     loai_ham = phuong_trinh.loai_ham_so(ham_so, bien)
 
     # Ham da thuc tap xac dinh la R
@@ -47,8 +64,8 @@ def tim_tap_xac_dinh(ham_so, bien):
             dieu_kien.append(sympy.Unequality(bien, i))
         tap_xac_dinh = bat_dang_thuc.giai_he_bat_dang_thuc(dieu_kien, bien)
 
-
-        loi_giai.them_thao_tac("Để hàm số xác định thì mẫu số khác 0")
+        # Ket luan
+        loi_giai.them_thao_tac("Để hàm số xác định thì mẫu số phải khác 0")
         loi_giai.them_thao_tac("Vậy ta có tập xác định {tap_xd}".format(tap_xd=xu_ly_chuoi.boc_mathjax("D={txd}".format(txd=xu_ly_chuoi.tao_latex(tap_xac_dinh)))))
 
         loi_giai.dap_an=tap_xac_dinh

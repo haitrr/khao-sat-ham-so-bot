@@ -46,11 +46,68 @@ def tim_diem_cuc_dai(ham_so, bien):
     return dcd
 
 
+def tim_tham_so_de_ham_so_khong_co_cuc_tri(ham_so, bien, tham_so):
+    ham_f = phuong_trinh.tao_ham('f', ham_so, bien)
+    loi_giai = huong_dan_giai.LoiGiai(
+        "Tìm {0} để {1} không có cực trị".format(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
+                                           xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
+
+    # Buoc 1 tim tap xac dinh
+    buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
+    buoc_1.ten_loi_giai = "Tìm tập xác định của hàm số"
+    loi_giai.them_thao_tac(buoc_1)
+
+    # Buoc 2 Tinh dao ham cua ham so
+    buoc_2 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
+    buoc_2.ten_loi_giai = "Tìm đạo hàm của hàm số"
+
+    loi_giai.them_thao_tac(buoc_2)
+
+    if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.CAC_HAM_PHAN_THUC:
+        can_xet = phuong_trinh.lay_tu_so(ham_so)
+    else:
+        can_xet = buoc_2.dap_an
+
+    # Buoc 3 Tim tham so de f' co 2 nghiem phan biet
+    buoc_3 = phuong_trinh_bac_2.tim_tham_so_de_phuong_trinh_co_nghiem_kep_hoac_vo_nghiem(can_xet, bien, tham_so)
+    buoc_3.ten_loi_giai = "Tìm {0} để đạo hàm có nghiệm kép hoặc vô nghiệm".format(
+        xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)))
+    buoc_3.cac_buoc_giai = buoc_3.cac_buoc_giai
+    loi_giai.them_thao_tac(buoc_3)
+
+    # Buoc 4 tong hop
+    buoc_4 = huong_dan_giai.LoiGiai("Tổng hợp kết quả và kết luận")
+    buoc_4.them_thao_tac("Tổng hợp kết quả với tập xác định ta được:")
+    tong_ket = tap_hop.tim_giao(buoc_1.dap_an, buoc_3.dap_an)
+    buoc_4.them_thao_tac("Với {t} thì hàm số không có cực trị".format(t=xu_ly_chuoi.boc_mathjax(
+        "{ts} \in {tk}".format(ts=xu_ly_chuoi.tao_latex(tham_so), tk=xu_ly_chuoi.tao_latex(tong_ket)))))
+
+    buoc_4.dap_an = tong_ket
+    loi_giai.them_thao_tac(buoc_4)
+    loi_giai.dap_an = tong_ket
+    return loi_giai
+
+
+def tim_phuong_trinh_duong_thang_di_qua_hai_diem_cuc_tri(ham_so, bien):
+    """
+    Can chia da thuc, thu vien chua ho tro
+    :param ham_so: 
+    :param bien: 
+    :return: 
+    """
+    raise NotImplementedError
+
+
 def tim_tham_so_de_ham_so_co_cuc_tri(ham_so, bien, tham_so):
     ham_f = phuong_trinh.tao_ham('f', ham_so, bien)
     loi_giai = huong_dan_giai.LoiGiai(
         "Tìm {0} để {1} có cực trị".format(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
                                            xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
+
+    cau_hoi_1 = huong_dan_giai.HoiDap('Hàm số có cực trị khi nào ?')
+    dap_an_cau_1 = huong_dan_giai.DapAnCauHoi('Đạo hàm có hai nghiệm phân biệt',['dao ham','co','nghiem phan biet'])
+    cau_hoi_1.dap_an.append(dap_an_cau_1)
+    loi_giai.cac_cau_hoi.append(cau_hoi_1)
 
     # Buoc 1 tim tap xac dinh
     buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
@@ -86,16 +143,6 @@ def tim_tham_so_de_ham_so_co_cuc_tri(ham_so, bien, tham_so):
     loi_giai.them_thao_tac(buoc_4)
     loi_giai.dap_an = tong_ket
     return loi_giai
-
-
-def tim_phuong_trinh_duong_thang_di_qua_hai_diem_cuc_tri(ham_so, bien):
-    """
-    Can chia da thuc, thu vien chua ho tro
-    :param ham_so: 
-    :param bien: 
-    :return: 
-    """
-    raise NotImplementedError
 
 
 def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung(ham_so, bien, tham_so):
@@ -427,34 +474,38 @@ def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(ham_so, bien, tham_so, diem)
         raise ValueError
     return loi_giai
 
+def tim_tham_so_de_ham_so_co_dung_mot_cuc_tri(ham_so, bien, tham_so):
+    loi_giai = huong_dan_giai.LoiGiai('Tìm {ts} để {hs} có đúng một cực trị')
+    raise NotImplementedError
+
 
 # Thu nghiem
 if __name__ == "__main__":
     import sympy
 
-    b = sympy.Symbol('x')
-    ts = sympy.Symbol('m')
+    x = sympy.Symbol('x')
+    m = sympy.Symbol('m')
 
 
     def tim_tham_so_de_ham_so_co_cuc_tri_test():
         hs = sympy.sympify("x^3 - 3*m**2*x-2*m")
         tim_tham_so_de_ham_so_co_cuc_tri(
-            hs, b, ts).xuat_html("loi_giai.html")
+            hs, x, m).xuat_html("loi_giai.html")
 
     def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung_test():
         hs = sympy.sympify("x^3 - 3*m**2*x-2*m")
         tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung(
-            hs, b, ts).xuat_html("loi_giai.html")
+            hs, x, m).xuat_html("loi_giai.html")
 
     def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_hoanh_test():
         hs = sympy.sympify("x^3 - 3*m**2*x-2*m")
         tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_hoanh(
-            hs, b, ts).xuat_html("loi_giai.html")
+            hs, x, m).xuat_html("loi_giai.html")
 
     def tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem_test():
         hs = sympy.sympify("(x^3)/3 - x**2 +(2*m+1)*x-5")
         d = -1
-        tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem(hs, b, ts, d).xuat_html("loi_giai.html")
+        tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem(hs, x, m, d).xuat_html("loi_giai.html")
 
 
     def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem_test():
@@ -462,18 +513,24 @@ if __name__ == "__main__":
         # d = -1
         hs = sympy.sympify("x^3+m*x+2")
         d = 1
-        tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(hs, b, ts, d).xuat_html("loi_giai.html")
+        tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(hs, x, m, d).xuat_html("loi_giai.html")
 
     def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem_test():
         # hs = sympy.sympify("(x^3)/3 - x**2 +(2*m+1)*x-5")
         # d = -1
         hs = sympy.sympify("x^3+m*x+2")
         d = 1
-        tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(hs, b, ts, d).xuat_html("loi_giai.html")
+        tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(hs, x, m, d).xuat_html("loi_giai.html")
+
+    def tim_tham_so_de_ham_so_khong_co_cuc_tri_test():
+        #hs = sympy.sympify("x^3 - 3*m**2*x-2*m")
+        hs = (x**2+m*x+1)/(x+m)
+        tim_tham_so_de_ham_so_khong_co_cuc_tri(
+            hs, x, m).xuat_html("loi_giai.html")
 
     #tim_tham_so_de_ham_so_co_cuc_tri_test()
     # tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem_test()
     # tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem_test()
     #tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem_test()
     #tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung_test()
-    tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_hoanh_test()
+    tim_tham_so_de_ham_so_khong_co_cuc_tri_test()
