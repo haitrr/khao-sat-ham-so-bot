@@ -41,8 +41,27 @@ class LoiGiai:
             if isinstance(thao_tac, LoiGiai):
                 self.lop_cuoi = False
 
+    def xuat_cac_buoc(self):
+        """
+        Xuat ra danh sach cac buoc giai cua bai toan
+        :return: 
+        """
+        cac_buoc = []
+
+        # Loi giai khong co buoc con
+        if self.lop_cuoi:
+            return None
+        else:
+            dem = 1
+            for buoc_giai in self.cac_buoc_giai:
+                cac_buoc.append("Bước {stt} : {ten_buoc}".format(stt=str(dem),ten_buoc=buoc_giai.ten_loi_giai))
+                dem+=1
+            return cac_buoc
+
+
     def xuat_loi_huong_dan(self, chinh=True):
         cac_loi_huong_dan = list()
+        cac_loi_huong_dan+=self.cac_cau_hoi
         if chinh:
             cac_loi_huong_dan.append((self.ten_loi_giai + '<br>Đầu tiên bạn phải {0}'.format(
                 self.cac_buoc_giai[0].ten_loi_giai), self.cac_buoc_giai[0].dap_an, self.cac_buoc_giai[0].xuat_html()))
@@ -119,9 +138,12 @@ class HoiDap:
     cau tra loi,
     cac tu khoa de xac dinh cau tra loi cua hoc sinh la dung
     """
+
     def __init__(self,cau_hoi):
         self.cau_hoi = cau_hoi
         self.dap_an = list()
+        self.cac_goi_y = list()
+        self.goi_y_hien_tai = 0
 
     def kiem_tra_dap_an(self,cau_tra_loi):
         cau_tra_loi = xu_ly_chuoi.chuyen_thanh_khong_dau_thuong(cau_tra_loi)
@@ -141,6 +163,6 @@ class HoiDap:
         return None
 
 class DapAnCauHoi:
-    def __init__(self,dap_an,tu_khoa):
+    def __init__(self,dap_an,cac_tu_khoa):
         self.dap_an = dap_an
-        self.cac_tu_khoa = self.cac_tu_khoa
+        self.cac_tu_khoa = cac_tu_khoa

@@ -9,10 +9,13 @@ $(function () {
 });
 var chat_cuoi = 'nguoi';
 var o_chat;
+var o_chat_element;
+var MQ;
+var phim_so = true;
 $(function () {
-    var MQ = MathQuill.getInterface(2);
-    o_chat = document.getElementById('nhap_tin_nhan');
-    o_chat = MQ.MathField(o_chat);
+    MQ = MathQuill.getInterface(2);
+    o_chat_element = document.getElementById('nhap_tin_nhan');
+    o_chat = MQ.MathField(o_chat_element);
 });
 $(function () {
     o_chat.focus();
@@ -28,9 +31,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 var gui_tin_nhan_o_chat = function () {
-    var tin_nhan = o_chat.latex();
-    if (tin_nhan == '') return false;
-    gui_tin_nhan(tin_nhan)
+    var tin_nhan;
+    if(phim_so==true){
+        tin_nhan = o_chat.latex();
+        if (tin_nhan == '') return false;
+        gui_tin_nhan(tin_nhan);
+    }
+    else {
+        tin_nhan = o_chat.text();
+        if (tin_nhan == '') return false;
+        gui_tin_nhan(tin_nhan,false);
+    }
 };
 var gui_tin_nhan = function (tin_nhan, latex) {
     latex = typeof latex !== 'undefined' ? latex : true;
@@ -55,9 +66,15 @@ var gui_tin_nhan = function (tin_nhan, latex) {
     return true;
 };
 khop = /^mo_hop_chon{(.+)}{(.+)}$/g;
+
+// Nhan tin nhan tu may chu
 var nhan_tin_nhan = function (tin_nhan) {
+
+    // Kiem tra xem co phai la hien bang chon khong
     du_lieu = khop.exec(tin_nhan);
     khop.lastIndex=0;
+
+    // Xu ly hien bang chon
     if (du_lieu != null) {
         tua_de = du_lieu[1];
         doi_tua_de(tua_de);
@@ -69,6 +86,16 @@ var nhan_tin_nhan = function (tin_nhan) {
         them_click_event();
         $("#hop_chon").css("display", "block");
     }
+    // Chuyen ban phim sang dang chu
+    else if(tin_nhan=='ban_phim_chu'){
+        chuyen_ban_phim_chu();
+    }
+
+    // Chuyen ban phim sang dang toan
+    else if(tin_nhan=='ban_phim_toan'){
+        chuyen_ban_phim_toan();
+    }
+    // Tin nhan thuong
     else {
         var hop_chat = $("#hop_chat");
         if (chat_cuoi == 'bot') {
@@ -86,4 +113,16 @@ var nhan_tin_nhan = function (tin_nhan) {
 };
 var boc_mathjax = function (tin_nhan) {
     return '\\(' + tin_nhan + '\\)'
+};
+
+var chuyen_ban_phim_chu=function() {
+    o_chat = MQ.TextField(o_chat_element);
+    o_chat_element.classList.remove('mq-math-mode');
+    phim_so = false;
+};
+
+var chuyen_ban_phim_toan = function () {
+    o_chat = MQ.MathField(o_chat_element);
+    o_chat_element.classList.remove('mq-text-mode');
+    phim_so = true;
 };

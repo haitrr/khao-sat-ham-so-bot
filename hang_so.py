@@ -19,3 +19,6 @@ CAC_HAM_PHAN_THUC = [HAM_HUU_TY,HAM_NHAT_BIEN,HAM_PHAN_THUC]
 XEM_LOI_GIAI = r'^xem$'
 XEM_TOAN_BO_LOI_GIAI=r'^xem\\ het$'
 HUY = r'^huy$'
+
+# Trang thai
+TRA_LOI_CAU_HOI = 'tra_loi_cau_hoi'
