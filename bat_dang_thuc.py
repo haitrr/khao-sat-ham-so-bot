@@ -1,5 +1,6 @@
 import sympy
 import huong_dan_giai
+import ky_hieu_latex
 import xu_ly_chuoi
 import hang_so
 import phuong_trinh
@@ -69,17 +70,18 @@ def giai_bat_dang_thuc_lg(bat_dang_thuc, bien):
     bat_dang_thuc_rut_gon = phuong_trinh.rut_gon(bat_dang_thuc)
     if bat_dang_thuc_rut_gon != bat_dang_thuc:
         loi_giai.them_thao_tac(
-            xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bat_dang_thuc_rut_gon)))
+            xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bat_dang_thuc_rut_gon)))
 
     # phan tich thanh nhan tu
     bat_dang_thuc_nhan_tu = phuong_trinh.phan_tich_thanh_nhan_tu(bat_dang_thuc_rut_gon)
     if bat_dang_thuc_nhan_tu != bat_dang_thuc_rut_gon:
         loi_giai.them_thao_tac(
-            xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bat_dang_thuc_nhan_tu)))
+            xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bat_dang_thuc_nhan_tu)))
 
     # giai thuong
     nghiem_thuong = sympy.solve(bat_dang_thuc_nhan_tu, bien, sympy.S.Reals)
-    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(nghiem_thuong)))
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(nghiem_thuong)))
 
     # giai set
     nghiem_set = sympy.solveset(bat_dang_thuc_nhan_tu, bien, sympy.S.Reals)

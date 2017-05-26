@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 var gui_tin_nhan_o_chat = function () {
     var tin_nhan;
-    if(phim_so==true){
+    if (phim_so == true) {
         tin_nhan = o_chat.latex();
         if (tin_nhan == '') return false;
         gui_tin_nhan(tin_nhan);
@@ -40,7 +40,7 @@ var gui_tin_nhan_o_chat = function () {
     else {
         tin_nhan = o_chat.text();
         if (tin_nhan == '') return false;
-        gui_tin_nhan(tin_nhan,false);
+        gui_tin_nhan(tin_nhan, false);
     }
 };
 var gui_tin_nhan = function (tin_nhan, latex) {
@@ -63,6 +63,7 @@ var gui_tin_nhan = function (tin_nhan, latex) {
     hop_chat.animate({
         scrollTop: hop_chat.prop('scrollHeight')
     }, 500);
+    o_chat.focus();
     return true;
 };
 khop = /^mo_hop_chon{(.+)}{(.+)}$/g;
@@ -72,7 +73,7 @@ var nhan_tin_nhan = function (tin_nhan) {
 
     // Kiem tra xem co phai la hien bang chon khong
     du_lieu = khop.exec(tin_nhan);
-    khop.lastIndex=0;
+    khop.lastIndex = 0;
 
     // Xu ly hien bang chon
     if (du_lieu != null) {
@@ -80,19 +81,19 @@ var nhan_tin_nhan = function (tin_nhan) {
         doi_tua_de(tua_de);
         du_lieu = du_lieu[2].split(';');
         xoa_cac_lua_chon();
-        du_lieu.forEach(function(lua_chon){
+        du_lieu.forEach(function (lua_chon) {
             them_lua_chon(lua_chon)
         });
         them_click_event();
         $("#hop_chon").css("display", "block");
     }
     // Chuyen ban phim sang dang chu
-    else if(tin_nhan=='ban_phim_chu'){
+    else if (tin_nhan == 'ban_phim_chu') {
         chuyen_ban_phim_chu();
     }
 
     // Chuyen ban phim sang dang toan
-    else if(tin_nhan=='ban_phim_toan'){
+    else if (tin_nhan == 'ban_phim_toan') {
         chuyen_ban_phim_toan();
     }
     // Tin nhan thuong
@@ -110,19 +111,26 @@ var nhan_tin_nhan = function (tin_nhan) {
             scrollTop: hop_chat.prop('scrollHeight')
         }, 500);
     }
+    o_chat.focus();
 };
 var boc_mathjax = function (tin_nhan) {
     return '\\(' + tin_nhan + '\\)'
 };
 
-var chuyen_ban_phim_chu=function() {
+var chuyen_ban_phim_chu = function () {
     o_chat = MQ.TextField(o_chat_element);
     o_chat_element.classList.remove('mq-math-mode');
     phim_so = false;
+    o_chat.select();
+    o_chat.write("");
+    o_chat.focus();
 };
 
 var chuyen_ban_phim_toan = function () {
     o_chat = MQ.MathField(o_chat_element);
     o_chat_element.classList.remove('mq-text-mode');
     phim_so = true;
+    o_chat.select();
+    o_chat.write("");
+    o_chat.focus();
 };

@@ -1,3 +1,4 @@
+import ky_hieu_latex
 import phuong_trinh
 import dao_ham
 import xu_ly_chuoi
@@ -26,7 +27,7 @@ def tim_toa_do_giao_diem_voi_duong_thang(ham_so, bien, duong_thang):
         bat_dang_thuc.bang(pt_hoanh_do_giao_diem.lhs - pt_hoanh_do_giao_diem.rhs, 0))
 
     buoc_1.them_thao_tac(
-        xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_hoanh_do_giao_diem)))
+        xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_hoanh_do_giao_diem)))
 
     buoc_1.dap_an = pt_hoanh_do_giao_diem
     loi_giai.them_thao_tac(buoc_1)
@@ -41,14 +42,14 @@ def tim_toa_do_giao_diem_voi_duong_thang(ham_so, bien, duong_thang):
 
     # In ra pt hoanh do giao diem sau khi chuyen ve
     buoc_2.them_thao_tac(
-        xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_hoanh_do_giao_diem)))
+        xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_hoanh_do_giao_diem)))
 
     # Rut gon pt hoanh do giao diem
     pt_hoanh_do_giao_diem = phuong_trinh.phan_tich_thanh_nhan_tu(pt_hoanh_do_giao_diem)
 
     # In ra pt hoanh do giao diem
     buoc_2.them_thao_tac(
-        xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_hoanh_do_giao_diem)))
+        xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_hoanh_do_giao_diem)))
 
     # Giai phuong trinh
     nghiem = phuong_trinh.tim_nghiem_thuc(pt_hoanh_do_giao_diem, bien)
@@ -56,11 +57,11 @@ def tim_toa_do_giao_diem_voi_duong_thang(ham_so, bien, duong_thang):
         buoc_2.them_thao_tac("Phương trình vô nghiệm")
     elif len(nghiem) == 1:
         buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(
-            hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien, nghiem[0]))))
+            ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien, nghiem[0]))))
     else:
         buoc_2.them_thao_tac(
             xu_ly_chuoi.boc_mathjax(
-                hang_so.DAU_TUONG_DUONG + "{0}={1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(nghiem))))
+                ky_hieu_latex.DAU_TUONG_DUONG + "{0}={1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(nghiem))))
 
     # Luu dap an
     buoc_2.dap_an = nghiem
@@ -81,10 +82,12 @@ def tim_toa_do_giao_diem_voi_duong_thang(ham_so, bien, duong_thang):
         buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_ngoac_nhon(cac_diem)))
 
         cac_diem = [(hoanh, phuong_trinh.the_bien(ham_so, bien, hoanh)) for hoanh in nghiem]
-        buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(cac_diem)))
+        buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+            ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(cac_diem)))
 
         cac_diem = [(hoanh, phuong_trinh.rut_gon(d[1])) for hoanh, d in zip(nghiem, cac_diem)]
-        buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(cac_diem)))
+        buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+            ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(cac_diem)))
 
         buoc_3.dap_an = cac_diem
         loi_giai.them_thao_tac(buoc_3)
@@ -157,20 +160,20 @@ def tim_tham_so_de_ham_so_cat_truc_hoanh_tai_1_diem_duy_nhat(ham_so, bien, tham_
     dieu_kien = bat_dang_thuc.lon_hon(f_nghiem_1 * f_nghiem_2, 0)
 
     # In ra dieu kien sau khi thay nghiem
-    buoc_3_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
+    buoc_3_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
 
     # Thay bien vao
     dieu_kien = phuong_trinh.the_bien(dieu_kien, nghiem_1, buoc_3_1.cac_buoc_giai[2].dap_an[0])
     dieu_kien = phuong_trinh.the_bien(dieu_kien, nghiem_2, buoc_3_1.cac_buoc_giai[2].dap_an[1])
 
     # In ra dieu kien sau khi thay bien
-    buoc_3_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
+    buoc_3_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
 
     # Rut gon
     dieu_kien = phuong_trinh.phan_tich_thanh_nhan_tu(dieu_kien)
 
     # In ra
-    buoc_3_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
+    buoc_3_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
 
     # Giải set
     nghiem = bat_dang_thuc.giai_bat_dang_thuc_set(dieu_kien, tham_so)
@@ -263,9 +266,9 @@ def viet_phuong_trinh_tiep_voi_do_thi_ham_so_tai_mot_diem(ham_so, bien, diem):
     buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt)))
     pt = phuong_trinh.the_bien(pt, fx, buoc_1.dap_an)
     pt = phuong_trinh.the_bien(pt, f, buoc_3.dap_an)
-    buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
+    buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
     pt = phuong_trinh.rut_gon(pt)
-    buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
+    buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
     buoc_4.dap_an = pt
 
     # Buoc 5 : Ket luan
@@ -312,9 +315,9 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_co_he_so_goc(ham_so, bien, he_so_goc
     ))
     buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt)))
     pt = bat_dang_thuc.bang(buoc_1.dap_an, he_so_goc)
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
+    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
     pt = bat_dang_thuc.bang(buoc_1.dap_an - he_so_goc, 0)
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
+    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
     giai_pt = phuong_trinh.giai_phuong_trinh(pt.lhs, bien)
     buoc_2.cac_buoc_giai += giai_pt.cac_buoc_giai[1:]
     buoc_2.dap_an = giai_pt.dap_an
@@ -428,10 +431,10 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(ham_so,bien,d
         buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pttt)))
 
         pttt = phuong_trinh.the_bien(buoc_1.dap_an,bien,td[0])*(bien-td[0])-td[1]
-        buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG+xu_ly_chuoi.tao_latex(pttt)))
+        buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pttt)))
 
         pttt =phuong_trinh.tach_ra(pttt)
-        buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pttt)))
+        buoc_4.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pttt)))
         buoc_4.dap_an.append(pttt)
 
     # Buoc 5 : Ket luan

@@ -11,6 +11,9 @@ html {
     height: 90vh;
 }
 .chat {
+border: 5px solid darkgreen;
+}
+.chat {
     height: 100%;
     width: 100%;
     min-width: 390px;

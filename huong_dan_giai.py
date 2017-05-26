@@ -19,6 +19,11 @@ class LoiGiai:
         self.ma_loi_giai = uuid.uuid4()
         self.lop_cuoi = True
         self.cac_cau_hoi = list()
+        # Co can huong dan cac buoc con hay khong
+        self.can_huong_dan = None
+
+        # Cau hoi dang duoc hoi
+        self.cau_hoi_hien_tai = 0
 
     def them_thao_tac(self, buoc):
         """
@@ -78,7 +83,7 @@ class LoiGiai:
             self.cac_buoc_giai[-1].ten_loi_giai), self.cac_buoc_giai[-1].dap_an, self.cac_buoc_giai[-1].xuat_html()))
         return cac_loi_huong_dan
 
-    def xuat_html(self, xuat_file=None, stt_loi_giai='', chinh=True):
+    def xuat_html(self, xuat_file=None, stt_loi_giai='', chinh=True,ten_loi_giai = True):
         """
         Xuat loi giai ra dang html
         :param chinh: boolean
@@ -92,7 +97,8 @@ class LoiGiai:
         # In moi buoc giai ra
         if chinh:
             output.write("<div class='w3-container'>")
-            output.write(self.ten_loi_giai + "<br>")
+            if ten_loi_giai:
+                output.write(self.ten_loi_giai + "<br>")
         else:
             output.write(
                 '<button onclick=dat_buoc_giai("{0}") class="w3-btn-block w3-left-align w3-green" '
@@ -144,20 +150,42 @@ class HoiDap:
         self.dap_an = list()
         self.cac_goi_y = list()
         self.goi_y_hien_tai = 0
+        self.da_hoi_xong = False
 
     def kiem_tra_dap_an(self,cau_tra_loi):
+        # Chuyen thanh khong dau thuong
         cau_tra_loi = xu_ly_chuoi.chuyen_thanh_khong_dau_thuong(cau_tra_loi)
+
+        # Kiem tra tat ca cac dap an trong danh sach da
         for da in self.dap_an:
+            # flag
             khop=True
+
+            # Kiem tra cac tu khoa cua dap an
             for tu_khoa in da.cac_tu_khoa:
-                tu_khoa=r'\b{tk}\b'.format(tk=tu_khoa)
-                tim = re.search(tu_khoa,cau_tra_loi)
-                if tim:
-                    cau_tra_loi = cau_tra_loi[tim.end():]
-                    continue
+                if isinstance(tu_khoa,tuple):
+                    trung = False
+                    for tk in tu_khoa:
+                        tk = r'\b{tk}\b'.format(tk=tk)
+                        tim = re.search(tk, cau_tra_loi)
+                        if tim:
+                            cau_tra_loi = cau_tra_loi[tim.end():]
+                            trung = True
+                            break
+                    if trung is True:
+                        continue
+                    else:
+                        khop = False
+                        break
                 else:
-                    khop=False
-                    break
+                    tu_khoa=r'\b{tk}\b'.format(tk=tu_khoa)
+                    tim = re.search(tu_khoa,cau_tra_loi)
+                    if tim:
+                        cau_tra_loi = cau_tra_loi[tim.end():]
+                        continue
+                    else:
+                        khop=False
+                        break
             if khop:
                 return da
         return None

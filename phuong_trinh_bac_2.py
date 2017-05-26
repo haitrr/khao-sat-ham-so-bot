@@ -1,4 +1,6 @@
 import sympy
+
+import ky_hieu_latex
 import phuong_trinh
 import xu_ly_chuoi
 import hang_so
@@ -12,12 +14,12 @@ def giai_phuong_trinh_bac_2(ham_so, bien):
     ham_so_rut_gon = phuong_trinh.phan_tich_thanh_nhan_tu(ham_so)
     if ham_so_rut_gon != ham_so:
         loi_giai.append(xu_ly_chuoi.boc_mathjax(
-            hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(ham_so_rut_gon, 0))))
+            ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(ham_so_rut_gon, 0))))
         nghiem = phuong_trinh.tim_nghiem_thuc(ham_so_rut_gon, bien)
         if len(nghiem) == 0:
-            loi_giai.append(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + "Phương trình vô nghiệm"))
+            loi_giai.append(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + "Phương trình vô nghiệm"))
         loi_giai.append(xu_ly_chuoi.boc_mathjax(
-            hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bien) + "=" + xu_ly_chuoi.tao_ngoac_nhon(
+            ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(bien) + "=" + xu_ly_chuoi.tao_ngoac_nhon(
                 nghiem)))
     else:
         a, b, c = sympy.symbols('a b c')
@@ -27,9 +29,9 @@ def giai_phuong_trinh_bac_2(ham_so, bien):
         pt = phuong_trinh.the_bien(pt, a, phuong_trinh.lay_he_so(ham_so_rut_gon, bien, 2))
         pt = phuong_trinh.the_bien(pt, b, phuong_trinh.lay_he_so(ham_so_rut_gon, bien, 1))
         pt = phuong_trinh.the_bien(pt, c, phuong_trinh.lay_he_so(ham_so_rut_gon, bien, 0))
-        loi_giai.append(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
+        loi_giai.append(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
         pt = phuong_trinh.rut_gon(pt)
-        loi_giai.append(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
+        loi_giai.append(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
         delta_gia_tri = pt.rhs
         if delta_gia_tri > 0:
             loi_giai.append(
@@ -94,13 +96,15 @@ def tim_tham_so_de_ham_so_lon_hon_hoac_bang_0(ham_so, bien, tham_so):
     cong_thuc_delta = phuong_trinh.the_bien(cong_thuc_delta, c, phuong_trinh.lay_he_so(ham_so, bien, 0))
 
     # In ra cong thuc sau khi the so
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Rut gon ve phai
     cong_thuc_delta = bat_dang_thuc.bang(delta, phuong_trinh.phan_tich_thanh_nhan_tu(cong_thuc_delta.rhs))
 
     # In ra cong thuc sau khi rut gon
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Luu ket qua
     buoc_1.dap_an = cong_thuc_delta.rhs
@@ -120,7 +124,7 @@ def tim_tham_so_de_ham_so_lon_hon_hoac_bang_0(ham_so, bien, tham_so):
     he[1] = phuong_trinh.the_bien(he[1], delta, buoc_1.dap_an)
 
     # In ra he sau khi thay so
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(he)))
+    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(he)))
 
     # Giai he
     nghiem = bat_dang_thuc.giai_he_bat_dang_thuc(he, tham_so)
@@ -163,13 +167,15 @@ def tim_tham_so_de_ham_so_nho_hon_hoac_bang_0(ham_so, bien, tham_so):
     cong_thuc_delta = phuong_trinh.the_bien(cong_thuc_delta, c, phuong_trinh.lay_he_so(ham_so, bien, 0))
 
     # In ra cong thuc sau khi the so
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Rut gon ve phai
     cong_thuc_delta = bat_dang_thuc.bang(delta, phuong_trinh.phan_tich_thanh_nhan_tu(cong_thuc_delta.rhs))
 
     # In ra cong thuc sau khi rut gon
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Luu ket qua
     buoc_1.dap_an = cong_thuc_delta.rhs
@@ -189,7 +195,7 @@ def tim_tham_so_de_ham_so_nho_hon_hoac_bang_0(ham_so, bien, tham_so):
     he[1] = phuong_trinh.the_bien(he[1], delta, buoc_1.dap_an)
 
     # In ra he sau khi thay so
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(he)))
+    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(he)))
 
     # Giai he
     nghiem = bat_dang_thuc.giai_he_bat_dang_thuc(he, tham_so)
@@ -231,13 +237,15 @@ def tim_tham_so_de_phuong_trinh_co_nghiem_kep_hoac_vo_nghiem(ham_so, bien, tham_
     cong_thuc_delta = phuong_trinh.the_bien(cong_thuc_delta, c, phuong_trinh.lay_he_so(ham_so, bien, 0))
 
     # In ra cong thuc sau khi the so
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Rut gon ve phai
     cong_thuc_delta = bat_dang_thuc.bang(delta, phuong_trinh.phan_tich_thanh_nhan_tu(cong_thuc_delta.rhs))
 
     # In ra cong thuc sau khi rut gon
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Luu ket qua
     buoc_1.dap_an = cong_thuc_delta.rhs
@@ -258,7 +266,7 @@ def tim_tham_so_de_phuong_trinh_co_nghiem_kep_hoac_vo_nghiem(ham_so, bien, tham_
     dieu_kien = phuong_trinh.the_bien(dieu_kien, delta, buoc_1.dap_an)
 
     # In ra dieu kien sau khi thay so
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
+    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
 
     # Giai dieu kien
     nghiem = bat_dang_thuc.giai_bat_dang_thuc_set(dieu_kien, tham_so)
@@ -306,13 +314,15 @@ def tim_tham_so_de_phuong_trinh_hai_nghiem_phan_biet(ham_so, bien,tham_so):
     cong_thuc_delta = phuong_trinh.the_bien(cong_thuc_delta, c, phuong_trinh.lay_he_so(ham_so, bien, 0))
 
     # In ra cong thuc sau khi the so
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Rut gon ve phai
     cong_thuc_delta = bat_dang_thuc.bang(delta, phuong_trinh.phan_tich_thanh_nhan_tu(cong_thuc_delta.rhs))
 
     # In ra cong thuc sau khi rut gon
-    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    buoc_1.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Luu ket qua
     buoc_1.dap_an = cong_thuc_delta.rhs
@@ -333,7 +343,7 @@ def tim_tham_so_de_phuong_trinh_hai_nghiem_phan_biet(ham_so, bien,tham_so):
     dieu_kien = phuong_trinh.the_bien(dieu_kien, delta, buoc_1.dap_an)
 
     # In ra dieu kien sau khi thay so
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
+    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
 
     # Giai dieu kien
     nghiem = bat_dang_thuc.giai_bat_dang_thuc_set(dieu_kien, tham_so)
@@ -370,14 +380,14 @@ def tim_tham_so_de_phuong_trinh_hai_nghiem_phan_biet(ham_so, bien,tham_so):
     nghiem[1] = phuong_trinh.the_bien(nghiem[1], delta, buoc_1.dap_an)
 
     # In ra cong thuc sau khi thay so
-    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG+xu_ly_chuoi.tao_ngoac_nhon(nghiem)))
+    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(nghiem)))
 
     # Rut gon nghiem neu duoc
     nghiem[0]=bat_dang_thuc.bang(nghiem_1,phuong_trinh.phan_tich_thanh_nhan_tu(nghiem[0].rhs))
     nghiem[1]=bat_dang_thuc.bang(nghiem_2,phuong_trinh.phan_tich_thanh_nhan_tu(nghiem[1].rhs))
 
     # In ra cong thuc sau khi thay so
-    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG+xu_ly_chuoi.tao_ngoac_nhon(nghiem)))
+    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(nghiem)))
 
     # Luu dap an
     buoc_3.dap_an=[nghiem[0].rhs,nghiem[1].rhs]
@@ -411,13 +421,15 @@ def tinh_delta(ham_so,bien):
     cong_thuc_delta = phuong_trinh.the_bien(cong_thuc_delta, c, phuong_trinh.lay_he_so(ham_so, bien, 0))
 
     # In ra cong thuc sau khi the so
-    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Rut gon ve phai
     cong_thuc_delta = bat_dang_thuc.bang(delta, phuong_trinh.phan_tich_thanh_nhan_tu(cong_thuc_delta.rhs))
 
     # In ra cong thuc sau khi rut gon
-    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+        ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(cong_thuc_delta)))
 
     # Luu ket qua
     loi_giai.dap_an = cong_thuc_delta.rhs
@@ -440,11 +452,12 @@ def quan_he_2_nghiem_viet(ham_so, bien):
     quan_he[1] = phuong_trinh.the_bien(quan_he[1], c, phuong_trinh.lay_he_so(ham_so, bien, 0))
     quan_he[1] = phuong_trinh.the_bien(quan_he[1], a, phuong_trinh.lay_he_so(ham_so, bien, 2))
 
-    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG+xu_ly_chuoi.tao_ngoac_nhon(quan_he)))
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(quan_he)))
     # Rut gon
     quan_he_rut_gon = [phuong_trinh.phan_tich_thanh_nhan_tu(quan_he[0]),phuong_trinh.phan_tich_thanh_nhan_tu(quan_he[1])]
     if phuong_trinh.so_sanh(quan_he_rut_gon[0].rhs,quan_he[0].rhs) is False or phuong_trinh.so_sanh(quan_he_rut_gon[1].rhs,quan_he[1].rhs) is False:
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(quan_he_rut_gon)))
+        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(
+            ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_ngoac_nhon(quan_he_rut_gon)))
 
     loi_giai.dap_an=[quan_he_rut_gon[0].rhs,quan_he_rut_gon[1].rhs]
     return loi_giai

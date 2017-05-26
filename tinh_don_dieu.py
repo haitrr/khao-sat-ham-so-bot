@@ -1,4 +1,5 @@
 import dao_ham
+import ky_hieu_latex
 import tinh_xac_dinh
 import xu_ly_chuoi
 import bat_dang_thuc
@@ -127,10 +128,10 @@ def tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k(ham_so, bien, tham_so, d
     buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(dieu_kien)))
     dieu_kien = bat_dang_thuc.bang((nghiem_1 + nghiem_2) ** 2 - 4 * nghiem_1 * nghiem_2, do_dai_khoang ** 2)
 
-    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
+    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
     # chuyen ve
     dieu_kien = bat_dang_thuc.bang(dieu_kien.lhs - dieu_kien.rhs, 0)
-    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
+    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
 
     buoc_3.dap_an = dieu_kien.lhs
     loi_giai.them_thao_tac(buoc_3)

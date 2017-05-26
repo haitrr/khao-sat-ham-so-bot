@@ -1,4 +1,5 @@
 import dao_ham
+import ky_hieu_latex
 import phuong_trinh
 import tinh_xac_dinh
 import huong_dan_giai
@@ -106,7 +107,7 @@ def tim_tham_so_de_ham_so_co_cuc_tri(ham_so, bien, tham_so):
                                            xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
 
     cau_hoi_1 = huong_dan_giai.HoiDap('Hàm số có cực trị khi nào ?')
-    dap_an_cau_1 = huong_dan_giai.DapAnCauHoi('Đạo hàm của hàm số có hai nghiệm phân biệt',['dao ham','co','nghiem phan biet'])
+    dap_an_cau_1 = huong_dan_giai.DapAnCauHoi('Đạo hàm của hàm số có hai nghiệm phân biệt',[('dao ham',"f' = 0","y' = 0"),'co','nghiem phan biet'])
     cau_hoi_1.cac_goi_y.append('Có liên quan đến đạo hàm.')
     cau_hoi_1.cac_goi_y.append('Nghiệm của đạo hàm như thế nào ?')
     cau_hoi_1.dap_an.append(dap_an_cau_1)
@@ -225,14 +226,14 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_hoanh(ham_so, bien, tham_so):
     dieu_kien = bat_dang_thuc.nho_hon(f_nghiem_1 * f_nghiem_2, 0)
 
     # In ra dieu kien sau khi thay nghiem
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
+    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
 
     # Thay bien vao
     dieu_kien = phuong_trinh.the_bien(dieu_kien, nghiem_1, nghiem[0])
     dieu_kien = phuong_trinh.the_bien(dieu_kien, nghiem_2, nghiem[1])
 
     # In ra dieu kien sau khi thay bien
-    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(hang_so.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
+    buoc_2.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(dieu_kien)))
 
     # Giai bat dang thuc
     giai_dieu_kien = bat_dang_thuc.giai_bat_dang_thuc_lg(dieu_kien, tham_so)

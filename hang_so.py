@@ -1,5 +1,4 @@
 THU_MUC_TAM = "./file_tam/"
-DAU_TUONG_DUONG = "\Leftrightarrow "
 
 # Loai ham so
 HAM_BAC_NHAT='ham bac nhat'
@@ -16,9 +15,27 @@ CAC_HAM_PHAN_THUC = [HAM_HUU_TY,HAM_NHAT_BIEN,HAM_PHAN_THUC]
 
 
 #Cau lenh
+class CauLenh():
+    TRAC_NGHIEM = r'^trac\\ nghiem$'
 XEM_LOI_GIAI = r'^xem$'
 XEM_TOAN_BO_LOI_GIAI=r'^xem\\ het$'
 HUY = r'^huy$'
 
 # Trang thai
-TRA_LOI_CAU_HOI = 'tra_loi_cau_hoi'
+class TrangThai:
+    CHO_HAM_SO = 'ham_so'
+    TRA_LOI_CAU_HOI = 'tra_loi_cau_hoi'
+    DAP_AN = 'dap_an'
+    XEM_DAP_AN = 'xem'
+    BIET_LAM_CHUA = 'biet_lam_chua'
+    DAP_AN_TRAC_NGHIEM  = 'dap_an_trac_nghiem'
+
+
+# Chuyen ban phim chu
+class BanPhim:
+    BAN_PHIM_CHU = 'ban_phim_chu'
+    BAN_PHIM_TOAN = 'ban_phim_toan'
+
+# Cau tra loi biet lam
+class CauTraLoi:
+    BIET_LAM = [r'^biet$',r'^biet roi$',r'^duoc$',r'^OK$',r'^roi$']
