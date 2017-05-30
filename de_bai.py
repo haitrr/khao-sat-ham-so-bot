@@ -9,6 +9,9 @@ class DeBai:
         # Tu dien chua cac tham so va gia tri tuong ung
         self.du_kien = dict()
 
+        # Bai toan mau
+        self.du_kien_mau = None
+
         # Co can tham so khong?
         self.co_tham_so = False
 
@@ -20,6 +23,13 @@ class DeBai:
         # Chay ham giai toan su dung dictionary parametter
         return self.bai_toan(**self.du_kien)
 
+    def giai_mau(self):
+        """
+        dua ra loi giai mau cho dang toan
+        :param dk:
+        :return:
+        """
+        return self.bai_toan(**self.du_kien_mau)
 
 # Du kien cua bai toan
 class DuKien:

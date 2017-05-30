@@ -57,6 +57,10 @@ def chuyen_latex_thanh_sympy(bieu_thuc):
         return xet_nhieu_bieu_thuc(bieu_thuc)
     except:
         pass
+    while "\\left" in bieu_thuc:
+        bieu_thuc=bieu_thuc.replace("\\left","")
+    while "\\right" in bieu_thuc:
+        bieu_thuc=bieu_thuc.replace("\\right","")
     return sympy.sympify(process_sympy(bieu_thuc))
 
 

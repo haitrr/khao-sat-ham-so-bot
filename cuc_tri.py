@@ -10,6 +10,7 @@ import hang_so
 import tap_hop
 import bang_bien_thien
 import sympy
+import dinh_nghia
 
 
 def tim_diem_cuc_tieu(ham_so, bien):
@@ -54,6 +55,23 @@ def tim_tham_so_de_ham_so_khong_co_cuc_tri(ham_so, bien, tham_so):
         "Tìm {0} để {1} không có cực trị".format(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
                                            xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
 
+    # ---------------------------Cau hoi----------
+    cau_hoi_1 = huong_dan_giai.HoiDap("Khi nào thì hàm số không có cực trị ?")
+    da_1 = huong_dan_giai.DapAnCauHoi("Khi đạo hàm của hàm số có nghiệm kép hoặc vô nghiệm",
+                                 [("f' = 0", "dao ham", "y' = 0"), "co", "nghiem kep", "vo nghiem"])
+    da_2 = huong_dan_giai.DapAnCauHoi("Khi đạo hàm của hàm số không có hai nghiệm phân biệt",
+                                [("f' = 0", "dao ham", "y' = 0"), " khong co", "nghiem phan biet"])
+    gy_1 = "Có liên quan đến đạo hàm"
+    gy_2 ="Nghiệm của đạo hàm như thế nào ?"
+    cau_hoi_1.dap_an.append(da_1)
+    cau_hoi_1.dap_an.append(da_2)
+    cau_hoi_1.cac_goi_y.append(gy_1)
+    cau_hoi_1.cac_goi_y.append(gy_2)
+
+    loi_giai.cac_cau_hoi.append(cau_hoi_1)
+
+
+    # ---------------Bai giai------------------------------
     # Buoc 1 tim tap xac dinh
     buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
     buoc_1.ten_loi_giai = "Tìm tập xác định của hàm số"
@@ -106,6 +124,7 @@ def tim_tham_so_de_ham_so_co_cuc_tri(ham_so, bien, tham_so):
         "Tìm {0} để {1} có cực trị".format(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
                                            xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
 
+    # --------------Cac cau hoi -------------------------
     cau_hoi_1 = huong_dan_giai.HoiDap('Hàm số có cực trị khi nào ?')
     dap_an_cau_1 = huong_dan_giai.DapAnCauHoi('Đạo hàm của hàm số có hai nghiệm phân biệt',[('dao ham',"f' = 0","y' = 0"),'co','nghiem phan biet'])
     cau_hoi_1.cac_goi_y.append('Có liên quan đến đạo hàm.')
@@ -113,6 +132,19 @@ def tim_tham_so_de_ham_so_co_cuc_tri(ham_so, bien, tham_so):
     cau_hoi_1.dap_an.append(dap_an_cau_1)
     loi_giai.cac_cau_hoi.append(cau_hoi_1)
 
+    # --------------------Dinh nghia su dung---------------------
+    loi_giai.cac_dinh_nghia.append(dinh_nghia.DE_HAM_SO_CO_CUC_TRI)
+
+    # ---------------------Bai toan mau---------------------
+    hs_mau = sympy.sympify("x^3 - 3*m**2*x-2*m")
+    bien_mau = sympy.Symbol('x')
+    ts_mau = sympy.Symbol('m')
+
+    # Neu bai mau khong trung voi bai hien tai
+    if ham_so - hs_mau != 0:
+        loi_giai.loi_giai_mau = tim_tham_so_de_ham_so_co_cuc_tri(hs_mau,bien_mau,ts_mau).xuat_html()
+
+    #--------------------------Bai giai---------------------
     # Buoc 1 tim tap xac dinh
     buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
     buoc_1.ten_loi_giai = "Tìm tập xác định của hàm số"

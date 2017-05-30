@@ -12,7 +12,7 @@ import dang_toan
 import huong_dan_giai
 import trac_nghiem
 import random
-
+import dinh_nghia
 chatbot = chatterbot.ChatBot(
     'Bot',
     trainer='chatterbot.trainers.ListTrainer'
@@ -121,7 +121,7 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
         except:
             huy(nguoi_dung_gui)
             return 'Không thể giải bài toán, hãy xem lại các dữ kiện nhập vào'
-        return huong_dan_2(nguoi_dung_gui)
+        return huong_dan(nguoi_dung_gui)
 
     # Cho nguoi dung chon loai bai toan
     elif nguoi_dung_gui.cho == "bai_toan":
@@ -135,8 +135,9 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
             nguoi_dung_gui.cho = 'ham_so'
             return 'Đã ngừng hướng dẫn bài toán này,hãy nhập một biểu thức khác mình sẽ hướng dẫn bạn tiếp ^-^'
         elif re.match(hang_so.XEM_LOI_GIAI, tin_nhan):
-            return xem_2(nguoi_dung_gui)
+            return xem(nguoi_dung_gui)
 
+    # Cho nguoi dung tra loi cau hoi
     elif nguoi_dung_gui.cho == hang_so.TrangThai.TRA_LOI_CAU_HOI:
         cau_tra_loi = list()
         buoc_hien_tai = nguoi_dung_gui.lay_buoc_hien_tai()
@@ -146,14 +147,14 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
             cau_tra_loi.append('Đúng rồi')
             cau_tra_loi.append(da.dap_an)
             nguoi_dung_gui.loi_giai.cau_hoi_hien_tai+=1
-            cau_tra_loi += huong_dan_2(nguoi_dung_gui)
+            cau_tra_loi += huong_dan(nguoi_dung_gui)
             return cau_tra_loi
         else:
             if cau_hoi_hien_tai.goi_y_hien_tai == len(cau_hoi_hien_tai.cac_goi_y):
                 cau_tra_loi.append('Bạn trả lời không đúng rồi !')
                 cau_tra_loi.append('Câu trả lời là : {tl}'.format(tl=cau_hoi_hien_tai.dap_an[0].dap_an))
                 nguoi_dung_gui.loi_giai.cau_hoi_hien_tai += 1
-                cau_tra_loi += huong_dan_2(nguoi_dung_gui)
+                cau_tra_loi += huong_dan(nguoi_dung_gui)
                 return cau_tra_loi
             else:
                 cau_tra_loi.append('Gợi ý cho bạn nè')
@@ -164,12 +165,28 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
     # Biet lam chua
     elif nguoi_dung_gui.cho == hang_so.TrangThai.BIET_LAM_CHUA:
         return xu_ly_biet_lam(nguoi_dung_gui, tin_nhan)
+
+
+    # Hoc sinh hieu cach lam chua
+    elif nguoi_dung_gui.cho  == hang_so.TrangThai.HIEU_CHUA:
+        for hcl in hang_so.CauTraLoi.HIEU_CACH_LAM:
+            if re.match(hcl,tin_nhan):
+                return huong_dan(nguoi_dung_gui)
+        return dua_ra_bai_toan_mau(nguoi_dung_gui)
+
+    # Cho xac nhan xem xong bai toan mau
+    elif nguoi_dung_gui.cho == hang_so.TrangThai.MAU_OK:
+        if tin_nhan == 'ok':
+            return huong_dan(nguoi_dung_gui)
+        else:
+            return "Nếu bạn đã xem xong bài giải mẫu hãy chat 'ok' để tiếp tục !"
+
     # Cho nguoi dung nhap vao dap an
     elif nguoi_dung_gui.cho == "dap_an":
 
         # Xem loi giai cua buoc hien tai
         if re.match(hang_so.XEM_LOI_GIAI, tin_nhan):
-            return xem_2(nguoi_dung_gui)
+            return xem(nguoi_dung_gui)
 
         # Xem toan bo loi giai cua bai toan
         elif re.match(hang_so.XEM_TOAN_BO_LOI_GIAI, tin_nhan):
@@ -212,11 +229,25 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
 
             # Neu chua thi huong dan tiep
             else:
-                cau_tra_loi += huong_dan_2(nguoi_dung_gui)
+                cau_tra_loi += huong_dan(nguoi_dung_gui)
             return cau_tra_loi
 
+def dua_ra_bai_toan_mau(nguoi_dung_gui):
+    """
+    Dua ra mot bai toan mau cho hoc sinh tham khao
+    :param nguoi_dung.NguoiDung nguoi_dung_gui:
+    :return:
+    """
+    cau_tra_loi  = list()
+    buoc_hien_tai = nguoi_dung_gui.lay_buoc_hien_tai()
+    cau_tra_loi.append("Đây là một bài toán mẫu, bạn hãy tham khảo nha")
+    cau_tra_loi.append("Khi xem xong , bạn hãy nói 'OK' để bắt đầu làm bài toán")
+    cau_tra_loi.append(buoc_hien_tai.loi_giai_mau)
+    nguoi_dung_gui.cho = hang_so.TrangThai.MAU_OK
+    cau_tra_loi.append(hang_so.BanPhim.BAN_PHIM_CHU)
+    return cau_tra_loi
 
-def huong_dan_2(nguoi_dung_gui):
+def huong_dan(nguoi_dung_gui):
     """
     Huong dan nguoi dung bai toan da nhap
     :param nguoi_dung.NguoiDung nguoi_dung_gui: 
@@ -236,6 +267,15 @@ def huong_dan_2(nguoi_dung_gui):
 
             # Doi ban phim sang ban phim chu
             cau_tra_loi.append(hang_so.BanPhim.BAN_PHIM_CHU)
+            return cau_tra_loi
+        elif buoc_hien_tai.cac_dinh_nghia != [] and not buoc_hien_tai.da_neu_dinh_nghia:
+            # In ra cac dinh nghia
+            cau_tra_loi.append("Để giải bài toán này , bạn hay ghi nhớ các định nghĩa sau đây")
+            for dn in buoc_hien_tai.cac_dinh_nghia:
+                cau_tra_loi.append(dn.xuat())
+            buoc_hien_tai.da_neu_dinh_nghia = True
+            cau_tra_loi.append("Bạn đã hiểu cách giải bài toán này chưa")
+            nguoi_dung_gui.cho = hang_so.TrangThai.HIEU_CHUA
             return cau_tra_loi
         else:
             # Tạo tên bước
@@ -290,10 +330,20 @@ def huong_dan_2(nguoi_dung_gui):
                 # Doi ban phim sang ban phim chu
                 cau_tra_loi.append(hang_so.BanPhim.BAN_PHIM_CHU)
                 return cau_tra_loi
+            elif buoc_hien_tai.cac_dinh_nghia != [] and not buoc_hien_tai.da_neu_dinh_nghia:
+                # In ra cac dinh nghia
+                cau_tra_loi.append("Để giải bài toán này , bạn hay ghi nhớ các định nghĩa sau đây")
+                for dn in buoc_hien_tai.cac_dinh_nghia:
+                    cau_tra_loi.append(dn.xuat())
+                buoc_hien_tai.da_neu_dinh_nghia = True
+                cau_tra_loi.append("Bạn đã hiểu cách giải bài toán này chưa")
+                nguoi_dung_gui.cho = hang_so.TrangThai.HIEU_CHUA
+                return cau_tra_loi
+
             # Chuyen buoc hien tai vao buoc con
             nguoi_dung_gui.tien_trinh.append(0)
             cau_tra_loi.append('Vậy mình làm nhé.')
-            cau_tra_loi += huong_dan_2(nguoi_dung_gui)
+            cau_tra_loi += huong_dan(nguoi_dung_gui)
             return cau_tra_loi
         else:
             raise ValueError
@@ -315,37 +365,13 @@ def xu_ly_biet_lam(nguoi_dung_gui, tra_loi):
             buoc_hien_tai.can_huong_dan = False
 
             # Thong bao
-            cau_tra_loi += huong_dan_2(nguoi_dung_gui)
+            cau_tra_loi += huong_dan(nguoi_dung_gui)
             return cau_tra_loi
     # Danh dau can huong dan
     buoc_hien_tai.can_huong_dan = True
 
     # Thong bao
-    cau_tra_loi += huong_dan_2(nguoi_dung_gui)
-    return cau_tra_loi
-
-
-def huong_dan(nguoi_dung_gui):
-    """
-    Tao loi giai cho bai toan da nhap
-    :param nguoi_dung.NguoiDung nguoi_dung_gui: nguoi dung gui
-    :return: str:
-    """
-    cau_tra_loi = list()
-    buoc_hien_tai = nguoi_dung_gui.loi_huong_dan[nguoi_dung_gui.buoc]
-    if isinstance(buoc_hien_tai, huong_dan_giai.HoiDap):
-        cau_tra_loi.append(buoc_hien_tai.cau_hoi)
-        nguoi_dung_gui.cho = hang_so.TrangThai.TRA_LOI_CAU_HOI
-        cau_tra_loi.append('ban_phim_chu')
-        return cau_tra_loi
-    cau_tra_loi.append(nguoi_dung_gui.loi_huong_dan[nguoi_dung_gui.buoc][0])
-    if nguoi_dung_gui.loi_huong_dan[nguoi_dung_gui.buoc][1] is None:
-        cau_tra_loi.append("Bạn hãy thử làm xem sao, nhập 'xem' mình sẽ cho bạn xem đáp án")
-        nguoi_dung_gui.cho = 'xem'
-    else:
-        nguoi_dung_gui.cho = 'dap_an'
-        cau_tra_loi.append("Bạn hãy thử làm xem sao, hãy nhập đáp án của bạn mình sẽ kiểm tra cho bạn")
-        cau_tra_loi.append(hang_so.BanPhim.BAN_PHIM_TOAN)
+    cau_tra_loi += huong_dan(nguoi_dung_gui)
     return cau_tra_loi
 
 
@@ -354,7 +380,7 @@ def hien_het(nguoi_dung_gui):
     return nguoi_dung_gui.loi_giai.xuat_html()
 
 
-def xem_2(nguoi_dung_gui):
+def xem(nguoi_dung_gui):
     """
     In ra loi giai cua buoc hien tai
     :param nguoi_dung.NguoiDung nguoi_dung_gui:
@@ -371,7 +397,7 @@ def xem_2(nguoi_dung_gui):
 
     # Neu chua thi huong dan tiep
     else:
-        cau_tra_loi += huong_dan_2(nguoi_dung_gui)
+        cau_tra_loi += huong_dan(nguoi_dung_gui)
     return cau_tra_loi
 
 
@@ -413,23 +439,6 @@ def kiem_tra_buoc(nguoi_dung_gui):
     # Neu da hop le
     else:
         return False
-
-
-def xem(nguoi_dung_gui):
-    """
-    In ra loi giai cua buoc hien tai
-    :param nguoi_dung.NguoiDung nguoi_dung_gui:
-    :return:
-    """
-    cau_tra_loi = list()
-    cau_tra_loi.append("Lời giải của bước này là :<br> {0}".format(
-        nguoi_dung_gui.loi_huong_dan[nguoi_dung_gui.buoc][2]))
-    nguoi_dung_gui.buoc += 1
-    if nguoi_dung_gui.buoc == len(nguoi_dung_gui.loi_huong_dan):
-        nguoi_dung_gui.cho = 'ham_so'
-    else:
-        cau_tra_loi += huong_dan(nguoi_dung_gui)
-    return cau_tra_loi
 
 
 def so_sanh_dap_an(dap_an, dap_an_nguoi_dung):
@@ -564,7 +573,7 @@ def kiem_tra_bai_toan(tin_nhan, nguoi_dung_gui):
                 nguoi_dung_gui.buoc = 0
 
                 # Bat dau hang dan
-                return huong_dan_2(nguoi_dung_gui)
+                return huong_dan(nguoi_dung_gui)
             else:
                 return "Dạng toán này chưa được hỗ trợ,hãy thử dạng khác'"
     return "Dạng toán này chưa được hỗ trợ,hãy thử dạng khác'"

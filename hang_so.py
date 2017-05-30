@@ -29,7 +29,8 @@ class TrangThai:
     XEM_DAP_AN = 'xem'
     BIET_LAM_CHUA = 'biet_lam_chua'
     DAP_AN_TRAC_NGHIEM  = 'dap_an_trac_nghiem'
-
+    HIEU_CHUA = 'hieu_chua'
+    MAU_OK  = ""
 
 # Chuyen ban phim chu
 class BanPhim:
@@ -39,3 +40,4 @@ class BanPhim:
 # Cau tra loi biet lam
 class CauTraLoi:
     BIET_LAM = [r'^biet$',r'^biet roi$',r'^duoc$',r'^OK$',r'^roi$']
+    HIEU_CACH_LAM = [r'^biet$', r'^biet roi$', r'^duoc$', r'^OK$', r'^roi$',r'^hieu$',r'^hieu roi$']

@@ -24,7 +24,14 @@ def tim_gia_tri_lon_nhat_va_nho_nhat_cua_ham_so(ham_so,bien):
     loi_giai = huong_dan_giai.LoiGiai("Tìm giá trị lớn nhất và nhỏ nhất của hàm số {hs}".format(
         hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so_f))
     ))
+    # -----------------Cau hoi -----------
+    ch_1 = huong_dan_giai.HoiDap("Muốn biết giá trị lớn nhất, nhở nhất của hàm số bạn cần làm gì?")
+    da_1 = huong_dan_giai.DapAnCauHoi("Lập bảng biên thiên", ["bang bien thien"])
 
+    ch_1.dap_an.append(da_1)
+    loi_giai.cac_cau_hoi.append(ch_1)
+
+    # --------------------Bai giai ---------------------
     # Buoc 1: Tim tap xac dinh
     buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so,bien)
     buoc_1.ten_loi_giai= 'Tìm tập xác định'

@@ -517,5 +517,3 @@ def get_differential_var_str(text):
         text = text[1:]
     return text
 
-if __name__ == "__main__":
-    test_sympy()

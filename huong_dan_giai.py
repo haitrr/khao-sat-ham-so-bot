@@ -18,13 +18,22 @@ class LoiGiai:
         self.dap_an = None
         self.ma_loi_giai = uuid.uuid4()
         self.lop_cuoi = True
+
+        # cac cau hoi huong dan
         self.cac_cau_hoi = list()
+
+        # Cac dinh nghia su dung trong bai toan
+        self.cac_dinh_nghia = list()
+        self.da_neu_dinh_nghia = False
+
         # Co can huong dan cac buoc con hay khong
         self.can_huong_dan = None
 
         # Cau hoi dang duoc hoi
         self.cau_hoi_hien_tai = 0
 
+        # Loi giai mau de tham khao
+        self.loi_giai_mau = None
     def them_thao_tac(self, buoc):
         """
         Them buoc giai vao loi giai
