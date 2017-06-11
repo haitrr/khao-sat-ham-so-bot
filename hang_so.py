@@ -41,3 +41,4 @@ class BanPhim:
 class CauTraLoi:
     BIET_LAM = [r'^biet$',r'^biet roi$',r'^duoc$',r'^OK$',r'^roi$']
     HIEU_CACH_LAM = [r'^biet$', r'^biet roi$', r'^duoc$', r'^OK$', r'^roi$',r'^hieu$',r'^hieu roi$']
+    KHONG_BIET_HIEU = [r'khong',r'chua$',r'huong\sdan']

@@ -103,7 +103,13 @@ def xet_tap_hop(tin_nhan):
 def tao_du_lieu_hop_chon(tap_lua_chon,tua_de):
     du_lieu = 'mo_hop_chon{'+tua_de+"}{"
     for lua_chon in tap_lua_chon:
-        du_lieu+=lua_chon+';'
+        if isinstance(lua_chon,list):
+            du_lieu += "("+lua_chon[0]+"::"
+            for lc in lua_chon[1:]:
+                du_lieu+=lc+"::"
+            du_lieu = du_lieu[:-2] + ');'
+        else:
+            du_lieu+=lua_chon+';'
     du_lieu=du_lieu[:-1]+'}'
     return du_lieu
 

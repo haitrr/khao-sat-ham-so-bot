@@ -66,17 +66,17 @@ var gui_tin_nhan = function (tin_nhan, latex) {
     o_chat.focus();
     return true;
 };
-khop = /^mo_hop_chon{(.+)}{(.+)}$/g;
+var khop = /^mo_hop_chon{(.+)}{(.+)}$/g;
 
 // Nhan tin nhan tu may chu
 var nhan_tin_nhan = function (tin_nhan) {
-
+    console.log(tin_nhan);
     // Kiem tra xem co phai la hien bang chon khong
     du_lieu = khop.exec(tin_nhan);
     khop.lastIndex = 0;
 
     // Xu ly hien bang chon
-    if (du_lieu != null) {
+    if (du_lieu) {
         tua_de = du_lieu[1];
         doi_tua_de(tua_de);
         du_lieu = du_lieu[2].split(';');

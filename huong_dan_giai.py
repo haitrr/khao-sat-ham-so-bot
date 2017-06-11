@@ -3,6 +3,7 @@ import uuid
 import re
 import xu_ly_chuoi
 
+
 class LoiGiai:
     """
     Class loi giai
@@ -16,7 +17,6 @@ class LoiGiai:
         self.ten_loi_giai = de_bai
         self.cac_buoc_giai = list()
         self.dap_an = None
-        self.ma_loi_giai = uuid.uuid4()
         self.lop_cuoi = True
 
         # cac cau hoi huong dan
@@ -34,6 +34,7 @@ class LoiGiai:
 
         # Loi giai mau de tham khao
         self.loi_giai_mau = None
+
     def them_thao_tac(self, buoc):
         """
         Them buoc giai vao loi giai
@@ -68,14 +69,13 @@ class LoiGiai:
         else:
             dem = 1
             for buoc_giai in self.cac_buoc_giai:
-                cac_buoc.append("Bước {stt} : {ten_buoc}".format(stt=str(dem),ten_buoc=buoc_giai.ten_loi_giai))
-                dem+=1
+                cac_buoc.append("Bước {stt} : {ten_buoc}".format(stt=str(dem), ten_buoc=buoc_giai.ten_loi_giai))
+                dem += 1
             return cac_buoc
-
 
     def xuat_loi_huong_dan(self, chinh=True):
         cac_loi_huong_dan = list()
-        cac_loi_huong_dan+=self.cac_cau_hoi
+        cac_loi_huong_dan += self.cac_cau_hoi
         if chinh:
             cac_loi_huong_dan.append((self.ten_loi_giai + '<br>Đầu tiên bạn phải {0}'.format(
                 self.cac_buoc_giai[0].ten_loi_giai), self.cac_buoc_giai[0].dap_an, self.cac_buoc_giai[0].xuat_html()))
@@ -92,7 +92,7 @@ class LoiGiai:
             self.cac_buoc_giai[-1].ten_loi_giai), self.cac_buoc_giai[-1].dap_an, self.cac_buoc_giai[-1].xuat_html()))
         return cac_loi_huong_dan
 
-    def xuat_html(self, xuat_file=None, stt_loi_giai='', chinh=True,ten_loi_giai = True):
+    def xuat_html(self, xuat_file=None, stt_loi_giai='', chinh=True, ten_loi_giai=True):
         """
         Xuat loi giai ra dang html
         :param chinh: boolean
@@ -109,11 +109,12 @@ class LoiGiai:
             if ten_loi_giai:
                 output.write(self.ten_loi_giai + "<br>")
         else:
+            id = uuid.uuid4()
             output.write(
                 '<button onclick=dat_buoc_giai("{0}") class="w3-btn-block w3-left-align w3-green" '
                 'style="width:auto"><b>Bước {1} : {2}</b></button><br>'.format(
-                    self.ma_loi_giai, stt_loi_giai, self.ten_loi_giai))
-            output.write('<div id="{0}" class="w3-hide w3-container w3-animate-zoom">'.format(self.ma_loi_giai))
+                    id, stt_loi_giai, self.ten_loi_giai))
+            output.write('<div id="{0}" class="w3-hide w3-container w3-animate-zoom">'.format(id))
         if self.lop_cuoi is False:
             for buoc in self.cac_buoc_giai:
                 if chinh:
@@ -145,6 +146,7 @@ class LoiGiai:
         output.close()
         return loi_giai_html
 
+
 class HoiDap:
     """
     Cau hoi de huong dan hoc sinh lam bai
@@ -154,25 +156,25 @@ class HoiDap:
     cac tu khoa de xac dinh cau tra loi cua hoc sinh la dung
     """
 
-    def __init__(self,cau_hoi):
+    def __init__(self, cau_hoi):
         self.cau_hoi = cau_hoi
         self.dap_an = list()
         self.cac_goi_y = list()
         self.goi_y_hien_tai = 0
         self.da_hoi_xong = False
 
-    def kiem_tra_dap_an(self,cau_tra_loi):
+    def kiem_tra_dap_an(self, cau_tra_loi):
         # Chuyen thanh khong dau thuong
         cau_tra_loi = xu_ly_chuoi.chuyen_thanh_khong_dau_thuong(cau_tra_loi)
 
         # Kiem tra tat ca cac dap an trong danh sach da
         for da in self.dap_an:
             # flag
-            khop=True
+            khop = True
 
             # Kiem tra cac tu khoa cua dap an
             for tu_khoa in da.cac_tu_khoa:
-                if isinstance(tu_khoa,tuple):
+                if isinstance(tu_khoa, tuple):
                     trung = False
                     for tk in tu_khoa:
                         tk = r'\b{tk}\b'.format(tk=tk)
@@ -187,19 +189,20 @@ class HoiDap:
                         khop = False
                         break
                 else:
-                    tu_khoa=r'\b{tk}\b'.format(tk=tu_khoa)
-                    tim = re.search(tu_khoa,cau_tra_loi)
+                    tu_khoa = r'\b{tk}\b'.format(tk=tu_khoa)
+                    tim = re.search(tu_khoa, cau_tra_loi)
                     if tim:
                         cau_tra_loi = cau_tra_loi[tim.end():]
                         continue
                     else:
-                        khop=False
+                        khop = False
                         break
             if khop:
                 return da
         return None
 
+
 class DapAnCauHoi:
-    def __init__(self,dap_an,cac_tu_khoa):
+    def __init__(self, dap_an, cac_tu_khoa):
         self.dap_an = dap_an
         self.cac_tu_khoa = cac_tu_khoa

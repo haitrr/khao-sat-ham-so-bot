@@ -10,6 +10,18 @@ def rut_gon(ham_so):
     ham_so=ham_so.doit()
     return sympy.simplify(ham_so)
 
+def rut_gon_bieu_thuc(ham_so,**kwargs):
+    loi_giai = huong_dan_giai.LoiGiai("Rút gọn biểu thức {bt}".format(
+        bt = xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
+    ))
+    if str(rut_gon(ham_so)) == str(ham_so):
+        loi_giai.them_thao_tac("Hàm số đã tối giản")
+        return loi_giai
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so)))
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG+xu_ly_chuoi.tao_latex(rut_gon(ham_so))))
+    return loi_giai
+
+# so sanh 2 bieu thuc
 def so_sanh(bieu_thuc_1,bieu_thuc_2):
     if bieu_thuc_1==bieu_thuc_2:
         return True
@@ -29,7 +41,7 @@ def tim_nghiem_thuc(ham_so, bien):
     # loc ra cac nghiem thuc
     nghiem_thuc = []
     for i in nghiem:
-        if i.is_real is True or i.is_real is None:
+        if i.is_real is True or (i.is_real is None and not i.is_complex):
             if str(i).find("CRootOf") != -1:
                 nghiem_thuc.append(sympy.N(i))
             nghiem_thuc.append(i)
@@ -106,6 +118,16 @@ def the_bien(bieu_thuc, bien, gia_tri):
 def phan_tich_thanh_nhan_tu(bieu_thuc):
     return sympy.factor(bieu_thuc)
 
+def phan_tich_thanh_nhan_tu_giai(ham_so,**kwargs):
+    loi_giai = huong_dan_giai.LoiGiai("Phân tích biểu thức {bt} thành nhân tử".format(
+        bt = xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
+    ))
+    if str(phan_tich_thanh_nhan_tu(ham_so)) == str(ham_so):
+        loi_giai.them_thao_tac("Không thể phân tích thêm")
+        return loi_giai
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so)))
+    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG+xu_ly_chuoi.tao_latex(phan_tich_thanh_nhan_tu(ham_so))))
+    return loi_giai
 
 def lay_he_so(da_thuc, bien, so_mu):
     return da_thuc.coeff(bien, so_mu)
@@ -200,22 +222,22 @@ def thay_bien(ham_so,bien,thay):
 def tao_ten_ham(ten_ham,bien):
     return sympy.Function(ten_ham)(bien)
 
-def giai_phuong_trinh(bieu_thuc, bien):
+def giai_phuong_trinh(ham_so, bien):
     """
     Giai phuong trinh va tra ve loi giai
-    :param bieu_thuc: bieu_thuc
+    :param ham_so: bieu_thuc
     :param bien: sympy.Symbols
     :return: LoiGiai
     """
-    if isinstance(bieu_thuc,sympy.Eq):
-        pt = bieu_thuc
+    if isinstance(ham_so, sympy.Eq):
+        pt = ham_so
         loi_giai = huong_dan_giai.LoiGiai(
             "Giải phương trình {phuong_trinh}".format(phuong_trinh=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt))))
         loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt)))
         pt = bat_dang_thuc.bang(pt.lhs-pt.rhs,0)
         loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
     else:
-        pt = sympy.Eq(bieu_thuc, 0)
+        pt = sympy.Eq(ham_so, 0)
         loi_giai = huong_dan_giai.LoiGiai(
             "Giải phương trình {phuong_trinh}".format(phuong_trinh=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt))))
         loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt)))
@@ -234,7 +256,7 @@ def giai_phuong_trinh(bieu_thuc, bien):
             ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_da_thuc)))
 
     # Tim nghiem
-    nghiem_thuc = tim_nghiem_thuc(bieu_thuc, bien)
+    nghiem_thuc = tim_nghiem_thuc(ham_so, bien)
 
     if len(nghiem_thuc) == 0:
         loi_giai.them_thao_tac(

@@ -60,6 +60,12 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
     # Cho nguoi dung nhap ham so vao
     if nguoi_dung_gui.cho == 'ham_so':
 
+        # Xem lai loi giai da giai
+        if re.match(hang_so.XEM_LOI_GIAI,tin_nhan):
+            if nguoi_dung_gui.loi_giai == None:
+                return "Bạn chưa giải bài toán nào, hãy thử giải một bài toán trước"
+            else:
+                return ["Đây là lời giải đầy đủ",nguoi_dung_gui.loi_giai.xuat_html()]
         # Neu hoc sinh yeu cau trac nghiem
         if re.match(hang_so.CauLenh.TRAC_NGHIEM,tin_nhan):
             return chon_cau_trac_nghiem(nguoi_dung_gui)
@@ -117,6 +123,9 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
                 return 'Bạn hãy nhập vào {dk}'.format(dk=du_kien[1])
         try:
             nguoi_dung_gui.loi_giai = nguoi_dung_gui.de_bai.giai()
+            if nguoi_dung_gui.loi_giai.lop_cuoi:
+                nguoi_dung_gui.cho = 'ham_so'
+                return nguoi_dung_gui.loi_giai.xuat_html()
             nguoi_dung_gui.loi_giai.can_huong_dan = True
         except:
             huy(nguoi_dung_gui)
@@ -151,7 +160,6 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
             return cau_tra_loi
         else:
             if cau_hoi_hien_tai.goi_y_hien_tai == len(cau_hoi_hien_tai.cac_goi_y):
-                cau_tra_loi.append('Bạn trả lời không đúng rồi !')
                 cau_tra_loi.append('Câu trả lời là : {tl}'.format(tl=cau_hoi_hien_tai.dap_an[0].dap_an))
                 nguoi_dung_gui.loi_giai.cau_hoi_hien_tai += 1
                 cau_tra_loi += huong_dan(nguoi_dung_gui)
@@ -523,8 +531,16 @@ def lay_dang_toan_co_the(ham_so, bien, tham_so=False):
 
     # Neu khop loai ham so va can tham so thi them vao cac dang toan co the
     for dt in dang_toan.cac_dang_toan:
-        if loai_hs in dt.loai_ham_so and tham_so == dt.can_tham_so:
-            dang_toan_co_the.append(dt.ten)
+        if isinstance(dt,dang_toan.DangToan):
+            if loai_hs in dt.loai_ham_so and tham_so == dt.can_tham_so:
+                dang_toan_co_the.append(dt.ten)
+        else:
+            rs = [dt[0]]
+            for k in dt[1:]:
+                if loai_hs in k.loai_ham_so and tham_so == k.can_tham_so:
+                    rs.append(k.ten)
+            if len(rs)>1:
+                dang_toan_co_the.append(rs)
     return dang_toan_co_the
 
 
@@ -536,48 +552,72 @@ def kiem_tra_bai_toan(tin_nhan, nguoi_dung_gui):
     :return: 
     """
     for dt in dang_toan.cac_dang_toan:
-        if re.match(dt.khop, tin_nhan):
-
-            # Kiem tra loai ham so
-            loai_hs = phuong_trinh.loai_ham_so(nguoi_dung_gui.de_bai.du_kien['ham_so'],
-                                               nguoi_dung_gui.de_bai.du_kien['bien'])
-
-            # Kiem tra xem bai toan co can tham so khong
-            co_tham_so = 'tham_so' in nguoi_dung_gui.de_bai.du_kien.keys()
-
-            # So khop dang toan
-            if loai_hs in dt.loai_ham_so and co_tham_so == dt.can_tham_so:
-
-                # Gan ham giai cho de bai
-                nguoi_dung_gui.de_bai.bai_toan = dt.ham_giai
-
-                for du_kien in dt.cac_du_kien:
-
-                    # Neu du kien chua duoc nhap thi gan du kien bang mo ta
-                    if du_kien.ten_du_kien not in nguoi_dung_gui.de_bai.du_kien.keys():
-                        nguoi_dung_gui.de_bai.du_kien[du_kien.ten_du_kien] = du_kien.mo_ta
-
-                # Kiem tra tat ca cac du kien chua nhap, va yeu cau nguoi dung nhap vao
-                for du_kien in nguoi_dung_gui.de_bai.du_kien.keys():
-                    if isinstance(nguoi_dung_gui.de_bai.du_kien[du_kien], str):
-                        nguoi_dung_gui.cho = du_kien
-                        return 'Bạn hãy nhập vào {ten_du_kien}'.format(
-                            ten_du_kien=nguoi_dung_gui.de_bai.du_kien[du_kien])
-
-                # Neu da du du kien thi giai va xuat huong dan
-                nguoi_dung_gui.loi_giai = nguoi_dung_gui.de_bai.giai()
-                nguoi_dung_gui.loi_giai.can_huong_dan = True
-                nguoi_dung_gui.loi_huong_dan = nguoi_dung_gui.loi_giai.xuat_loi_huong_dan()
-
-                # Set buoc huong dan ve 0
-                nguoi_dung_gui.buoc = 0
-
-                # Bat dau hang dan
-                return huong_dan(nguoi_dung_gui)
-            else:
-                return "Dạng toán này chưa được hỗ trợ,hãy thử dạng khác'"
+        if isinstance(dt,dang_toan.DangToan):
+            so = so_khop_du_lieu_dang_toan(dt,tin_nhan,nguoi_dung_gui)
+            if so:
+                return so
+        else:
+            for k in dt[1:]:
+                so = so_khop_du_lieu_dang_toan(k, tin_nhan, nguoi_dung_gui)
+                if so:
+                    return so
     return "Dạng toán này chưa được hỗ trợ,hãy thử dạng khác'"
 
+def so_khop_du_lieu_dang_toan(dt,tin_nhan,nguoi_dung_gui):
+    """
+
+    :param dt:
+    :param tin_nhan:
+    :param nguoi_dung_gui:
+    :return:
+    """
+    if re.match(dt.khop, tin_nhan):
+
+        # Kiem tra loai ham so
+        loai_hs = phuong_trinh.loai_ham_so(nguoi_dung_gui.de_bai.du_kien['ham_so'],
+                                           nguoi_dung_gui.de_bai.du_kien['bien'])
+
+        # Kiem tra xem bai toan co can tham so khong
+        co_tham_so = 'tham_so' in nguoi_dung_gui.de_bai.du_kien.keys()
+
+        # So khop dang toan
+        if loai_hs in dt.loai_ham_so and co_tham_so == dt.can_tham_so:
+
+            # Gan ham giai cho de bai
+            nguoi_dung_gui.de_bai.bai_toan = dt.ham_giai
+
+            for du_kien in dt.cac_du_kien:
+
+                # Neu du kien chua duoc nhap thi gan du kien bang mo ta
+                if du_kien.ten_du_kien not in nguoi_dung_gui.de_bai.du_kien.keys():
+                    nguoi_dung_gui.de_bai.du_kien[du_kien.ten_du_kien] = du_kien.mo_ta
+
+            # Kiem tra tat ca cac du kien chua nhap, va yeu cau nguoi dung nhap vao
+            for du_kien in nguoi_dung_gui.de_bai.du_kien.keys():
+                if isinstance(nguoi_dung_gui.de_bai.du_kien[du_kien], str):
+                    nguoi_dung_gui.cho = du_kien
+                    return 'Bạn hãy nhập vào {ten_du_kien}'.format(
+                        ten_du_kien=nguoi_dung_gui.de_bai.du_kien[du_kien])
+
+            # Neu da du du kien thi giai va xuat huong dan
+            try:
+                nguoi_dung_gui.loi_giai = nguoi_dung_gui.de_bai.giai()
+                if nguoi_dung_gui.loi_giai.lop_cuoi:
+                    nguoi_dung_gui.cho = 'ham_so'
+                    return nguoi_dung_gui.loi_giai.xuat_html()
+                nguoi_dung_gui.loi_giai.can_huong_dan = True
+            except:
+                huy(nguoi_dung_gui)
+                return 'Không thể giải bài toán, hãy xem lại các dữ kiện nhập vào'
+            # Set buoc huong dan ve 0
+            nguoi_dung_gui.buoc = 0
+
+            # Bat dau hang dan
+            return huong_dan(nguoi_dung_gui)
+        else:
+            return "Dạng toán này chưa được hỗ trợ,hãy thử dạng khác'"
+    else:
+        return None
 
 def chon_cau_trac_nghiem(nguoi_dung_gui):
     """

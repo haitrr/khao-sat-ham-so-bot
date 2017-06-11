@@ -112,7 +112,7 @@
             var maxx = htmlwidth - pwidth;
             panel.showPanel();
             panel.place.css({
-                'top': Math.max(0, (pos.top + height + 50)) + 'px',
+                'top': Math.max(0, (pos.top + height - 150)) + 'px',
                 'left': Math.max(0, Math.min(maxx, pos.left)) + 'px'
             });
         });

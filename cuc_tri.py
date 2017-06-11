@@ -187,6 +187,15 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung(ham_so, bien, tham_so):
         "Tìm {0} để {1} có cực trị nằm ở hai phía của trục tung".format(
             xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
             xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
+    # ---------------------Cau hoi -----------------------
+
+
+
+    # --------------------Dinh ly-----------------------
+
+
+
+    # -------------------Bai giai ----------------------------
 
     # Buoc 1 tim tham so de ham so co cuc tri
     buoc_1 = tim_tham_so_de_ham_so_co_cuc_tri(ham_so, bien, tham_so)
