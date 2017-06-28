@@ -1,16 +1,16 @@
-Install:
-GhoshScipt
-MIKTex
-Microsof Visual C++ Build Tool 2015
----> Theo vao Path 2 thu muc bin
+<b>Install:</b><br>
+GhoshScipt<br>
+MIKTex<br>
+Microsof Visual C++ Build Tool 2015<br>
+---> Theo vao Path 2 thu muc bin<br>
 
-PYthon:
-Update:
-python -m pip install -U pip
-pip install -U setuptools
-pip install -U virtualenv
-Thu Vien:
-Sympy
-Numpy
-Matplotlib
+<b>PYthon:</b><br>
+Update:<br>
+python -m pip install -U pip<br>
+pip install -U setuptools<br>
+pip install -U virtualenv<br>
+<b>Thu Vien:</b><br>
+Sympy<br>
+Numpy<br>
+Matplotlib<br>
 
