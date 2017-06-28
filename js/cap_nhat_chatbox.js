@@ -67,6 +67,7 @@ var gui_tin_nhan = function (tin_nhan, latex) {
     return true;
 };
 var khop = /^mo_hop_chon{(.+)}{(.+)}$/g;
+var cau_lenh_cap_nhat_loi_giai_hien_tai = "cap_nhat_loi_giai:::";
 
 // Nhan tin nhan tu may chu
 var nhan_tin_nhan = function (tin_nhan) {
@@ -86,6 +87,10 @@ var nhan_tin_nhan = function (tin_nhan) {
         });
         them_click_event();
         $("#hop_chon").css("display", "block");
+    }
+    // Cap nhat loi giai hien tai
+    else if (tin_nhan.startsWith(cau_lenh_cap_nhat_loi_giai_hien_tai)) {
+        cap_nhat_loi_giai_hien_tai(tin_nhan.slice(cau_lenh_cap_nhat_loi_giai_hien_tai.length))
     }
     // Chuyen ban phim sang dang chu
     else if (tin_nhan == 'ban_phim_chu') {

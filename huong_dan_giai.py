@@ -1,6 +1,7 @@
 import io
-import uuid
 import re
+import uuid
+
 import xu_ly_chuoi
 
 
@@ -34,6 +35,7 @@ class LoiGiai:
 
         # Loi giai mau de tham khao
         self.loi_giai_mau = None
+        self.da_cho_mau = False
 
     def them_thao_tac(self, buoc):
         """
@@ -73,24 +75,24 @@ class LoiGiai:
                 dem += 1
             return cac_buoc
 
-    def xuat_loi_huong_dan(self, chinh=True):
-        cac_loi_huong_dan = list()
-        cac_loi_huong_dan += self.cac_cau_hoi
-        if chinh:
-            cac_loi_huong_dan.append((self.ten_loi_giai + '<br>Đầu tiên bạn phải {0}'.format(
-                self.cac_buoc_giai[0].ten_loi_giai), self.cac_buoc_giai[0].dap_an, self.cac_buoc_giai[0].xuat_html()))
-        else:
-            cac_loi_huong_dan.append(("Tiếp theo bạn hãy " + self.ten_loi_giai + '<br>Đầu tiên bạn phải {0}'.format(
-                self.cac_buoc_giai[0].ten_loi_giai), self.cac_buoc_giai[0].dap_an, self.cac_buoc_giai[0].xuat_html()))
-        for buoc in self.cac_buoc_giai[1:-1]:
-            if buoc.lop_cuoi is True:
-                cac_loi_huong_dan.append(
-                    ("Tiếp theo bạn hãy {0}".format(buoc.ten_loi_giai), buoc.dap_an, buoc.xuat_html()))
-            else:
-                cac_loi_huong_dan += buoc.xuat_loi_huong_dan(chinh=False)
-        cac_loi_huong_dan.append(('Cuối cùng hãy {0}'.format(
-            self.cac_buoc_giai[-1].ten_loi_giai), self.cac_buoc_giai[-1].dap_an, self.cac_buoc_giai[-1].xuat_html()))
-        return cac_loi_huong_dan
+    # def xuat_loi_huong_dan(self, chinh=True):
+    #     cac_loi_huong_dan = list()
+    #     cac_loi_huong_dan += self.cac_cau_hoi
+    #     if chinh:
+    #         cac_loi_huong_dan.append((self.ten_loi_giai + '<br>Đầu tiên bạn phải {0}'.format(
+    #             self.cac_buoc_giai[0].ten_loi_giai), self.cac_buoc_giai[0].dap_an, self.cac_buoc_giai[0].xuat_html()))
+    #     else:
+    #         cac_loi_huong_dan.append(("Tiếp theo bạn hãy " + self.ten_loi_giai + '<br>Đầu tiên bạn phải {0}'.format(
+    #             self.cac_buoc_giai[0].ten_loi_giai), self.cac_buoc_giai[0].dap_an, self.cac_buoc_giai[0].xuat_html()))
+    #     for buoc in self.cac_buoc_giai[1:-1]:
+    #         if buoc.lop_cuoi is True:
+    #             cac_loi_huong_dan.append(
+    #                 ("Tiếp theo bạn hãy {0}".format(buoc.ten_loi_giai), buoc.dap_an, buoc.xuat_html()))
+    #         else:
+    #             cac_loi_huong_dan += buoc.xuat_loi_huong_dan(chinh=False)
+    #     cac_loi_huong_dan.append(('Cuối cùng hãy {0}'.format(
+    #         self.cac_buoc_giai[-1].ten_loi_giai), self.cac_buoc_giai[-1].dap_an, self.cac_buoc_giai[-1].xuat_html()))
+    #     return cac_loi_huong_dan
 
     def xuat_html(self, xuat_file=None, stt_loi_giai='', chinh=True, ten_loi_giai=True):
         """
@@ -146,6 +148,73 @@ class LoiGiai:
         output.close()
         return loi_giai_html
 
+    # todo FIX BUG
+    def xuat_html_theo_tien_trinh(self, xuat_file=None, stt_loi_giai='', chinh=True, ten_loi_giai=True,
+                                  tien_trinh=None):
+        """
+        Xuat loi giai ra dang html
+        :param chinh: boolean
+        :param stt_loi_giai: string
+        :param xuat_file: string
+        :return: string
+        """
+        output = io.StringIO()
+
+        stt = 1
+        # In moi buoc giai ra
+        if chinh:
+            output.write("<div class='w3-container'>")
+            if ten_loi_giai:
+                output.write(self.ten_loi_giai + "<br>")
+        else:
+            id = uuid.uuid4()
+            output.write(
+                '<button onclick=dat_buoc_giai("{0}") class="w3-btn-block w3-left-align w3-green" '
+                'style="width:auto"><b>Bước {1} : {2}</b></button><br>'.format(
+                    id, stt_loi_giai, self.ten_loi_giai))
+            output.write('<div id="{0}" class="w3-hide w3-container w3-animate-zoom">'.format(id))
+        if self.lop_cuoi is False:
+            if tien_trinh:
+                for buoc in range(tien_trinh[0] + 1):
+                    if chinh:
+                        output.write(self.cac_buoc_giai[buoc].xuat_html_theo_tien_trinh(stt_loi_giai=str(stt),
+                                                                                        chinh=False,
+                                                                                        tien_trinh=tien_trinh[1:]))
+                    else:
+                        output.write(self.cac_buoc_giai[buoc].xuat_html_theo_tien_trinh(
+                            stt_loi_giai=stt_loi_giai + '.' + str(stt),
+                            chinh=False, tien_trinh=tien_trinh[1:]))
+                    stt += 1
+            else:
+                for buoc in self.cac_buoc_giai:
+                    if chinh:
+                        output.write(buoc.xuat_html(stt_loi_giai=str(stt),
+                                                    chinh=False))
+                    else:
+                        output.write(buoc.xuat_html(stt_loi_giai=stt_loi_giai + '.' + str(stt),
+                                                    chinh=False))
+                    stt += 1
+        else:
+            for buoc in self.cac_buoc_giai:
+                output.write(buoc + "<br>")
+        output.write('</div>')
+        if xuat_file:
+            # Moi file hoac tao file khi chua co
+            # Phai dung utf-8 hien thi tieng viet
+            file_loi_giai_html = open(xuat_file, "w", encoding='utf8')
+            # Header cua file phai import mathjax de hien thi bieu thuc
+            file_loi_giai_html.write(
+                "<!doctype html><html><head><meta charset=\"UTF-8\"><title>Lời giải của bài toán</title><link "
+                "rel='stylesheet' href='css/w3.css'><script type=\"text/javascript\" "
+                "src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script"
+                "><script src='js/loi_giai.js' charset='utf-8'></script></head><body>")
+            # Dong the
+            file_loi_giai_html.write(output.getvalue())
+            file_loi_giai_html.write("</body></html>")
+        loi_giai_html = output.getvalue()
+        # Dong file
+        output.close()
+        return loi_giai_html
 
 class HoiDap:
     """

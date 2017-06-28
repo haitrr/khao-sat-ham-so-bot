@@ -1,13 +1,11 @@
-import hang_so
-import tuong_giao_do_thi
 import cuc_tri
-import gia_tri
-import tinh_don_dieu
-import khao_sat_ham_so
 import dao_ham
+import gia_tri
+import hang_so
+import khao_sat_ham_so
 import phuong_trinh
-import bang_bien_thien
-import do_thi_ham_so
+import tinh_don_dieu
+import tuong_giao_do_thi
 
 
 class DangToan():
@@ -28,6 +26,7 @@ class DuKien():
         self.mo_ta = mo_ta
 
 
+# TODO: them dang toan
 cac_dang_toan = [
     [
         'Cực trị',
@@ -57,15 +56,15 @@ cac_dang_toan = [
         ),
         DangToan(
             r'^tim tham so de ham so dat cuc tieu tai mot diem cho truoc$',
-            'Tìm tham số để hàm số đạt cực tieu tại một điểm cho trước',
+            'Tìm tham số để hàm số đạt cực tiểu tại một điểm cho trước',
             True,
             [hang_so.HAM_BAC_BA, hang_so.HAM_BAC_BON],
             cuc_tri.tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem,
             [('ham_so', 'hàm số'), ('bien', 'biến của hàm số'), ('tham_so', 'tham số'), ('diem', 'điểm đạt cực tiểu')]
         ),
         DangToan(
-            r'^tim tham so de ham so dat cuc tri tai mot diem cho truoc$',
-            'Tìm tham số để hàm số đạt cực trị tại một điểm cho trước',
+            r'^tim tham so de ham so dat cuc dai tai mot diem cho truoc$',
+            'Tìm tham số để hàm số đạt cực đại tại một điểm cho trước',
             True,
             [hang_so.HAM_BAC_BA, hang_so.HAM_BAC_BON],
             cuc_tri.tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem,

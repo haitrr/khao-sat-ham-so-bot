@@ -1,16 +1,16 @@
-import dao_ham
-import gioi_han
 import bang_bien_thien
-import do_thi_ham_so
-import xu_ly_chuoi
 import cuc_tri
-import tinh_xac_dinh
-import phuong_trinh
+import dao_ham
 import diem_uon
+import do_thi_ham_so
+import gioi_han
 import huong_dan_giai
+import phuong_trinh
+import tinh_xac_dinh
+import xu_ly_chuoi
 
 
-def khao_sat_ham_so(ham_so,bien):
+def khao_sat_ham_so(ham_so, bien):
     """
     Khao sat ham so va xuat loi giai
     :param ham_so: Sympy expression
@@ -21,14 +21,28 @@ def khao_sat_ham_so(ham_so,bien):
         "f({0}) = {1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so))))
     loi_giai = huong_dan_giai.LoiGiai(de_bai)
 
-    # Cac cau hoi
-    cau_hoi_1 = huong_dan_giai.HoiDap("Đầu tiên chúng ta cần làm gì ?")
-    dap_an_cau_1 = huong_dan_giai.DapAnCauHoi("Tìm tập xác định của hàm số",["xac dinh"])
-    cau_hoi_1.dap_an.append(cau_hoi_1.dap_an)
+    # -------------------------------CAU HOI------------------------------
+    cau_hoi_1 = huong_dan_giai.HoiDap("Khảo sát hàm số gồm bao nhiêu bước?")
+    dap_an_cau_1 = huong_dan_giai.DapAnCauHoi("5 bước", [("5", "nam")])
+    cau_hoi_1.dap_an.append(dap_an_cau_1)
+    loi_giai.cac_cau_hoi.append(cau_hoi_1)
 
+    cau_hoi_2 = huong_dan_giai.HoiDap("Đầu tiên chúng ta cần làm gì ?")
+    dap_an_cau_2 = huong_dan_giai.DapAnCauHoi("Tìm tập xác định của hàm số", ["xac dinh"])
+    cau_hoi_2.dap_an.append(dap_an_cau_2)
+    loi_giai.cac_cau_hoi.append(cau_hoi_2)
+
+    # ----------------------------------BAI TOAN MAU--------------------
+    ham_so_mau = sympy.sympify("x**3+3*(x**2)-4")
+    bien_mau = sympy.Symbol('x')
+
+    if ham_so_mau - ham_so != 0:
+        loi_giai.loi_giai_mau = khao_sat_ham_so(ham_so_mau, bien_mau).xuat_html()
+
+    # ---------------------------------BAI GIAI-------------------------
     # Buoc 1 : Tap xac dinh
-    buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so,bien)
-    buoc_1.ten_loi_giai='Tìm tập xác định của hàm số'
+    buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
+    buoc_1.ten_loi_giai = 'Tìm tập xác định của hàm số'
 
     # Them vao loi giai
     loi_giai.them_thao_tac(buoc_1)
@@ -36,14 +50,14 @@ def khao_sat_ham_so(ham_so,bien):
     # Buoc 2: Đạo hàm của hàm số
     buoc_2 = huong_dan_giai.LoiGiai("Tính đạo hàm và tìm nghiệm của đạo hàm hàm số")
     # Tính đạo hàm
-    buoc_2_1 = dao_ham.tinh_dao_ham_cap_1(ham_so,bien)
-    buoc_2_1.ten_loi_giai="Tính đạo hàm của hàm số"
+    buoc_2_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
+    buoc_2_1.ten_loi_giai = "Tính đạo hàm của hàm số"
     dao_ham_cap_1 = buoc_2_1.dap_an
     buoc_2.them_thao_tac(buoc_2_1)
 
     # Tìm nghiệm của đạo hàm hàm số
     buoc_2_2 = phuong_trinh.giai_phuong_trinh(dao_ham_cap_1, bien)
-    buoc_2_2.ten_loi_giai="Tìm nghiệm của phương phương trình đạo hàm"
+    buoc_2_2.ten_loi_giai = "Tìm nghiệm của phương phương trình đạo hàm"
 
     # Them vao loi giai
     buoc_2.them_thao_tac(buoc_2_2)
@@ -141,4 +155,4 @@ if __name__ == '__main__':
     hs = sympy.sympify("x^3+3*x^2-4", evaluate=False)
     b = sympy.Symbol('x')
     khao_sat_ham_so(
-        hs,b).xuat_html("loi_giai.html")
+        hs, b).xuat_html("loi_giai.html")

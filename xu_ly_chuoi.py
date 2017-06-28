@@ -1,8 +1,10 @@
-import sympy
-from latex2sympy.process_latex import process_sympy
 import re
+
 import regex
+import sympy
+
 import hang_so
+from latex2sympy.process_latex import process_sympy
 
 
 def boc_mathjax(chuoi_latex):
@@ -40,6 +42,7 @@ mau_thay = {
 
 
 def chuyen_thanh_khong_dau_thuong(tin_nhan):
+    # todo tao doc
     kq = tin_nhan.lower()
     for mau, thay in mau_thay.items():
         kq = re.sub(mau, thay, kq)
@@ -49,6 +52,7 @@ def chuyen_thanh_khong_dau_thuong(tin_nhan):
 
 
 def chuyen_latex_thanh_sympy(bieu_thuc):
+    # todo: tao doc
     try:
         return xet_tap_hop(bieu_thuc)
     except:
@@ -58,13 +62,14 @@ def chuyen_latex_thanh_sympy(bieu_thuc):
     except:
         pass
     while "\\left" in bieu_thuc:
-        bieu_thuc=bieu_thuc.replace("\\left","")
+        bieu_thuc = bieu_thuc.replace("\\left", "")
     while "\\right" in bieu_thuc:
-        bieu_thuc=bieu_thuc.replace("\\right","")
+        bieu_thuc = bieu_thuc.replace("\\right", "")
     return sympy.sympify(process_sympy(bieu_thuc))
 
 
 def latex_thanh_sympy(bieu_thuc):
+    # todo tao doc
     return sympy.sympify(process_sympy(bieu_thuc))
 
 
@@ -77,12 +82,13 @@ def tao_anh_html(file_tam):
     return "<img src=\"{0}\">".format(hang_so.THU_MUC_TAM + file_tam)
 
 
-khop_tap_bieu_thuc = r'^\s?(?:([^;]+)\s?(?:\;\s?([^;]+)\s?)+)\s?$'
-khop_tap_hop = r'^(?:(?:\s?\\left(\(|\))\s?([^,]+)\,\s?(.*?)\\right(\)|\])\s?(?:(\\cup|\\cap)\s?\\left(\(|\))\s?([^,]+)\,\s?(.*?)\\right(\)|\])\s?)*)|(\s?\\varnothing\s?))$'
+KHOP_TAP_BIEU_THUC = r'^\s?(?:([^;]+)\s?(?:\;\s?([^;]+)\s?)+)\s?$'
+KHOP_TAP_HOP = r'^(?:(?:\s?\\left(\(|\))\s?([^,]+)\,\s?(.*?)\\right(\)|\])\s?(?:(\\cup|\\cap)\s?\\left(\(|\))\s?([^,]+)\,\s?(.*?)\\right(\)|\])\s?)*)|(\s?\\varnothing\s?))$'
 
 
 def xet_tap_hop(tin_nhan):
-    khop = regex.match(khop_tap_hop, tin_nhan)
+    # todo tao doc
+    khop = regex.match(KHOP_TAP_HOP, tin_nhan)
     if khop:
         if khop.groups()[-1] is not None:
             return sympy.EmptySet()
@@ -92,6 +98,7 @@ def xet_tap_hop(tin_nhan):
                 toan_tu = khop.captures(5)
                 du_lieu = list(zip(khop.captures(6), khop.captures(7), khop.captures(8), khop.captures(9)))
                 for i in range(len(toan_tu)):
+                    # todo sua code cung
                     if toan_tu[i] == '\cup':
                         tap_hop = tap_hop.union(tao_tap_hop(du_lieu[i]))
                     else:
@@ -100,24 +107,26 @@ def xet_tap_hop(tin_nhan):
 
     raise ValueError
 
-def tao_du_lieu_hop_chon(tap_lua_chon,tua_de):
-    du_lieu = 'mo_hop_chon{'+tua_de+"}{"
+
+def tao_du_lieu_hop_chon(tap_lua_chon, tua_de):
+    # todo tao doc
+    du_lieu = 'mo_hop_chon{' + tua_de + "}{"
     for lua_chon in tap_lua_chon:
-        if isinstance(lua_chon,list):
-            du_lieu += "("+lua_chon[0]+"::"
+        if isinstance(lua_chon, list):
+            du_lieu += "(" + lua_chon[0] + "::"
             for lc in lua_chon[1:]:
-                du_lieu+=lc+"::"
+                du_lieu += lc + "::"
             du_lieu = du_lieu[:-2] + ');'
         else:
-            du_lieu+=lua_chon+';'
-    du_lieu=du_lieu[:-1]+'}'
+            du_lieu += lua_chon + ';'
+    du_lieu = du_lieu[:-1] + '}'
     return du_lieu
 
+
 def tao_tap_hop(du_lieu):
+    # todo tao doc
     trai = True
     phai = True
-    bat_dau = None
-    ket_thuc = None
     if du_lieu[0] == '[':
         trai = False
     try:
@@ -132,11 +141,12 @@ def tao_tap_hop(du_lieu):
 
 
 def xet_nhieu_bieu_thuc(tin_nhan):
-    khop = regex.match(khop_tap_bieu_thuc, tin_nhan)
+    # todo tao doc
+    khop = regex.match(KHOP_TAP_BIEU_THUC, tin_nhan)
     if khop:
         du_lieu = khop.captures(2)
         cac_bieu_thuc = list()
-        cac_bieu_thuc.append(latex_thanh_sympy(khop.groups()[1]))
+        cac_bieu_thuc.append(latex_thanh_sympy(khop.groups()[0]))
         for bt in du_lieu:
             cac_bieu_thuc.append(latex_thanh_sympy(bt))
         return cac_bieu_thuc
@@ -144,7 +154,12 @@ def xet_nhieu_bieu_thuc(tin_nhan):
         raise ValueError
 
 
+def tao_cau_lenh_cap_nhat_loi_giai(loi_giai):
+    # todo tao doc
+    # todo code cung , can sua lai duoi dang su dung hang so
+    return "cap_nhat_loi_giai:::{lg}".format(lg=loi_giai)
+
+
 if __name__ == '__main__':
     t = xet_tap_hop('\left(2,3\\right)\cup\left(3,4\\right)\cup\left(8,16\\right)')
-    print(isinstance(sympy.EmptySet(), sympy.Set))
-    # print(regex.match(khop_tap_hop,'\left(2,3\\right]\cup\left(3,4\\right)\cup\left(8,16\\right)').captures(8))
+    print(xet_nhieu_bieu_thuc('1;2;3;-2'))

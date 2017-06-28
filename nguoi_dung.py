@@ -2,6 +2,7 @@ import de_bai
 import huong_dan_giai
 import trac_nghiem
 
+
 # Nguoi dung
 class NguoiDung:
     """
@@ -21,10 +22,13 @@ class NguoiDung:
         self.de_bai = de_bai.DeBai()
 
         # Cau hoi trac nghiem dang lam
-        self.trac_nghiem = None     # type: trac_nghiem.BaiToanTracNghiem
+        self.trac_nghiem = None  # type: trac_nghiem.BaiToanTracNghiem
+
+        # Loi giai hien tai
+        self.loi_giai_hien_tai = None  # type: huong_dan_giai.LoiGiai
 
         # Loi giai cua bai toan
-        self.loi_giai = None    # type: huong_dan_giai.LoiGiai
+        self.loi_giai = None  # type: huong_dan_giai.LoiGiai
         self.loi_huong_dan = None
 
         # Lich su chat
@@ -42,8 +46,11 @@ class NguoiDung:
         Lay buoc giai hien tai dang huong dan
         :return: huong_dan_giai.LoiGiai
         """
+        # Neu loi giai la lop cuoi return chinh no
         if self.loi_giai.lop_cuoi:
             return self.loi_giai
+
+        # Neu qua trinh giai chua bat dau thi khoi tao tien trinh va return loi giai
         if self.tien_trinh == []:
             return self.loi_giai
         buoc_hien_tai = self.loi_giai
@@ -64,7 +71,6 @@ class NguoiDung:
 
         return buoc_hien_tai
 
-
     def xuat_ten_buoc(self):
         """
         Xuat ten buoc hien tai
@@ -78,8 +84,15 @@ class NguoiDung:
 
         ten_buoc = 'Bước '
         for lop in self.tien_trinh:
-            ten_buoc+=str(lop+1)+'.'
+            ten_buoc += str(lop + 1) + '.'
 
-        ten_buoc=ten_buoc[:-1]
-        ten_buoc+=' : '
+        ten_buoc = ten_buoc[:-1]
+        ten_buoc += ' : '
         return ten_buoc
+
+    def xuat_loi_giai_hien_tai(self):
+        """
+        Them buoc hien tai vao loi giai hien tai de hien thi tren side bar
+        :return:
+        """
+        return self.loi_giai.xuat_html_theo_tien_trinh(tien_trinh=self.tien_trinh)
