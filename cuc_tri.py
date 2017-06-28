@@ -186,11 +186,14 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung(ham_so, bien, tham_so):
             xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
             xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
     # ---------------------Cau hoi -----------------------
+    ch_1 = huong_dan_giai.HoiDap("Đầu tiên ta phải làm gì ?")
+    da_1 = huong_dan_giai.DapAn("Tìm tham số để hàm số có cực trị",["tim","co cuc tri"])
+    gy_1 = "Để có cực trị năm ở hai phía trục hoành , thì ta phải có gì trước?"
 
-
+    loi_giai.cac_cau_hoi.append(ch_1)
 
     # --------------------Dinh ly-----------------------
-
+    
 
 
     # -------------------Bai giai ----------------------------
