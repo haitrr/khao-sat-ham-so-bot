@@ -30,6 +30,17 @@ DE_HAM_SO_CO_CUC_DAI_TAI_MOT_DIEM = DinhNghia(
     )
 )
 
+# todo: test
+DE_HAM_SO_CO_CUC_TIEU_TAI_MOT_DIEM = DinhNghia(
+    ten='Điều kiện để hàm số có cực tiểu tại một điểm',
+    noi_dung='Để hàm số {fx} có cực tiểu tại một điểm {x0} thì hàm số đạt cực trị tại {k} và {dh2k}'.format(
+        fx=xu_ly_chuoi.boc_mathjax("f(x)"),
+        x0=xu_ly_chuoi.boc_mathjax("x_0=k"),
+        k=xu_ly_chuoi.boc_mathjax("k"),
+        dh2k=xu_ly_chuoi.boc_mathjax("f''(k)<0")
+    )
+)
+
 DE_HAM_SO_DAT_CUC_TRI_TAI_MOT_DIEM = DinhNghia(
     ten='Điều kiện để hàm số có cực trị tại một điểm',
     noi_dung='Để hàm số {fx} có cực trị tại một điểm {x0} thì đạo hàm {dhk}'.format(
