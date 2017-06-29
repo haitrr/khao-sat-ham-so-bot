@@ -47,7 +47,7 @@ Cau truc dang toan
 ]
 """
 
-
+# todo: Them chuc nang khi nguoi dung nhap cau tra loi bot khong hieu
 def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
     """
     Lay cau tra loi cua bot cho mot tin nhan

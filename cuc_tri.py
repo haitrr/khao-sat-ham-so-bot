@@ -406,7 +406,7 @@ def tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem(ham_so, bien, tham_so, diem):
     loi_giai.them_thao_tac(buoc_3)
     return loi_giai
 
-
+# todo: them cau hoi , dinh nghia ,bai toan mau
 def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so, diem):
     """
     Tim tham so de ham so dat cuc dai tai mot diem
@@ -519,7 +519,7 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so, diem):
         raise ValueError
     return loi_giai
 
-
+# todo: them cau hoi , dinh nghia ,bai toan mau
 def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(ham_so, bien, tham_so, diem):
     """
     Tim tham so de ham so dat cuc tieu tai mot diem
@@ -611,7 +611,7 @@ def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(ham_so, bien, tham_so, diem)
         raise ValueError
     return loi_giai
 
-
+# todo: them dang toan
 def tim_tham_so_de_ham_so_co_dung_mot_cuc_tri(ham_so, bien, tham_so):
     loi_giai = huong_dan_giai.LoiGiai('Tìm {ts} để {hs} có đúng một cực trị')
     raise NotImplementedError
