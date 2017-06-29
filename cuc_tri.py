@@ -519,7 +519,7 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so, diem):
         raise ValueError
     return loi_giai
 
-# todo: them cau hoi , dinh nghia ,bai toan mau
+# todo: test
 def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(ham_so, bien, tham_so, diem):
     """
     Tim tham so de ham so dat cuc tieu tai mot diem
@@ -534,13 +534,25 @@ def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(ham_so, bien, tham_so, diem)
         d=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien, diem)))
     ))
     # ------------------------CAU HOI-----------------------------
+    ch1 = huong_dan_giai.HoiDap("Để biết cực trị là cực đại hay cực tiều ta cần làm gì?")
+    da1 = huong_dan_giai.DapAnCauHoi("Xét đạo hàm cấp 2", ['dao ham', ('hai', '2')])
+    ch1.dap_an.append(da1)
+    ch1.cac_goi_y.append('Xét đạo hàm ...')
+    loi_giai.cac_cau_hoi.append(ch1)
 
-
+    ch2 = huong_dan_giai.HoiDap("Để cực trị là cực tiểu thì đạo hàm cấp 2 tại điểm đó …")
+    da2 = huong_dan_giai.DapAnCauHoi("Lớn hơn 0", [('lớn hon 0', '>0')])
+    ch2.dap_an.append(da2)
+    ch2.cac_goi_y.append('Đạo hàm có nghiệm tại đó')
+    ch2.cac_goi_y.append('Quan hệ như thế nào với 0?')
+    loi_giai.cac_cau_hoi.append(ch2)
     # ---------------------DINH NGHIA------------------------------
-
+    loi_giai.cac_dinh_nghia.append(dinh_nghia.DE_HAM_SO_CO_CUC_TIEU_TAI_MOT_DIEM)
 
     # ------------------------BAI TOAN MAU------------------------------
-
+    if ham_so - hs_mau != 0:
+    loi_giai.loi_giai_mau = tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(hs_mau, bien_mau, ts_mau,
+                                                                            diem_mau).xuat_html()
 
 
     #----------------------LOI GIAI-------------------------
