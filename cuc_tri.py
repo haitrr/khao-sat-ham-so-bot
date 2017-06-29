@@ -196,7 +196,7 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung(ham_so, bien, tham_so):
     loi_giai.cac_cau_hoi.append(ch_1)
 
     # --------------------Dinh ly-----------------------
-    loi_giai.cac_dinh_nghia.append(DE_HAM_SO_CO_CUC_TRI_NAM_O_HAI_PHIA_TRUC_TUNG)
+    loi_giai.cac_dinh_nghia.append(dinh_nghia.DE_HAM_SO_CO_CUC_TRI_NAM_O_HAI_PHIA_TRUC_TUNG)
 
 
     #--------------------------Bai toan mau----------------------
@@ -267,7 +267,7 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_hoanh(ham_so, bien, tham_so):
     loi_giai.cac_cau_hoi.append(ch_1)
 
     #----------------------------DINH NGHIA-----------------------
-    loi_giai.cac_dinh_nghia.append(DE_HAM_SO_CO_CUC_TRI_NAM_O_HAI_PHIA_TRUC_HOANH)
+    loi_giai.cac_dinh_nghia.append(dinh_nghia.DE_HAM_SO_CO_CUC_TRI_NAM_O_HAI_PHIA_TRUC_HOANH)
 
     #-----------------------------BAI TOAN MAU---------------------
     hs_mau = sympy.sympify("x^3 - 3*m**2*x-2*m")
