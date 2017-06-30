@@ -47,7 +47,8 @@ Cau truc dang toan
 ]
 """
 
-# todo: Them chuc nang khi nguoi dung nhap cau tra loi bot khong hieu
+
+# todo: Test chuc nang khi nguoi dung nhap cau tra loi bot khong hieu
 def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
     """
     Lay cau tra loi cua bot cho mot tin nhan
@@ -186,7 +187,10 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
                 buoc_hien_tai = nguoi_dung_gui.lay_buoc_hien_tai()
                 buoc_hien_tai.da_cho_mau = True
                 return huong_dan(nguoi_dung_gui)
-        return dua_ra_bai_toan_mau(nguoi_dung_gui)
+        for kh in hang_so.CauTraLoi.KHONG_BIET_HIEU:
+            if re.match(kh, tin_nhan):
+                return dua_ra_bai_toan_mau(nguoi_dung_gui)
+        return "Xin lỗi , mình không hiểu ý của bạn, bạn có thể trả lời 'Hiểu rồi' hoặc 'Chưa hiểu'"
 
     # Cho xac nhan xem xong bai toan mau
     elif nguoi_dung_gui.cho == hang_so.TrangThai.MAU_OK:
@@ -398,13 +402,16 @@ def xu_ly_biet_lam(nguoi_dung_gui, tra_loi):
             # Thong bao
             cau_tra_loi += huong_dan(nguoi_dung_gui)
             return cau_tra_loi
-    # Danh dau can huong dan
-    buoc_hien_tai.can_huong_dan = True
+    for cb in hang_so.CauTraLoi.KHONG_BIET_HIEU:
+        if re.match(cb, tra_loi):
+            # Danh dau can huong dan
+            buoc_hien_tai.can_huong_dan = True
 
-    # Thong bao
-    cau_tra_loi += huong_dan(nguoi_dung_gui)
-    return cau_tra_loi
+            # Thong bao
+            cau_tra_loi += huong_dan(nguoi_dung_gui)
+            return cau_tra_loi
 
+    return "Xin lỗi, mình không hiểu ý của bạn, bạn có thể nhập 'Chưa',hoặc 'Biết rồi'"
 
 def hien_het(nguoi_dung_gui):
     nguoi_dung_gui.cho = 'ham_so'
