@@ -325,7 +325,7 @@ def huong_dan(nguoi_dung_gui):
             cau_tra_loi.append("{b}{tb}".format(b=nguoi_dung_gui.xuat_ten_buoc(), tb=buoc_hien_tai.ten_loi_giai))
 
             # Hoi xem hoc sinh da biet dang toan nay chua
-            cau_tra_loi.append('Bạn đã biết làm dạng toán nào chưa ?')
+            cau_tra_loi.append('Bạn đã biết làm dạng toán này chưa ?')
 
             # Doi sang ban phim chu
             cau_tra_loi.append(hang_so.BanPhim.BAN_PHIM_CHU)
