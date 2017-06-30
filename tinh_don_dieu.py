@@ -9,13 +9,22 @@ import phuong_trinh_bac_2
 import huong_dan_giai
 import hang_so
 
-
+# todo: hoan thanh
 def tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
     # De bai
     loi_giai = huong_dan_giai.LoiGiai("Tìm {0} để hàm số {1} đồng biến trên tập xác định".format(
         xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
         xu_ly_chuoi.boc_mathjax("f({0})={1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so)))))
+    #----------------------CAU HOI---------------------------------
+    ch1 = huong_dan_giai.HoiDap("Hàm số đồng biến tại một điểm khi nào ?")
+    ch1.cac_goi_y.append("Giá trị của đạo hàm tại điểm đó như thế nào ?")
+    da1 = huong_dan_giai.DapAnCauHoi(("Đạo hàm có giá trị dương tại điểm đó!",[('dao ham',"f'"),('duong','lon hon 0','>0','> 0')))
+    ch1.dap_an.append(ch1)
 
+    #---------------------DINH NGHIA----------------------------
+    
+
+    #-------------------LOI GIAI--------------------------
     # Buoc 1 tim tap xac dinh
     buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so,bien)
     buoc_1.ten_loi_giai='Tìm tập xác định của hàm số'

@@ -71,3 +71,13 @@ DE_HAM_SO_CO_CUC_TRI_NAM_O_HAI_PHIA_TRUC_HOANH = DinhNghia(
         dk=xu_ly_chuoi.boc_mathjax('y_1 y_2<0')
     )
 )
+
+# todo: Test
+# todo: hoan thanh
+DE_HAM_SO_DONG_BIEN_TREN_TAP_XAC_DINH = DinhNghia(
+    ten = "Điều kiện để hàm số đồng biến trên tập xác định",
+    noi_dung = "Để hàm số {hs} đồng biến trên tập xác định thì {dkdh}".format(
+        hs=xu_ly_chuoi.boc_mathjax('f(x)').
+        dkdh = xu_ly_chuoi.boc_mathjax('')
+    )
+)
