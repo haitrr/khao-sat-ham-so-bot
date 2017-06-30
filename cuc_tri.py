@@ -185,12 +185,12 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung(ham_so, bien, tham_so):
         "Tìm {0} để {1} có cực trị nằm ở hai phía của trục tung".format(
             xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
             xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
-    
+
     # todo: Chua test
     # ---------------------Cau hoi -----------------------
     # todo: Can bo sung them cau hoi (neu co)
     ch_1 = huong_dan_giai.HoiDap("Đầu tiên ta phải làm gì ?")
-    da_1 = huong_dan_giai.DapAn("Tìm tham số để hàm số có cực trị",["tim","co cuc tri"])
+    da_1 = huong_dan_giai.DapAn("Tìm tham số để hàm số có cực trị", ["tim", "co cuc tri"])
     gy_1 = "Để có cực trị năm ở hai phía trục hoành , thì ta phải có gì trước?"
 
     loi_giai.cac_cau_hoi.append(ch_1)
@@ -198,8 +198,7 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung(ham_so, bien, tham_so):
     # --------------------Dinh ly-----------------------
     loi_giai.cac_dinh_nghia.append(dinh_nghia.DE_HAM_SO_CO_CUC_TRI_NAM_O_HAI_PHIA_TRUC_TUNG)
 
-
-    #--------------------------Bai toan mau----------------------
+    # --------------------------Bai toan mau----------------------
     # todo: Can kiem tra lai xem mau nay duoc khong
     hs_mau = sympy.sympify("x^3 - 3*m**2*x-2*m")
     bien_mau = sympy.Symbol('x')
@@ -257,19 +256,19 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_hoanh(ham_so, bien, tham_so):
             xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
             xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f))))
 
-    #todo: Test
-    #---------------------------CAU HOI------------------------------
+    # todo: Test
+    # ---------------------------CAU HOI------------------------------
     # todo: them cau hoi
     ch_1 = huong_dan_giai.HoiDap("Đầu tiên ta phải làm gì ?")
-    da_1 = huong_dan_giai.DapAn("Tìm tham số để hàm số có cực trị",["tim","co cuc tri"])
+    da_1 = huong_dan_giai.DapAn("Tìm tham số để hàm số có cực trị", ["tim", "co cuc tri"])
     gy_1 = "Để có cực trị năm ở hai phía trục hoành , thì ta phải có gì trước?"
 
     loi_giai.cac_cau_hoi.append(ch_1)
 
-    #----------------------------DINH NGHIA-----------------------
+    # ----------------------------DINH NGHIA-----------------------
     loi_giai.cac_dinh_nghia.append(dinh_nghia.DE_HAM_SO_CO_CUC_TRI_NAM_O_HAI_PHIA_TRUC_HOANH)
 
-    #-----------------------------BAI TOAN MAU---------------------
+    # -----------------------------BAI TOAN MAU---------------------
     hs_mau = sympy.sympify("x^3 - 3*m**2*x-2*m")
     bien_mau = sympy.Symbol('x')
     ts_mau = sympy.Symbol('m')
@@ -406,6 +405,7 @@ def tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem(ham_so, bien, tham_so, diem):
     loi_giai.them_thao_tac(buoc_3)
     return loi_giai
 
+
 # todo: them cau hoi , dinh nghia ,bai toan mau
 def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so, diem):
     """
@@ -519,6 +519,7 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so, diem):
         raise ValueError
     return loi_giai
 
+
 # todo: test
 def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(ham_so, bien, tham_so, diem):
     """
@@ -550,12 +551,16 @@ def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(ham_so, bien, tham_so, diem)
     loi_giai.cac_dinh_nghia.append(dinh_nghia.DE_HAM_SO_CO_CUC_TIEU_TAI_MOT_DIEM)
 
     # ------------------------BAI TOAN MAU------------------------------
+    hs_mau = sympy.sympify("x^3 + m*x + 2")
+    bien_mau = sympy.Symbol('x')
+    ts_mau = sympy.Symbol('m')
+    diem_mau = 1
+
     if ham_so - hs_mau != 0:
-    loi_giai.loi_giai_mau = tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(hs_mau, bien_mau, ts_mau,
-                                                                            diem_mau).xuat_html()
+        loi_giai.loi_giai_mau = tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(hs_mau, bien_mau, ts_mau,
+                                                                                diem_mau).xuat_html()
 
-
-    #----------------------LOI GIAI-------------------------
+    # ----------------------LOI GIAI-------------------------
     buoc_1 = tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem(ham_so, bien, tham_so, diem)
     buoc_1.ten_loi_giai = 'Tìm {ts} để hàm số có cực trị tại {d}'.format(
         ts=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
@@ -622,6 +627,7 @@ def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(ham_so, bien, tham_so, diem)
     else:
         raise ValueError
     return loi_giai
+
 
 # todo: them dang toan
 def tim_tham_so_de_ham_so_co_dung_mot_cuc_tri(ham_so, bien, tham_so):
