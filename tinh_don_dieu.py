@@ -68,12 +68,33 @@ def tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
     return loi_giai
 
 
+# todo: Test
 def tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
     # De bai
     loi_giai = huong_dan_giai.LoiGiai("Tìm {0} để hàm số {1} nghịch biến trên tập xác định".format(
         xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
         xu_ly_chuoi.boc_mathjax("f({0})={1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so)))))
+    # --------------------------CAU HOI--------------------------
+    ch1 = huong_dan_giai.HoiDap('Để hàm số nghịch biến trên tập xác định thì giá trị đạo hàm như thế nào?')
+    ch1.cac_goi_y.append('Lớn hơn hay nhỏ hơn 0')
+    da1 = huong_dan_giai.DapAnCauHoi('Nhỏ hơn hoặc bằng 0', ['nho hon', 'bang', ('khong', 0)])
+    da2 = huong_dan_giai.DapAnCauHoi('<=0', ['<=0'])
+    ch1.dap_an.append(da1)
+    ch1.dap_an.append(da2)
+    loi_giai.cac_cau_hoi.append(ch1)
 
+    # --------------------------DINH NGHIA------------------------
+    loi_giai.cac_dinh_nghia.append(dinh_nghia.DE_HAM_SO_NGHICH_BIEN_TREN_TAP_XAC_DINH)
+
+    # ----------------------------MAU------------------------------
+    hs_mau = sympy.sympify("x^3 + 3*m*x^2 + m*x + m")
+    ts_mau = sympy.Symbol('m')
+    bien_mau = sympy.Symbol('x')
+
+    if ham_so - hs_mau != 0:
+        loi_giai.loi_giai_mau = tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh(hs_mau, bien_mau, ts_mau).xuat_html()
+
+    #--------------------------------LOI GIAI---------------------------
     # Buoc 1 tim tap xac dinh
     buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
     buoc_1.ten_loi_giai = 'Tìm tập xác định của hàm số'
@@ -108,6 +129,7 @@ def tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
     return loi_giai
 
 
+# todo: hoan thanh
 def tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k(ham_so, bien, tham_so, do_dai_khoang):
     # De bai
     loi_giai = huong_dan_giai.LoiGiai("Tìm {0} để hàm số {1} đơn điệu trên khoảng có độ dài {do_dai}".format(
