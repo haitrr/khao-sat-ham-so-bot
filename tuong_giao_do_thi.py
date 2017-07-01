@@ -1,14 +1,14 @@
+import bat_dang_thuc
+import dao_ham
+import huong_dan_giai
 import ky_hieu_latex
 import phuong_trinh
-import dao_ham
-import xu_ly_chuoi
-import bat_dang_thuc
 import phuong_trinh_bac_2
-import huong_dan_giai
-import hang_so
 import tap_hop
+import xu_ly_chuoi
 
 
+# todo: hoan thanh
 def tim_toa_do_giao_diem_voi_duong_thang(ham_so, bien, duong_thang):
     loi_giai = huong_dan_giai.LoiGiai('Tìm tọa độ giao điểm của đồ thị hàm số {0} với đường thẳng {1}'.format(
         xu_ly_chuoi.boc_mathjax("f({0})={1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so))),
@@ -112,6 +112,7 @@ def tim_toa_do_giao_diem_voi_duong_thang(ham_so, bien, duong_thang):
     return loi_giai
 
 
+# todo:hoan thanh
 def tim_tham_so_de_ham_so_cat_truc_hoanh_tai_1_diem_duy_nhat(ham_so, bien, tham_so):
     # Tao loi giai
     loi_giai = huong_dan_giai.LoiGiai("Tim {0} để đồ thị hàm số {1} cắt trục hoành tại một điểm duy nhất".format(
@@ -226,6 +227,7 @@ def tim_tham_so_de_ham_so_cat_truc_hoanh_tai_1_diem_duy_nhat(ham_so, bien, tham_
     return loi_giai
 
 
+#todo: hoan thanh
 def viet_phuong_trinh_tiep_voi_do_thi_ham_so_tai_mot_diem(ham_so, bien, diem):
     """
     Viet phuong trinh tiep tuyen voi do thi ham so tai mot diem
@@ -285,6 +287,7 @@ def viet_phuong_trinh_tiep_voi_do_thi_ham_so_tai_mot_diem(ham_so, bien, diem):
     return loi_giai
 
 
+#todo:hoan thanh
 def viet_phuong_trinh_tiep_tuyen_voi_do_thi_co_he_so_goc(ham_so, bien, he_so_goc):
     """
     Viet phuong trinh tiep tuyen voi do thi ham so co he so goc biet truoc
@@ -363,6 +366,8 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_co_he_so_goc(ham_so, bien, he_so_goc
     loi_giai.dap_an = buoc_4.dap_an
     return loi_giai
 
+
+#todo:hoan thanh
 def viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(ham_so,bien,diem):
     """
     Tim tiep tuyen voi do thi ham so di qua mot diem cho truoc
