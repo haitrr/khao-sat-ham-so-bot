@@ -112,3 +112,16 @@ GIAO_DIEM_CUA_DO_THI_HAM_SO_VOI_DUONG_THANG = DinhNghia(
         hs=xu_ly_chuoi.boc_mathjax("f(x)"),
         dt=xu_ly_chuoi.boc_mathjax("d"),
         pt=xu_ly_chuoi.boc_mathjax("f(x)=d")))
+
+# todo: test
+DE_DO_THI_HAM_SO_CAT_TRUC_HOANH_TAI_MOT_DIEM_DUY_NHAT = DinhNghia(
+    ten="Điều kiện để đồ thị hàm số cắt trục hoành tại một điểm duy nhất",
+    noi_dung="{th1}<br>{th2}".format(
+        th1="Trường hợp 1:<br>{nd}".format(
+            nd="Hàm số không có cực trị"
+        ),
+        th2="Trường hợp 2:<br>{nd}".format(
+            nd="Hàm số có hai cực trị nằm ở hai phía của trục hoành"
+        )
+    )
+)
