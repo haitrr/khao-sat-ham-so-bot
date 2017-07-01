@@ -94,7 +94,7 @@ def tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
     if ham_so - hs_mau != 0:
         loi_giai.loi_giai_mau = tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh(hs_mau, bien_mau, ts_mau).xuat_html()
 
-    #--------------------------------LOI GIAI---------------------------
+    # --------------------------------LOI GIAI---------------------------
     # Buoc 1 tim tap xac dinh
     buoc_1 = tinh_xac_dinh.tim_tap_xac_dinh(ham_so, bien)
     buoc_1.ten_loi_giai = 'Tìm tập xác định của hàm số'
@@ -129,14 +129,36 @@ def tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
     return loi_giai
 
 
-# todo: hoan thanh
-def tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k(ham_so, bien, tham_so, do_dai_khoang):
+# todo: test
+def tim_tham_so_de_ham_so_don_dieu_tren_1_khoang_co_do_dai_k(ham_so, bien, tham_so, do_dai_khoang):
     # De bai
     loi_giai = huong_dan_giai.LoiGiai("Tìm {0} để hàm số {1} đơn điệu trên khoảng có độ dài {do_dai}".format(
         xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
         xu_ly_chuoi.boc_mathjax("f({0})={1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so))),
         do_dai=str(do_dai_khoang)))
 
+    # ------------------------------------------CAU HOI----------------------
+    ch1 = huong_dan_giai.HoiDap('Để làm được bài này ta sử dụng định lý nào đã học ?')
+    ch1.cac_goi_y.append('Định nghĩa liên quan đến nghiệm của phương trình bậc 2')
+    da = huong_dan_giai.DapAnCauHoi('Định lý Vi-et', [('vi-et', 'vi et')])
+    ch1.dap_an.append(da)
+    loi_giai.cac_cau_hoi.append(ch1)
+
+    # -------------------------DINH NGHIA--------------------------------
+    loi_giai.cac_dinh_nghia.append(dinh_nghia.DE_HAM_SO_DON_DIEU_TREN_MOT_KHOANG_CO_DO_DAI_CHO_TRUOC)
+    loi_giai.cac_dinh_nghia.append(dinh_nghia.DINH_LY_VI_ET)
+
+    # ------------------------------MAU------------------------------
+    hs_mau = sympy.sympify("x^3 + 3*m*x^2 + m*x + m")
+    ts_mau = sympy.Symbol('m')
+    bien_mau = sympy.Symbol('x')
+    khoang_mau = 1
+
+    if ham_so - hs_mau != 0:
+        loi_giai.loi_giai_mau = tim_tham_so_de_ham_so_don_dieu_tren_1_khoang_co_do_dai_k(hs_mau, bien_mau, ts_mau,
+                                                                                         khoang_mau).xuat_html()
+
+    # ----------------------------------LOI GIAI-----------------------------
     # Buoc 1 : Tim dao ham
     buoc_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
     buoc_1.ten_loi_giai = 'Tìm đạo hàm của hàm số'
@@ -237,12 +259,12 @@ if __name__ == '__main__':
         tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(hs, b, ts).xuat_html('loi_giai.html')
 
 
-    def tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k_test():
+    def tim_tham_so_de_ham_so_don_dieu_tren_1_khoang_co_do_dai_k_test():
         hs = sympy.sympify("x^3+3*x^2+m*x+m")
         k = 1
-        tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k(hs, b, ts, k).xuat_html('loi_giai.html')
+        tim_tham_so_de_ham_so_don_dieu_tren_1_khoang_co_do_dai_k(hs, b, ts, k).xuat_html('loi_giai.html')
 
 
     # tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh_test()
     # tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh_test()
-    tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k_test()
+    tim_tham_so_de_ham_so_don_dieu_tren_1_khoang_co_do_dai_k_test()
