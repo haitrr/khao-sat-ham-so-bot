@@ -124,7 +124,7 @@ cac_dang_toan = [
             'Tìm tham số để hàm số đơn điệu trên một khoảng có độ dài cho trước',
             True,
             [hang_so.HAM_BAC_BA],
-            tinh_don_dieu.tim_tham_so_de_ham_so_don_tren_1_khoang_co_do_dai_k,
+            tinh_don_dieu.tim_tham_so_de_ham_so_don_dieu_tren_1_khoang_co_do_dai_k,
             [('ham_so', 'hàm số'), ('bien', 'biến của hàm số'), ('tham_so', 'tham số'),
              ('do_dai_khoang', 'độ dài khoảng đơn điệu')]
         ),
