@@ -101,3 +101,13 @@ DE_HAM_SO_DON_DIEU_TREN_MOT_KHOANG_CO_DO_DAI_CHO_TRUOC = DinhNghia(
         dk=xu_ly_chuoi.boc_mathjax('|x_1-x_2|=k')
     )
 )
+
+# todo: Test
+DINH_LY_VI_ET = DinhNghia(
+    ten="Định lý Vi-et",
+    noi_dung="Nếu phương trình bậc hai có hai nghiệm phân biệt {nghiem} thì {ct1} và {ct2}".format(
+        nghiem=xu_ly_chuoi.boc_mathjax("x_1,x_2"),
+        ct1=xu_ly_chuoi.boc_mathjax("x_1+x_2=\\frac{c}{a}"),
+        ct2=xu_ly_chuoi.boc_mathjax("x_1\cdot x_2=\\frac{-b}{a}")
+    )
+)
