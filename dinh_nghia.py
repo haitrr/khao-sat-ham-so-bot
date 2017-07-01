@@ -24,8 +24,7 @@ DE_HAM_SO_CO_CUC_TRI = DinhNghia(
 )
 DE_HAM_SO_CO_CUC_DAI_TAI_MOT_DIEM = DinhNghia(
     ten='Điều kiện để hàm số có cực đại tại một điểm',
-    noi_dung='Để hàm số {fx} có cực đại tại một điểm {x0} "
-    "thì hàm số đạt cực trị tại {k} và {dh2k}'.
+    noi_dung='Để hàm số {fx} có cực đại tại một điểm {x0} thì hàm số đạt cực trị tại {k} và {dh2k}'.
     format(
         fx=xu_ly_chuoi.boc_mathjax("f(x)"),
         x0=xu_ly_chuoi.boc_mathjax("x_0=k"),
