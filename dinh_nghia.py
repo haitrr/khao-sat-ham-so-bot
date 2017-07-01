@@ -89,3 +89,15 @@ DE_HAM_SO_NGHICH_BIEN_TREN_TAP_XAC_DINH = DinhNghia(
         dkdh=xu_ly_chuoi.boc_mathjax("f'(x)<=0 \\forall x\in\mathbb{R}")
     )
 )
+
+# todo: Test
+DE_HAM_SO_DON_DIEU_TREN_MOT_KHOANG_CO_DO_DAI_CHO_TRUOC = DinhNghia(
+    ten='Điều kiện để hàm số đơn điệu trên một khoảng cho trước',
+    noi_dung="Để hàm số {hs} đơn điệu trên một khoảng {k} cho trước thì {dh} có hai nghiệm phân biệt tại {x1x2} sao cho {dk}".format(
+        hs=xu_ly_chuoi.boc_mathjax("f(x)"),
+        k=xu_ly_chuoi.boc_mathjax('k'),
+        dh=xu_ly_chuoi.boc_mathjax("f'(x)"),
+        x1x2=xu_ly_chuoi.boc_mathjax("x_1,x_2"),
+        dk=xu_ly_chuoi.boc_mathjax('|x_1-x_2|=k')
+    )
+)
