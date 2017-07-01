@@ -80,3 +80,12 @@ DE_HAM_SO_DONG_BIEN_TREN_TAP_XAC_DINH = DinhNghia(
         dkdh=xu_ly_chuoi.boc_mathjax("f'(x)>=0 \\forall x\in\mathbb{R}")
     )
 )
+
+# todo: Test
+DE_HAM_SO_NGHICH_BIEN_TREN_TAP_XAC_DINH = DinhNghia(
+    ten="Điều kiện để hàm số nghịch biến biến trên tập xác định",
+    noi_dung="Để hàm số {hs} nghịch biến trên tập xác định thì {dkdh}".format(
+        hs=xu_ly_chuoi.boc_mathjax('f(x)'),
+        dkdh=xu_ly_chuoi.boc_mathjax("f'(x)<=0 \\forall x\in\mathbb{R}")
+    )
+)
