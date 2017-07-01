@@ -92,7 +92,8 @@ def tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
     bien_mau = sympy.Symbol('x')
 
     if ham_so - hs_mau != 0:
-        loi_giai.loi_giai_mau = tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh(hs_mau, bien_mau, ts_mau).xuat_html()
+        loi_giai.loi_giai_mau = tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh(hs_mau, bien_mau,
+                                                                                    ts_mau).xuat_html()
 
     # --------------------------------LOI GIAI---------------------------
     # Buoc 1 tim tap xac dinh
