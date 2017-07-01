@@ -5,6 +5,7 @@ import xu_ly_chuoi
 
 
 class DinhNghia:
+
     def __init__(self, ten, noi_dung):
         self.ten = ten
         self.noi_dung = noi_dung
@@ -43,7 +44,8 @@ DE_HAM_SO_CO_CUC_TIEU_TAI_MOT_DIEM = DinhNghia(
 
 DE_HAM_SO_DAT_CUC_TRI_TAI_MOT_DIEM = DinhNghia(
     ten='Điều kiện để hàm số có cực trị tại một điểm',
-    noi_dung='Để hàm số {fx} có cực trị tại một điểm {x0} thì đạo hàm {dhk}'.format(
+    noi_dung='Để hàm số {fx} có cực trị tại một điểm {x0} thì đạo hàm {dhk}'
+    .format(
         fx=xu_ly_chuoi.boc_mathjax("f(x)"),
         x0=xu_ly_chuoi.boc_mathjax("x_0=k"),
         dhk=xu_ly_chuoi.boc_mathjax("f'(k)=0")
@@ -109,5 +111,15 @@ DINH_LY_VI_ET = DinhNghia(
         nghiem=xu_ly_chuoi.boc_mathjax("x_1,x_2"),
         ct1=xu_ly_chuoi.boc_mathjax("x_1+x_2=\\frac{c}{a}"),
         ct2=xu_ly_chuoi.boc_mathjax("x_1\cdot x_2=\\frac{-b}{a}")
+    )
+)
+
+# todo: Test
+GIAO_DIEM_CUA_DO_THI_HAM_SO_VOI_DUONG_THANG = DinhNghia(
+    ten="Giao điểm của đồ thị hàm số với một đường thẳng",
+    noi_dung="Giao điểm của đồ thị hàm số {hs} với đường thẳng {dt} là nghiệm của phương trình hoành độ giao điểm {pt}".format(
+        hs=xu_ly_chuoi.boc_mathjax("f(x)"),
+        dt=xu_ly_chuoi.boc_mathjax("d"),
+        pt=xu_ly_chuoi.boc_mathjax("f(x)=d")
     )
 )
