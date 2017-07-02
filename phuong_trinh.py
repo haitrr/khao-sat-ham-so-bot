@@ -72,12 +72,12 @@ def loai_ham_so(ham_so, bien=None):
             tu = lay_tu_so(ham_so)
             dang_mau = loai_ham_so(mau, bien)
             dang_tu = loai_ham_so(tu, bien)
-            if dang_tu == hang_so.HAM_BAC_HAI and dang_mau == hang_so.HAM_BAC_NHAT:
-                return hang_so.HAM_HUU_TY
-            elif dang_tu == hang_so.HAM_BAC_NHAT and dang_mau == hang_so.HAM_BAC_NHAT:
-                return hang_so.HAM_NHAT_BIEN
+            if dang_tu == hang_so.LoaiHamSo.HAM_BAC_HAI and dang_mau == hang_so.LoaiHamSo.HAM_BAC_NHAT:
+                return hang_so.LoaiHamSo.HAM_HUU_TY
+            elif dang_tu == hang_so.LoaiHamSo.HAM_BAC_NHAT and dang_mau == hang_so.LoaiHamSo.HAM_BAC_NHAT:
+                return hang_so.LoaiHamSo.HAM_NHAT_BIEN
             else:
-                return hang_so.HAM_PHAN_THUC
+                return hang_so.LoaiHamSo.HAM_PHAN_THUC
         else:
             try:
                 ham_so = sympy.Poly(ham_so, bien)
@@ -86,15 +86,15 @@ def loai_ham_so(ham_so, bien=None):
             he_so = ham_so.all_coeffs()
             if len(he_so) == 5:
                 if he_so[1] == 0 and he_so[3] == 0:
-                    return hang_so.HAM_BAC_BON_TRUNG_PHUONG
+                    return hang_so.LoaiHamSo.HAM_BAC_BON_TRUNG_PHUONG
                 else:
-                    return hang_so.HAM_BAC_BON
+                    return hang_so.LoaiHamSo.HAM_BAC_BON
             elif len(he_so) == 4:
-                return hang_so.HAM_BAC_BA
+                return hang_so.LoaiHamSo.HAM_BAC_BA
             elif len(he_so) == 3:
-                return hang_so.HAM_BAC_HAI
+                return hang_so.LoaiHamSo.HAM_BAC_HAI
             elif len(he_so) == 2:
-                return hang_so.HAM_BAC_NHAT
+                return hang_so.LoaiHamSo.HAM_BAC_NHAT
             else:
                 raise ValueError
     elif len(cac_bien) == 2:
