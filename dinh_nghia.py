@@ -5,7 +5,6 @@ import xu_ly_chuoi
 
 
 class DinhNghia:
-
     def __init__(self, ten, noi_dung):
         self.ten = ten
         self.noi_dung = noi_dung
@@ -19,9 +18,7 @@ DE_HAM_SO_CO_CUC_TRI = DinhNghia(
     noi_dung="Để hàm số {hs} có cực trị thì phương trình {dh} có hai nghiệm phân biệt".
     format(
         hs=xu_ly_chuoi.boc_mathjax("f(x)"),
-        dh=xu_ly_chuoi.boc_mathjax("f'(x)=0")
-    )
-)
+        dh=xu_ly_chuoi.boc_mathjax("f'(x)=0")))
 DE_HAM_SO_CO_CUC_DAI_TAI_MOT_DIEM = DinhNghia(
     ten='Điều kiện để hàm số có cực đại tại một điểm',
     noi_dung='Để hàm số {fx} có cực đại tại một điểm {x0} thì hàm số đạt cực trị tại {k} và {dh2k}'.
@@ -116,11 +113,19 @@ GIAO_DIEM_CUA_DO_THI_HAM_SO_VOI_DUONG_THANG = DinhNghia(
 DE_DO_THI_HAM_SO_CAT_TRUC_HOANH_TAI_MOT_DIEM_DUY_NHAT = DinhNghia(
     ten="Điều kiện để đồ thị hàm số cắt trục hoành tại một điểm duy nhất",
     noi_dung="{th1}<br>{th2}".format(
-        th1="Trường hợp 1:<br>{nd}".format(
-            nd="Hàm số không có cực trị"
-        ),
+        th1="Trường hợp 1:<br>{nd}".format(nd="Hàm số không có cực trị"),
         th2="Trường hợp 2:<br>{nd}".format(
-            nd="Hàm số có hai cực trị nằm ở hai phía của trục hoành"
-        )
-    )
-)
+            nd="Hàm số có hai cực trị nằm ở hai phía của trục hoành")))
+
+# todo: test
+'''
+Định nghĩa về dạng của phương trình tiếp tuyến của đồ thị
+hàm số tại một điểm cho trước
+'''
+PHUONG_TRINH_TIEP_TUYEN_TAI_MOT_DIEM_CHO_TRUOC = DinhNghia(
+    ten="Dạng của phương trình tiếp tuyến",
+    noi_dung="Phương trình đường tiếp tuyến với đồ thị hàm số {hs} tại điểm {d} là {pt}".
+    format(
+        hs=xu_ly_chuoi.boc_mathjax("f(x)"),
+        d=xu_ly_chuoi.boc_mathjax("x_0"),
+        pt=xu_ly_chuoi.boc_mathjax("f'(x_0)(x-x_0)+f(x_0)")))
