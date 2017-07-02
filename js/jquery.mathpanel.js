@@ -602,7 +602,7 @@
                         icon: '&#8614;'
                     }
                 ]
-            },
+            },/*
             numbersets: {
                 name: 'numbersets',
                 weight: 30,
@@ -651,7 +651,7 @@
                         icon: '&#8473;'
                     }
                 ]
-            },
+            },*/
             greeks: {
                 name: 'greeks',
                 weight: 40,
