@@ -136,7 +136,8 @@ cac_dang_toan = [
             "Viết phương trình tiếp tuyến với đồ thị hàm số tại một điểm cho trước",
             False,
             hang_so.LoaiHamSo.HAM_DA_THUC+hang_so.LoaiHamSo.HAM_PHAN_THUC,
-            tuong_giao_do_thi.viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_tai_mot_diem({{}})
+            tuong_giao_do_thi.viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_tai_mot_diem,
+            [('ham_so', 'hàm số'), ('bien', 'biến của hàm số'),('diem', 'tiếp điểm')]
         ),
         DangToan(
             r'^viet phuong trinh tiep tuyen voi do thi ham so co he so goc cho truoc$',
