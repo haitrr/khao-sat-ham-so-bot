@@ -11,6 +11,14 @@ import dinh_nghia
 
 # todo: test
 def tim_toa_do_giao_diem_voi_duong_thang(ham_so, bien, duong_thang):
+    """
+    Tìm tọa độ giao điểm của hàm số với một đường
+    thẳng
+
+    Cần: một hàm số, biến và một đường thẳng
+    
+    Loại hàm số hỗ trợ: Hàm gì cũng được
+    """
     loi_giai = huong_dan_giai.LoiGiai(
         'Tìm tọa độ giao điểm của đồ thị hàm số {0} với đường thẳng {1}'.
         format(
@@ -172,6 +180,15 @@ def tim_toa_do_giao_diem_voi_duong_thang(ham_so, bien, duong_thang):
 # todo: test
 def tim_tham_so_de_ham_so_cat_truc_hoanh_tai_1_diem_duy_nhat(ham_so, bien,
                                                              tham_so):
+    """
+    Tạo lời giải hướng dẫn cho dạng toán:
+
+    Tìm tham số để hàm số cắt trục hoành tại một điểm duy nhất
+
+    Cần: một hàm số, biến và tham số của hàm số
+
+    Loại hàm số hỗ trợ: Hàm bậc 3
+    """
     # Tao loi giai
     loi_giai = huong_dan_giai.LoiGiai(
         "Tim {0} để đồ thị hàm số {1} cắt trục hoành tại một điểm duy nhất".
@@ -340,9 +357,9 @@ def viet_phuong_trinh_tiep_voi_do_thi_ham_so_tai_mot_diem(ham_so, bien, diem):
     """
     Viet phuong trinh tiep tuyen voi do thi ham so tai mot diem
     :param ham_so: ham so
-    :param bien: bien 
+    :param bien: bien
     :param diem: hoanh do cua diem
-    :return: 
+    :return:
     """
     ham_f = phuong_trinh.tao_ham('f', ham_so, bien)
     loi_giai = huong_dan_giai.LoiGiai(
