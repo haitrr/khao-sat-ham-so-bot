@@ -8,7 +8,7 @@ import huong_dan_giai
 import phuong_trinh
 import tinh_xac_dinh
 import xu_ly_chuoi
-
+import sympy
 
 def khao_sat_ham_so(ham_so, bien):
     """
