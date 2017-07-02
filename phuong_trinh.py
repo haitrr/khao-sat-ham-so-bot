@@ -15,14 +15,15 @@ def rut_gon(ham_so):
 
 def rut_gon_bieu_thuc(ham_so, **kwargs):
     loi_giai = huong_dan_giai.LoiGiai("Rút gọn biểu thức {bt}".format(
-        bt=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
-    ))
+        bt=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))))
     if str(rut_gon(ham_so)) == str(ham_so):
         loi_giai.them_thao_tac("Hàm số đã tối giản")
         return loi_giai
-    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so)))
     loi_giai.them_thao_tac(
-        xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(rut_gon(ham_so))))
+        xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so)))
+    loi_giai.them_thao_tac(
+        xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG +
+                                xu_ly_chuoi.tao_latex(rut_gon(ham_so))))
     return loi_giai
 
 
@@ -126,15 +127,17 @@ def phan_tich_thanh_nhan_tu(bieu_thuc):
 
 
 def phan_tich_thanh_nhan_tu_giai(ham_so, **kwargs):
-    loi_giai = huong_dan_giai.LoiGiai("Phân tích biểu thức {bt} thành nhân tử".format(
-        bt=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
-    ))
+    loi_giai = huong_dan_giai.LoiGiai(
+        "Phân tích biểu thức {bt} thành nhân tử".format(
+            bt=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))))
     if str(phan_tich_thanh_nhan_tu(ham_so)) == str(ham_so):
         loi_giai.them_thao_tac("Không thể phân tích thêm")
         return loi_giai
-    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so)))
     loi_giai.them_thao_tac(
-        xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(phan_tich_thanh_nhan_tu(ham_so))))
+        xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so)))
+    loi_giai.them_thao_tac(
+        xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.
+                                tao_latex(phan_tich_thanh_nhan_tu(ham_so))))
     return loi_giai
 
 
@@ -195,39 +198,45 @@ def thay_bien(ham_so, bien, thay):
             raise ValueError
         chuoi_b = ''
         for i in range(len(bien)):
-            chuoi_b += xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien[i], thay[i]))) + ','
+            chuoi_b += xu_ly_chuoi.boc_mathjax(
+                xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien[i], thay[
+                    i]))) + ','
         chuoi_b = chuoi_b[:-1]
         loi_giai = huong_dan_giai.LoiGiai('Thế {b} vào {hs}'.format(
             b=chuoi_b,
-            hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
-        ))
+            hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))))
         loi_giai.them_thao_tac('Thế {b} vào {hs} ta được:'.format(
             b=chuoi_b,
-            hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
-        ))
+            hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))))
         ham_the = ham_so
         for i in range(len(bien)):
             ham_the = the_bien(ham_the, bien[i], thay[i])
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_the)))
+        loi_giai.them_thao_tac(
+            xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_the)))
         ham_the = tach_ra(ham_the)
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(ham_the)))
+        loi_giai.them_thao_tac(
+            xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG +
+                                    xu_ly_chuoi.tao_latex(ham_the)))
         loi_giai.dap_an = ham_the
         return loi_giai
     loi_giai = huong_dan_giai.LoiGiai('Thế {b} vào {hs}'.format(
-        b=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien, thay))),
-        hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
-    ))
+        b=xu_ly_chuoi.boc_mathjax(
+            xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien, thay))),
+        hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))))
     loi_giai.them_thao_tac('Thế {b} vào {hs} ta được:'.format(
-        b=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien, thay))),
-        hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))
-    ))
+        b=xu_ly_chuoi.boc_mathjax(
+            xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien, thay))),
+        hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))))
     ham_the = the_bien(ham_so, bien, thay)
     try:
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_the)))
+        loi_giai.them_thao_tac(
+            xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_the)))
     except:
         pass
     ham_the = tach_ra(ham_the)
-    loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(ham_the)))
+    loi_giai.them_thao_tac(
+        xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG +
+                                xu_ly_chuoi.tao_latex(ham_the)))
     loi_giai.dap_an = ham_the
     return loi_giai
 
@@ -246,42 +255,53 @@ def giai_phuong_trinh(ham_so, bien):
     if isinstance(ham_so, sympy.Eq):
         pt = ham_so
         loi_giai = huong_dan_giai.LoiGiai(
-            "Giải phương trình {phuong_trinh}".format(phuong_trinh=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt))))
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt)))
+            "Giải phương trình {phuong_trinh}".format(
+                phuong_trinh=xu_ly_chuoi.boc_mathjax(
+                    xu_ly_chuoi.tao_latex(pt))))
+        loi_giai.them_thao_tac(
+            xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt)))
         pt = bat_dang_thuc.bang(pt.lhs - pt.rhs, 0)
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt)))
+        loi_giai.them_thao_tac(
+            xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG +
+                                    xu_ly_chuoi.tao_latex(pt)))
     else:
         pt = sympy.Eq(ham_so, 0)
         loi_giai = huong_dan_giai.LoiGiai(
-            "Giải phương trình {phuong_trinh}".format(phuong_trinh=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt))))
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt)))
+            "Giải phương trình {phuong_trinh}".format(
+                phuong_trinh=xu_ly_chuoi.boc_mathjax(
+                    xu_ly_chuoi.tao_latex(pt))))
+        loi_giai.them_thao_tac(
+            xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt)))
     # In ra pt
 
     # Rut gon
     pt_rut_gon = rut_gon(pt)
     if pt_rut_gon != pt:
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(
-            ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_rut_gon)))
+        loi_giai.them_thao_tac(
+            xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG +
+                                    xu_ly_chuoi.tao_latex(pt_rut_gon)))
 
     # Phan tich thanh nhan tu
     pt_da_thuc = phan_tich_thanh_nhan_tu(pt_rut_gon)
     if pt_da_thuc != pt_rut_gon:
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(
-            ky_hieu_latex.DAU_TUONG_DUONG + xu_ly_chuoi.tao_latex(pt_da_thuc)))
+        loi_giai.them_thao_tac(
+            xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG +
+                                    xu_ly_chuoi.tao_latex(pt_da_thuc)))
 
     # Tim nghiem
     nghiem_thuc = tim_nghiem_thuc(ham_so, bien)
 
     if len(nghiem_thuc) == 0:
-        loi_giai.them_thao_tac(
-            "{tuong_duong} Phương trình vô nghiệm".format(tuong_duong=xu_ly_chuoi.boc_mathjax(
+        loi_giai.them_thao_tac("{tuong_duong} Phương trình vô nghiệm".format(
+            tuong_duong=xu_ly_chuoi.boc_mathjax(
                 ky_hieu_latex.DAU_TUONG_DUONG)))
     else:
-        loi_giai.them_thao_tac(xu_ly_chuoi.boc_mathjax(
-            "{tuong_duong} {bien_cac_nghiem}".format(tuong_duong=ky_hieu_latex.DAU_TUONG_DUONG,
-                                                     bien_cac_nghiem="{bien}={cac_nghiem}".format(
-                                                         bien=xu_ly_chuoi.tao_latex(bien),
-                                                         cac_nghiem=xu_ly_chuoi.tao_ngoac_nhon(nghiem_thuc)))))
+        loi_giai.them_thao_tac(
+            xu_ly_chuoi.boc_mathjax("{tuong_duong} {bien_cac_nghiem}".format(
+                tuong_duong=ky_hieu_latex.DAU_TUONG_DUONG,
+                bien_cac_nghiem="{bien}={cac_nghiem}".format(
+                    bien=xu_ly_chuoi.tao_latex(bien),
+                    cac_nghiem=xu_ly_chuoi.tao_ngoac_nhon(nghiem_thuc)))))
 
     # Luu dap an
     loi_giai.dap_an = nghiem_thuc
