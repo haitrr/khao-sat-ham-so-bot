@@ -18,7 +18,7 @@ def tim_khong_xac_dinh(ham_so, bien):
     :return: 
     """
     # Ham da thuc,xac dinh tren R
-e    if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.LoaiHamSo.CAC_HAM_DA_THUC:
+    if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.LoaiHamSo.CAC_HAM_DA_THUC:
         return []
 
     # Ham phan thuc khong xac dinh khi mau bang 0
