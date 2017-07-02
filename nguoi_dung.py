@@ -41,6 +41,9 @@ class NguoiDung:
         self.buoc = -1
         self.cho = 'ham_so'
 
+        # so lan dap an khong hieu
+        self.tra_loi_lac_de = 0
+
     def lay_buoc_hien_tai(self):
         """ 
         Lay buoc giai hien tai dang huong dan
