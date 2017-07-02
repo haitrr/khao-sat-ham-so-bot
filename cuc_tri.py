@@ -80,7 +80,7 @@ def tim_tham_so_de_ham_so_khong_co_cuc_tri(ham_so, bien, tham_so):
 
     loi_giai.them_thao_tac(buoc_2)
 
-    if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.CAC_HAM_PHAN_THUC:
+    if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.LoaiHamSo.CAC_HAM_PHAN_THUC:
         can_xet = phuong_trinh.lay_tu_so(ham_so)
     else:
         can_xet = buoc_2.dap_an
@@ -154,7 +154,7 @@ def tim_tham_so_de_ham_so_co_cuc_tri(ham_so, bien, tham_so):
 
     loi_giai.them_thao_tac(buoc_2)
 
-    if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.HAM_DA_THUC:
+    if phuong_trinh.loai_ham_so(ham_so, bien) in hang_so.LoaiHamSo.HAM_DA_THUC:
         can_xet = phuong_trinh.lay_tu_so(ham_so)
     else:
         can_xet = buoc_2.dap_an
@@ -460,7 +460,7 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so, diem):
     loi_giai.them_thao_tac(buoc_1)
 
     # Ham bac ba hoac bac bon
-    if phuong_trinh.loai_ham_so(ham_so, bien) in [hang_so.HAM_BAC_BA, hang_so.HAM_BAC_BON]:
+    if phuong_trinh.loai_ham_so(ham_so, bien) in [hang_so.LoaiHamSo.HAM_BAC_BA, hang_so.LoaiHamSo.HAM_BAC_BON]:
 
         # Buoc 2 : Tinh dao ham cap hai
         buoc_2 = dao_ham.tinh_dao_ham_cap_2(buoc_1.cac_buoc_giai[0].dap_an, bien)
@@ -569,7 +569,7 @@ def tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem(ham_so, bien, tham_so, diem)
     loi_giai.them_thao_tac(buoc_1)
 
     # Ham bac ba hoac bac bon
-    if phuong_trinh.loai_ham_so(ham_so, bien) in [hang_so.HAM_BAC_BA, hang_so.HAM_BAC_BON]:
+    if phuong_trinh.loai_ham_so(ham_so, bien) in [hang_so.LoaiHamSo.HAM_BAC_BA, hang_so.LoaiHamSo.HAM_BAC_BON]:
 
         # Buoc 2 : Tinh dao ham cap hai
         buoc_2 = dao_ham.tinh_dao_ham_cap_2(buoc_1.cac_buoc_giai[0].dap_an, bien)
