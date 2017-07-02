@@ -43,6 +43,8 @@ mau_thay = {
 
 def chuyen_thanh_khong_dau_thuong(tin_nhan):
     # todo tao doc
+    if tin_nhan=="R":
+        return tin_nhan
     kq = tin_nhan.lower()
     for mau, thay in mau_thay.items():
         kq = re.sub(mau, thay, kq)
@@ -53,6 +55,8 @@ def chuyen_thanh_khong_dau_thuong(tin_nhan):
 
 def chuyen_latex_thanh_sympy(bieu_thuc):
     # todo: tao doc
+    if bieu_thuc=='R':
+        return sympy.S.Reals
     try:
         return xet_tap_hop(bieu_thuc)
     except:
