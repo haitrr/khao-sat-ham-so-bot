@@ -352,14 +352,15 @@ def tim_tham_so_de_ham_so_cat_truc_hoanh_tai_1_diem_duy_nhat(ham_so, bien,
     return loi_giai
 
 
-#todo: hoan thanh
-def viet_phuong_trinh_tiep_voi_do_thi_ham_so_tai_mot_diem(ham_so, bien, diem):
+#todo: test
+def viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_tai_mot_diem(ham_so, bien,
+                                                                diem):
     """
-    Viet phuong trinh tiep tuyen voi do thi ham so tai mot diem
-    :param ham_so: ham so
-    :param bien: bien
-    :param diem: hoanh do cua diem
-    :return:
+    Viết phương trình tiếp tuyến với đồ thị hàm số tại một điểm
+
+    Cần: Hàm số, biến của hàm số, tiếp điểm
+
+    Loại hàm số : bậc 3, bậc 4, nhất biến, hữu tỷ
     """
     ham_f = phuong_trinh.tao_ham('f', ham_so, bien)
     loi_giai = huong_dan_giai.LoiGiai(
@@ -368,6 +369,28 @@ def viet_phuong_trinh_tiep_voi_do_thi_ham_so_tai_mot_diem(ham_so, bien, diem):
             hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f)),
             d=xu_ly_chuoi.boc_mathjax(
                 xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien, diem)))))
+    # ------------------------------CAU HOI---------------------------
+    ch1 = huong_dan_giai.HoiDap("Đầu tiên bạn phải làm gì?")
+    ch1.cac_goi_y.append("Tính .... tại tiếp điểm")
+    da1 = huong_dan_giai.DapAnCauHoi("Tính giá trị của hàm số tại tiếp điểm",
+                                     ['gia tri', 'ham so', 'tiep diem'])
+    ch1.dap_an.append(da1)
+    loi_giai.cac_cau_hoi.append(ch1)
+
+    #----------------------------------DINH NGHIA--------------------------
+    loi_giai.cac_dinh_nghia.append(
+        dinh_nghia.PHUONG_TRINH_TIEP_TUYEN_TAI_MOT_DIEM_CHO_TRUOC)
+
+    # ------------------------------------MAU-------------------------------
+    hs_mau = sympy.sympify("x^3-2*x^2+1")
+    bien_mau = sympy.Symbol("x")
+    diem_mau = 2
+
+    if hs_mau - ham_so != 0 or diem_mau != diem:
+        loi_giai.loi_giai_mau = viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_tai_mot_diem(
+            hs_mau, bien_mau, diem_mau)
+
+    # -------------------------BAI GIAI--------------------------------------
     fx = phuong_trinh.tao_ten_ham("f", diem)
     # Buoc 1 : Xac dinh f(x0)
     buoc_1 = phuong_trinh.thay_bien(ham_so, bien, diem)
@@ -630,10 +653,10 @@ if __name__ == "__main__":
         tim_toa_do_giao_diem_voi_duong_thang(hs, b,
                                              d).xuat_html("loi_giai.html")
 
-    def viet_phuong_trinh_tiep_voi_do_thi_ham_so_tai_mot_diem_test():
+    def viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_tai_mot_diem_test():
         hs = sympy.sympify("x**3-2*x+1")
         d = 2
-        viet_phuong_trinh_tiep_voi_do_thi_ham_so_tai_mot_diem(
+        viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_tai_mot_diem(
             hs, b, d).xuat_html("loi_giai.html")
 
     def viet_phuong_trinh_tiep_tuyen_voi_do_thi_co_he_so_goc_test():
