@@ -82,6 +82,8 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
                 list(nguoi_dung_gui.de_bai.du_kien['ham_so'].free_symbols)[1]),
                 xu_ly_chuoi.tao_latex(list(nguoi_dung_gui.de_bai.du_kien['ham_so'].free_symbols)[0])],
                 'Bạn hãy chọn biến của hàm số')
+        elif phuong_trinh.lay_so_bien(nguoi_dung_gui.de_bai.du_kien['ham_so']) == 0:
+            return "Hàm số bạn nhập vào không hợp lệ, xin hãy kiểm tra lại"
         else:
             nguoi_dung_gui.de_bai.du_kien['bien'] = list(nguoi_dung_gui.de_bai.du_kien['ham_so'].free_symbols)[0]
             nguoi_dung_gui.cho = 'bai_toan'
@@ -186,11 +188,21 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
             if re.match(hcl, tin_nhan):
                 buoc_hien_tai = nguoi_dung_gui.lay_buoc_hien_tai()
                 buoc_hien_tai.da_cho_mau = True
+
+                # Reset
+                nguoi_dung_gui.tra_loi_lac_de = 0
                 return huong_dan(nguoi_dung_gui)
         for kh in hang_so.CauTraLoi.KHONG_BIET_HIEU:
             if re.match(kh, tin_nhan):
+                # reset
+                nguoi_dung_gui.tra_loi_lac_de = 0
                 return dua_ra_bai_toan_mau(nguoi_dung_gui)
-        return "Xin lỗi , mình không hiểu ý của bạn, bạn có thể trả lời 'Hiểu rồi' hoặc 'Chưa hiểu'"
+
+        if nguoi_dung_gui.tra_loi_lac_de == 0:
+            nguoi_dung_gui.tra_loi_lac_de += 1
+            return "Xin lỗi , mình không hiểu ý của bạn"
+        else:
+            return "Bạn có thể trả lời 'Hiểu rồi' hoặc 'Chưa hiểu'"
 
     # Cho xac nhan xem xong bai toan mau
     elif nguoi_dung_gui.cho == hang_so.TrangThai.MAU_OK:
@@ -401,6 +413,9 @@ def xu_ly_biet_lam(nguoi_dung_gui, tra_loi):
 
             # Thong bao
             cau_tra_loi += huong_dan(nguoi_dung_gui)
+
+            # reset
+            nguoi_dung_gui.tra_loi_lac_de = 0
             return cau_tra_loi
     for cb in hang_so.CauTraLoi.KHONG_BIET_HIEU:
         if re.match(cb, tra_loi):
@@ -409,9 +424,17 @@ def xu_ly_biet_lam(nguoi_dung_gui, tra_loi):
 
             # Thong bao
             cau_tra_loi += huong_dan(nguoi_dung_gui)
+
+            # reset
+            nguoi_dung_gui.tra_loi_lac_de = 0
             return cau_tra_loi
 
-    return "Xin lỗi, mình không hiểu ý của bạn, bạn có thể nhập 'Chưa',hoặc 'Biết rồi'"
+    if nguoi_dung_gui.tra_loi_lac_de == 0:
+        nguoi_dung_gui.tra_loi_lac_de += 1
+        return "Xin lỗi, mình không hiểu ý của bạn"
+    else:
+        return "Bạn có thể trả lời 'Chưa',hoặc 'Biết rồi'"
+
 
 def hien_het(nguoi_dung_gui):
     nguoi_dung_gui.cho = 'ham_so'
@@ -533,7 +556,7 @@ def so_sanh_dap_an(dap_an, dap_an_nguoi_dung):
         if isinstance(dap_an_nguoi_dung, sympy.Set):
 
             # Hai set bang nhau khi chua lan nhau
-            if dap_an_nguoi_dung.contains(dap_an) and dap_an.contains(dap_an_nguoi_dung):
+            if (dap_an_nguoi_dung==dap_an) or (dap_an_nguoi_dung.contains(dap_an) and dap_an.contains(dap_an_nguoi_dung))   :
                 return True
             else:
                 return False
@@ -640,7 +663,8 @@ def so_khop_du_lieu_dang_toan(dt, tin_nhan, nguoi_dung_gui):
                     nguoi_dung_gui.cho = 'ham_so'
                     return nguoi_dung_gui.loi_giai.xuat_html()
                 nguoi_dung_gui.loi_giai.can_huong_dan = True
-            except:
+            except Exception as e:
+                print(e)
                 huy(nguoi_dung_gui)
                 return 'Không thể giải bài toán, hãy xem lại các dữ kiện nhập vào'
             # Set buoc huong dan ve 0
