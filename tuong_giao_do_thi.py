@@ -546,7 +546,7 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_co_he_so_goc(ham_so, bien,
     return loi_giai
 
 
-#todo:hoan thanh
+#todo: test
 def viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(ham_so,
                                                                    bien, diem):
     """
@@ -563,7 +563,26 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(ham_so,
         format(
             hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so)),
             d=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(diem))))
+    # ---------------------------CAU HOI-----------------------------
+    ch1 = huong_dan_giai.HoiDap("Làm sao để tìm được tiếp điểm ?")
+    ch1.cac_goi_y.append("Phải lập phương trình gì ?")
+    da1 = huong_dan_giai.DapAnCauHoi("Lập phương trình hoành độ giao điểm.",['phuong trinh',['hoanh do giao diem']])
+    ch1.dap_an.append(da1)
+    loi_giai.cac_cau_hoi.append(ch1)
 
+    #-----------------------------DINH NGHIA-------------------
+    loi_giai.cac_dinh_nghia.append(dinh_nghia.PHUONG_TRINH_TIEP_TUYEN_TAI_MOT_DIEM_CHO_TRUOC)
+
+    # -----------------------------MAU--------------------------
+    hs_mau = sympy.sympify("x^3 - 3*x + 1")
+    bien_mau = sympy.Symbol('x')
+    diem_mau = [1,-1]
+
+    if hs_mau - ham_so != 0 or diem_mau != diem:
+    loi_giai.loi_giai_mau = viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(
+        hs_mau, bien_mau, diem_mau)
+
+    # ---------------------------LOI GIAI-----------------------------
     # Buoc 1: tim dao ham cua ham so
     buoc_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
     buoc_1.ten_loi_giai = 'Tìm đạo hàm của hàm số'
