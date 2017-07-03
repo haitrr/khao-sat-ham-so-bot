@@ -98,4 +98,5 @@ class NguoiDung:
         Them buoc hien tai vao loi giai hien tai de hien thi tren side bar
         :return:
         """
-        return self.loi_giai.xuat_html_theo_tien_trinh(tien_trinh=self.tien_trinh)
+        return self.loi_giai.xuat_html_theo_tien_trinh(
+            tien_trinh=self.tien_trinh)

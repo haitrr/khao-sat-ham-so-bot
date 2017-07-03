@@ -43,7 +43,7 @@ mau_thay = {
 
 def chuyen_thanh_khong_dau_thuong(tin_nhan):
     # todo tao doc
-    if tin_nhan=="R":
+    if tin_nhan == "R":
         return tin_nhan
     kq = tin_nhan.lower()
     for mau, thay in mau_thay.items():
@@ -55,7 +55,7 @@ def chuyen_thanh_khong_dau_thuong(tin_nhan):
 
 def chuyen_latex_thanh_sympy(bieu_thuc):
     # todo: tao doc
-    if bieu_thuc=='R':
+    if bieu_thuc == 'R':
         return sympy.S.Reals
     try:
         return xet_tap_hop(bieu_thuc)
@@ -100,7 +100,10 @@ def xet_tap_hop(tin_nhan):
             tap_hop = tao_tap_hop(khop.groups()[0:4])
             if khop.groups()[4] is not None:
                 toan_tu = khop.captures(5)
-                du_lieu = list(zip(khop.captures(6), khop.captures(7), khop.captures(8), khop.captures(9)))
+                du_lieu = list(
+                    zip(
+                        khop.captures(6),
+                        khop.captures(7), khop.captures(8), khop.captures(9)))
                 for i in range(len(toan_tu)):
                     # todo sua code cung
                     if toan_tu[i] == '\cup':
@@ -165,5 +168,6 @@ def tao_cau_lenh_cap_nhat_loi_giai(loi_giai):
 
 
 if __name__ == '__main__':
-    t = xet_tap_hop('\left(2,3\\right)\cup\left(3,4\\right)\cup\left(8,16\\right)')
+    t = xet_tap_hop(
+        '\left(2,3\\right)\cup\left(3,4\\right)\cup\left(8,16\\right)')
     print(xet_nhieu_bieu_thuc('1;2;3;-2'))

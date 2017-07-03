@@ -10,6 +10,7 @@ import tinh_xac_dinh
 import xu_ly_chuoi
 import sympy
 
+
 def khao_sat_ham_so(ham_so, bien):
     """
     Khao sat ham so va xuat loi giai
@@ -17,8 +18,9 @@ def khao_sat_ham_so(ham_so, bien):
     :return: string
     """
 
-    de_bai = "Khảo sát hàm số : {0}".format(xu_ly_chuoi.boc_mathjax(
-        "f({0}) = {1}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so))))
+    de_bai = "Khảo sát hàm số : {0}".format(
+        xu_ly_chuoi.boc_mathjax("f({0}) = {1}".format(
+            xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so))))
     loi_giai = huong_dan_giai.LoiGiai(de_bai)
 
     # -------------------------------CAU HOI------------------------------
@@ -28,7 +30,8 @@ def khao_sat_ham_so(ham_so, bien):
     loi_giai.cac_cau_hoi.append(cau_hoi_1)
 
     cau_hoi_2 = huong_dan_giai.HoiDap("Đầu tiên chúng ta cần làm gì ?")
-    dap_an_cau_2 = huong_dan_giai.DapAnCauHoi("Tìm tập xác định của hàm số", ["xac dinh"])
+    dap_an_cau_2 = huong_dan_giai.DapAnCauHoi("Tìm tập xác định của hàm số",
+                                              ["xac dinh"])
     cau_hoi_2.dap_an.append(dap_an_cau_2)
     loi_giai.cac_cau_hoi.append(cau_hoi_2)
 
@@ -37,7 +40,8 @@ def khao_sat_ham_so(ham_so, bien):
     bien_mau = sympy.Symbol('x')
 
     if ham_so_mau - ham_so != 0:
-        loi_giai.loi_giai_mau = khao_sat_ham_so(ham_so_mau, bien_mau).xuat_html()
+        loi_giai.loi_giai_mau = khao_sat_ham_so(ham_so_mau,
+                                                bien_mau).xuat_html()
 
     # ---------------------------------BAI GIAI-------------------------
     # Buoc 1 : Tap xac dinh
@@ -48,7 +52,8 @@ def khao_sat_ham_so(ham_so, bien):
     loi_giai.them_thao_tac(buoc_1)
 
     # Buoc 2: Đạo hàm của hàm số
-    buoc_2 = huong_dan_giai.LoiGiai("Tính đạo hàm và tìm nghiệm của đạo hàm hàm số")
+    buoc_2 = huong_dan_giai.LoiGiai(
+        "Tính đạo hàm và tìm nghiệm của đạo hàm hàm số")
     # Tính đạo hàm
     buoc_2_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
     buoc_2_1.ten_loi_giai = "Tính đạo hàm của hàm số"
@@ -68,15 +73,17 @@ def khao_sat_ham_so(ham_so, bien):
 
     gioi_han_vo_cuc = gioi_han.tim_gioi_han_tai_vo_cuc(ham_so, bien)
 
-    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(
-        "lim_{{{0}\\to-\infty}}{1}={2}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so),
-                                               xu_ly_chuoi.tao_latex(
-                                                   gioi_han_vo_cuc[0]))))
+    buoc_3.them_thao_tac(
+        xu_ly_chuoi.boc_mathjax("lim_{{{0}\\to-\infty}}{1}={2}".format(
+            xu_ly_chuoi.tao_latex(bien),
+            xu_ly_chuoi.tao_latex(ham_so),
+            xu_ly_chuoi.tao_latex(gioi_han_vo_cuc[0]))))
 
-    buoc_3.them_thao_tac(xu_ly_chuoi.boc_mathjax(
-        "lim_{{{0}\\to\infty}}{1}={2}".format(xu_ly_chuoi.tao_latex(bien), xu_ly_chuoi.tao_latex(ham_so),
-                                              xu_ly_chuoi.tao_latex(
-                                                  gioi_han_vo_cuc[1]))))
+    buoc_3.them_thao_tac(
+        xu_ly_chuoi.boc_mathjax("lim_{{{0}\\to\infty}}{1}={2}".format(
+            xu_ly_chuoi.tao_latex(bien),
+            xu_ly_chuoi.tao_latex(ham_so),
+            xu_ly_chuoi.tao_latex(gioi_han_vo_cuc[1]))))
 
     # Them ket qua
     buoc_3.dap_an = gioi_han_vo_cuc
@@ -105,7 +112,8 @@ def khao_sat_ham_so(ham_so, bien):
             cac_diem = xu_ly_chuoi.tao_ngoac_nhon(cuc_tieu)
         else:
             cac_diem = xu_ly_chuoi.tao_latex(cuc_tieu[0])
-        buoc_4.them_thao_tac("Hàm số đạt cực tiểu tại điểm : {0}".format(xu_ly_chuoi.boc_mathjax(cac_diem)))
+        buoc_4.them_thao_tac("Hàm số đạt cực tiểu tại điểm : {0}".format(
+            xu_ly_chuoi.boc_mathjax(cac_diem)))
 
     # Cuc dai
     cuc_dai = cuc_tri.tim_diem_cuc_dai(ham_so, bien)
@@ -116,7 +124,8 @@ def khao_sat_ham_so(ham_so, bien):
             cac_diem = xu_ly_chuoi.tao_ngoac_nhon(cuc_dai)
         else:
             cac_diem = xu_ly_chuoi.tao_latex(cuc_dai[0])
-        buoc_4.them_thao_tac("Hàm số đạt cực đại tại điểm : {0}".format(xu_ly_chuoi.boc_mathjax(cac_diem)))
+        buoc_4.them_thao_tac("Hàm số đạt cực đại tại điểm : {0}".format(
+            xu_ly_chuoi.boc_mathjax(cac_diem)))
 
     # Diem uon
     diem_uon_hs = diem_uon.tim_diem_uon(ham_so, bien)
@@ -154,5 +163,4 @@ if __name__ == '__main__':
 
     hs = sympy.sympify("x^3+3*x^2-4", evaluate=False)
     b = sympy.Symbol('x')
-    khao_sat_ham_so(
-        hs, b).xuat_html("loi_giai.html")
+    khao_sat_ham_so(hs, b).xuat_html("loi_giai.html")

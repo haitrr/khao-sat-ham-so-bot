@@ -16,17 +16,17 @@ def xuat_html(loi_giai, file=None):
     output.write(loi_giai[0])
 
     # In moi buoc giai ra
-    for buoc in range(1,len(loi_giai)):
+    for buoc in range(1, len(loi_giai)):
         # In ra ten buoc
-        output.write("<b>Bước {0} : {1}<b><br>".format(buoc,loi_giai[buoc][0]))
+        output.write(
+            "<b>Bước {0} : {1}<b><br>".format(buoc, loi_giai[buoc][0]))
 
         # In ra cac thao tac
         for thao_tac in loi_giai[buoc][1:-1]:
-            if isinstance(thao_tac,list):
-                output.write(xuat_html(thao_tac)+"<br>")
+            if isinstance(thao_tac, list):
+                output.write(xuat_html(thao_tac) + "<br>")
             else:
-                output.write(thao_tac+"<br>")
-
+                output.write(thao_tac + "<br>")
 
     if file:
         # Moi file hoac tao file khi chua co
@@ -34,7 +34,8 @@ def xuat_html(loi_giai, file=None):
         file_loi_giai_html = open(file, "w", encoding='utf8')
         # Header cua file phai import mathjax de hien thi bieu thuc
         file_loi_giai_html.write(
-            "<!doctype html><html><head><meta charset=\"UTF-8\"><title>Lời giải của bài toán</title><script type=\"text/javascript\" src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script></head><body>")
+            "<!doctype html><html><head><meta charset=\"UTF-8\"><title>Lời giải của bài toán</title><script type=\"text/javascript\" src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script></head><body>"
+        )
         # Dong the
         file_loi_giai_html.write(output.getvalue())
         file_loi_giai_html.write("</body></html>")

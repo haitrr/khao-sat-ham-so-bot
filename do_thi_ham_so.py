@@ -13,8 +13,7 @@ import xu_ly_chuoi
 
 def ve_do_thi(ham_so, bien):
     # Chinh co font cua chu trong do thi
-    mpl.rcParams.update(
-        {'font.size': 8})
+    mpl.rcParams.update({'font.size': 8})
 
     # Tim cac diem can thiet
     dcd = cuc_tri.tim_diem_cuc_dai(ham_so, bien)
@@ -50,8 +49,7 @@ def ve_do_thi(ham_so, bien):
 
     # Ve do thi cua ham so
     lam_x = sympy.lambdify(bien, ham_so, ["numpy"])
-    x_vals = numpy.linspace(float(gioi_han_x[0]),
-                            float(gioi_han_x[1]), 500)
+    x_vals = numpy.linspace(float(gioi_han_x[0]), float(gioi_han_x[1]), 500)
     y_vals = lam_x(x_vals)
 
     fig = pyplot.figure()
@@ -82,9 +80,11 @@ def ve_do_thi(ham_so, bien):
     cac_diem_can_ve_x = list(set(cac_diem_can_ve_x))
     cac_diem_can_ve_y = list(set(cac_diem_can_ve_y))
     cac_diem_can_danh_dau_x = [
-        xu_ly_chuoi.boc_mpl(i) for i in cac_diem_can_ve_x]
+        xu_ly_chuoi.boc_mpl(i) for i in cac_diem_can_ve_x
+    ]
     cac_diem_can_danh_dau_y = [
-        xu_ly_chuoi.boc_mpl(i) for i in cac_diem_can_ve_y]
+        xu_ly_chuoi.boc_mpl(i) for i in cac_diem_can_ve_y
+    ]
 
     cac_diem_can_ve_x_float = [float(i) for i in cac_diem_can_ve_x]
     cac_diem_can_ve_y_float = [float(i) for i in cac_diem_can_ve_y]
@@ -92,8 +92,7 @@ def ve_do_thi(ham_so, bien):
     pyplot.xticks(cac_diem_can_ve_x_float, cac_diem_can_danh_dau_x)
     pyplot.yticks(cac_diem_can_ve_y_float, cac_diem_can_danh_dau_y)
 
-    pyplot.ylim(numpy.float64(gioi_han_y[0]),
-                numpy.float64(gioi_han_y[1]))
+    pyplot.ylim(numpy.float64(gioi_han_y[0]), numpy.float64(gioi_han_y[1]))
 
     # Luu vao file tam
     file_tam = tempfile.NamedTemporaryFile(

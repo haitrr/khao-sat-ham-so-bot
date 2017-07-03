@@ -71,7 +71,8 @@ class LoiGiai:
         else:
             dem = 1
             for buoc_giai in self.cac_buoc_giai:
-                cac_buoc.append("Bước {stt} : {ten_buoc}".format(stt=str(dem), ten_buoc=buoc_giai.ten_loi_giai))
+                cac_buoc.append("Bước {stt} : {ten_buoc}".format(
+                    stt=str(dem), ten_buoc=buoc_giai.ten_loi_giai))
                 dem += 1
             return cac_buoc
 
@@ -94,7 +95,11 @@ class LoiGiai:
     #         self.cac_buoc_giai[-1].ten_loi_giai), self.cac_buoc_giai[-1].dap_an, self.cac_buoc_giai[-1].xuat_html()))
     #     return cac_loi_huong_dan
 
-    def xuat_html(self, xuat_file=None, stt_loi_giai='', chinh=True, ten_loi_giai=True):
+    def xuat_html(self,
+                  xuat_file=None,
+                  stt_loi_giai='',
+                  chinh=True,
+                  ten_loi_giai=True):
         """
         Xuat loi giai ra dang html
         :param chinh: boolean
@@ -116,15 +121,19 @@ class LoiGiai:
                 '<button onclick=dat_buoc_giai("{0}") class="w3-btn-block w3-left-align w3-green" '
                 'style="width:auto"><b>Bước {1} : {2}</b></button><br>'.format(
                     id, stt_loi_giai, self.ten_loi_giai))
-            output.write('<div id="{0}" class="w3-hide w3-container w3-animate-zoom">'.format(id))
+            output.write(
+                '<div id="{0}" class="w3-hide w3-container w3-animate-zoom">'.
+                format(id))
         if self.lop_cuoi is False:
             for buoc in self.cac_buoc_giai:
                 if chinh:
-                    output.write(buoc.xuat_html(stt_loi_giai=str(stt),
-                                                chinh=False))
+                    output.write(
+                        buoc.xuat_html(stt_loi_giai=str(stt), chinh=False))
                 else:
-                    output.write(buoc.xuat_html(stt_loi_giai=stt_loi_giai + '.' + str(stt),
-                                                chinh=False))
+                    output.write(
+                        buoc.xuat_html(
+                            stt_loi_giai=stt_loi_giai + '.' + str(stt),
+                            chinh=False))
                 stt += 1
         else:
             for buoc in self.cac_buoc_giai:
@@ -139,7 +148,8 @@ class LoiGiai:
                 "<!doctype html><html><head><meta charset=\"UTF-8\"><title>Lời giải của bài toán</title><link "
                 "rel='stylesheet' href='css/w3.css'><script type=\"text/javascript\" "
                 "src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script"
-                "><script src='js/loi_giai.js' charset='utf-8'></script></head><body>")
+                "><script src='js/loi_giai.js' charset='utf-8'></script></head><body>"
+            )
             # Dong the
             file_loi_giai_html.write(output.getvalue())
             file_loi_giai_html.write("</body></html>")
@@ -149,7 +159,11 @@ class LoiGiai:
         return loi_giai_html
 
     # todo FIX BUG
-    def xuat_html_theo_tien_trinh(self, xuat_file=None, stt_loi_giai='', chinh=True, ten_loi_giai=True,
+    def xuat_html_theo_tien_trinh(self,
+                                  xuat_file=None,
+                                  stt_loi_giai='',
+                                  chinh=True,
+                                  ten_loi_giai=True,
                                   tien_trinh=None):
         """
         Xuat loi giai ra dang html
@@ -172,27 +186,35 @@ class LoiGiai:
                 '<button onclick=dat_buoc_giai("{0}") class="w3-btn-block w3-left-align w3-green" '
                 'style="width:auto"><b>Bước {1} : {2}</b></button><br>'.format(
                     id, stt_loi_giai, self.ten_loi_giai))
-            output.write('<div id="{0}" class="w3-hide w3-container w3-animate-zoom">'.format(id))
+            output.write(
+                '<div id="{0}" class="w3-hide w3-container w3-animate-zoom">'.
+                format(id))
         if self.lop_cuoi is False:
             if tien_trinh:
                 for buoc in range(tien_trinh[0] + 1):
                     if chinh:
-                        output.write(self.cac_buoc_giai[buoc].xuat_html_theo_tien_trinh(stt_loi_giai=str(stt),
-                                                                                        chinh=False,
-                                                                                        tien_trinh=tien_trinh[1:]))
+                        output.write(
+                            self.cac_buoc_giai[buoc].xuat_html_theo_tien_trinh(
+                                stt_loi_giai=str(stt),
+                                chinh=False,
+                                tien_trinh=tien_trinh[1:]))
                     else:
-                        output.write(self.cac_buoc_giai[buoc].xuat_html_theo_tien_trinh(
-                            stt_loi_giai=stt_loi_giai + '.' + str(stt),
-                            chinh=False, tien_trinh=tien_trinh[1:]))
+                        output.write(
+                            self.cac_buoc_giai[buoc].xuat_html_theo_tien_trinh(
+                                stt_loi_giai=stt_loi_giai + '.' + str(stt),
+                                chinh=False,
+                                tien_trinh=tien_trinh[1:]))
                     stt += 1
             else:
                 for buoc in self.cac_buoc_giai:
                     if chinh:
-                        output.write(buoc.xuat_html(stt_loi_giai=str(stt),
-                                                    chinh=False))
+                        output.write(
+                            buoc.xuat_html(stt_loi_giai=str(stt), chinh=False))
                     else:
-                        output.write(buoc.xuat_html(stt_loi_giai=stt_loi_giai + '.' + str(stt),
-                                                    chinh=False))
+                        output.write(
+                            buoc.xuat_html(
+                                stt_loi_giai=stt_loi_giai + '.' + str(stt),
+                                chinh=False))
                     stt += 1
         else:
             for buoc in self.cac_buoc_giai:
@@ -207,7 +229,8 @@ class LoiGiai:
                 "<!doctype html><html><head><meta charset=\"UTF-8\"><title>Lời giải của bài toán</title><link "
                 "rel='stylesheet' href='css/w3.css'><script type=\"text/javascript\" "
                 "src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\"></script"
-                "><script src='js/loi_giai.js' charset='utf-8'></script></head><body>")
+                "><script src='js/loi_giai.js' charset='utf-8'></script></head><body>"
+            )
             # Dong the
             file_loi_giai_html.write(output.getvalue())
             file_loi_giai_html.write("</body></html>")
@@ -215,6 +238,7 @@ class LoiGiai:
         # Dong file
         output.close()
         return loi_giai_html
+
 
 class HoiDap:
     """

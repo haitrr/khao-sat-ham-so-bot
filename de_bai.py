@@ -1,4 +1,3 @@
-
 # Luu du lieu ve de bai do nguoi dung nhap vao
 class DeBai:
     def __init__(self):
@@ -31,6 +30,7 @@ class DeBai:
         """
         return self.bai_toan(**self.du_kien_mau)
 
+
 # Du kien cua bai toan
 class DuKien:
     def __init__(self):
@@ -39,6 +39,7 @@ class DuKien:
         self.chu_thich = None
         # Dung de kiem tra du kien co hop le khong
         self.khop = '.+'
+
 
 # Yeu cau cua bai toan
 class YeuCau:

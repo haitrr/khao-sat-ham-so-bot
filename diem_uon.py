@@ -2,6 +2,7 @@ import dao_ham
 import phuong_trinh
 import tinh_xac_dinh
 
+
 def tim_diem_uon(ham_so, bien):
     dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien).dap_an
     dao_ham_cap_2 = dao_ham.tinh_dao_ham_cap_1(dao_ham_cap_1, bien).dap_an
