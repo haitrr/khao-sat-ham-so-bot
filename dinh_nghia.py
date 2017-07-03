@@ -129,3 +129,17 @@ PHUONG_TRINH_TIEP_TUYEN_TAI_MOT_DIEM_CHO_TRUOC = DinhNghia(
         hs=xu_ly_chuoi.boc_mathjax("f(x)"),
         d=xu_ly_chuoi.boc_mathjax("x_0"),
         pt=xu_ly_chuoi.boc_mathjax("f'(x_0)(x-x_0)+f(x_0)")))
+
+# todo: test
+'''
+Giá trị của đạo hàm của hàm số tại tiếp điểm
+'''
+GIA_TRI_CUA_DAO_HAM_TAI_TIEP_DIEM = DinhNghia(
+    ten="Giá trị của đạo hàm của hàm số tại tiếp điểm",
+    noi_dung = "Phương trình tiếp tuyến của hàm số {hs} tại tiếp điểm {td} có hệ số góc là {hsg} thì {hq}".format(
+        hs = xu_ly_chuoi.boc_mathjax("f(x)"),
+        td = xu_ly_chuoi.boc_mathjax("x_0"),
+        hsg = xu_ly_chuoi.boc_mathjax("k"),
+        hq = xu_ly_chuoi.boc_mathjax("f'(x_0)=k")
+    )
+)
