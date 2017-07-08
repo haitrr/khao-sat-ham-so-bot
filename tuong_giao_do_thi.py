@@ -579,8 +579,8 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(ham_so,
     diem_mau = [1,-1]
 
     if hs_mau - ham_so != 0 or diem_mau != diem:
-    loi_giai.loi_giai_mau = viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(
-        hs_mau, bien_mau, diem_mau)
+        loi_giai.loi_giai_mau = viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(
+            hs_mau, bien_mau, diem_mau)
 
     # ---------------------------LOI GIAI-----------------------------
     # Buoc 1: tim dao ham cua ham so
