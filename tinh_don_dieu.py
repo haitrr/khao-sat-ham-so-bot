@@ -7,7 +7,7 @@ import phuong_trinh
 import phuong_trinh_bac_2
 import tinh_xac_dinh
 import xu_ly_chuoi
-
+import sympy
 
 # todo: Test
 def tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
