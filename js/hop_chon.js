@@ -35,7 +35,7 @@ them_lua_chon = function (lua_chon,tra_ve) {
         rs+="<div id='"+i+"' class='w3-hide w3-container w3-animate-zoom muc'>";
         du_lieu = du_lieu.slice(1);
         du_lieu.forEach(function (lc) {
-            rs+="<div class='w3-button lua_chon'>"+lc+"</div>"
+            rs += "<div class='w3-button lua_chon'>" + lc + "</div><br>"
         });
         rs+="</div>";
         cac_lua_chon.append(rs)
