@@ -11,3 +11,10 @@ def tim_gioi_han_hai_phia(ham_so, bien, diem):
     gioi_han_trai = sympy.limit(ham_so, bien, diem, '-')
     gioi_han_phai = sympy.limit(ham_so, bien, diem, '+')
     return gioi_han_trai, gioi_han_phai
+
+
+def tim_gioi_han_duong(ham_so, bien, diem):
+    """
+    tìm giới hạn phải của hàm số
+    """
+    return sympy.limit(ham_so, bien, diem, '+')
