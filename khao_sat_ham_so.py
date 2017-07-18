@@ -66,6 +66,7 @@ def khao_sat_ham_so(ham_so, bien):
     buoc_2_2.ten_loi_giai = "Tìm nghiệm của phương phương trình đạo hàm"
 
     # Them vao loi giai
+    buoc_2.dap_an = buoc_2_2.dap_an
     buoc_2.them_thao_tac(buoc_2_2)
     loi_giai.them_thao_tac(buoc_2)
 
@@ -166,16 +167,17 @@ def khao_sat_ham_so(ham_so, bien):
             ds=xu_ly_chuoi.tao_ngoac_nhon(gdth)
         )))
     # todo: Tìm tiệm cận ngang
-    buoc_5.them_thao_tac("Ta có " +
-                         xu_ly_chuoi.boc_mathjax("lim_{{{0}\\to\infty}}{1}={2}".format(
-                             xu_ly_chuoi.tao_latex(bien),
-                             xu_ly_chuoi.tao_latex(ham_so),
-                             xu_ly_chuoi.tao_latex(gioi_han_vo_cuc[1]))))
-    buoc_5.them_thao_tac(
-        "Vậy {} là tiệm cận ngang của đồ thị hàm số".format(xu_ly_chuoi.boc_mathjax("{hs} = {n}".format(
-            hs=phuong_trinh.tao_ten_ham('f', bien),
-            n=xu_ly_chuoi.tao_latex(gioi_han_vo_cuc[1])
-        ))))
+    if gioi_han_vo_cuc[1]!= sympy.oo and gioi_han_vo_cuc[1]!=-sympy.oo:
+        buoc_5.them_thao_tac("Ta có " +
+                             xu_ly_chuoi.boc_mathjax("lim_{{{0}\\to\infty}}{1}={2}".format(
+                                 xu_ly_chuoi.tao_latex(bien),
+                                 xu_ly_chuoi.tao_latex(ham_so),
+                                 xu_ly_chuoi.tao_latex(gioi_han_vo_cuc[1]))))
+        buoc_5.them_thao_tac(
+            "Vậy {} là tiệm cận ngang của đồ thị hàm số".format(xu_ly_chuoi.boc_mathjax("{hs} = {n}".format(
+                hs=phuong_trinh.tao_ten_ham('f', bien),
+                n=xu_ly_chuoi.tao_latex(gioi_han_vo_cuc[1])
+            ))))
     # todo: tìm tiệm cận dọc
     t = tinh_xac_dinh.tim_khong_xac_dinh(ham_so, bien)
     tcd = None
