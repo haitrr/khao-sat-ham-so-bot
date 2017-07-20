@@ -9,6 +9,7 @@ import phuong_trinh
 import tinh_xac_dinh
 import xu_ly_chuoi
 import sympy
+import ky_hieu_latex
 
 
 def khao_sat_ham_so(ham_so, bien):
@@ -65,6 +66,7 @@ def khao_sat_ham_so(ham_so, bien):
     buoc_2_2.ten_loi_giai = "Tìm nghiệm của phương phương trình đạo hàm"
 
     # Them vao loi giai
+    buoc_2.dap_an = buoc_2_2.dap_an
     buoc_2.them_thao_tac(buoc_2_2)
     loi_giai.them_thao_tac(buoc_2)
 
@@ -78,7 +80,6 @@ def khao_sat_ham_so(ham_so, bien):
             xu_ly_chuoi.tao_latex(bien),
             xu_ly_chuoi.tao_latex(ham_so),
             xu_ly_chuoi.tao_latex(gioi_han_vo_cuc[0]))))
-
     buoc_3.them_thao_tac(
         xu_ly_chuoi.boc_mathjax("lim_{{{0}\\to\infty}}{1}={2}".format(
             xu_ly_chuoi.tao_latex(bien),
@@ -145,7 +146,60 @@ def khao_sat_ham_so(ham_so, bien):
 
     # Buoc 5: Do thi ham so
     buoc_5 = huong_dan_giai.LoiGiai("Vẽ đồ thị của hàm số")
-
+    # TODO: Tìm giao điểm với trục tung
+    gdtt = phuong_trinh.thay_bien(ham_so, bien, 0).dap_an
+    if gdtt:
+        buoc_5.them_thao_tac("Giao điểm của đồ thị hàm số với trục tung:")
+        buoc_5.them_thao_tac(xu_ly_chuoi.boc_mathjax("{b} = 0 {sr} {hs} = {ds}".format(
+            b=xu_ly_chuoi.tao_latex(bien),
+            sr=ky_hieu_latex.SUY_RA,
+            hs=phuong_trinh.tao_ten_ham('f', bien),
+            ds=xu_ly_chuoi.tao_latex(gdtt)
+        )))
+    # todo: Tìm giao điểm với trục hoành
+    gdth = phuong_trinh.giai_phuong_trinh(ham_so, bien).dap_an
+    if gdth:
+        buoc_5.them_thao_tac("Giao điểm của đồ thị hàm số với trục hoành:")
+        buoc_5.them_thao_tac(xu_ly_chuoi.boc_mathjax("{hs} = 0 {sr} {b} = {ds}".format(
+            b=xu_ly_chuoi.tao_latex(bien),
+            sr=ky_hieu_latex.SUY_RA,
+            hs=phuong_trinh.tao_ten_ham('f', bien),
+            ds=xu_ly_chuoi.tao_ngoac_nhon(gdth)
+        )))
+    # todo: Tìm tiệm cận ngang
+    if gioi_han_vo_cuc[1]!= sympy.oo and gioi_han_vo_cuc[1]!=-sympy.oo:
+        buoc_5.them_thao_tac("Ta có " +
+                             xu_ly_chuoi.boc_mathjax("lim_{{{0}\\to\infty}}{1}={2}".format(
+                                 xu_ly_chuoi.tao_latex(bien),
+                                 xu_ly_chuoi.tao_latex(ham_so),
+                                 xu_ly_chuoi.tao_latex(gioi_han_vo_cuc[1]))))
+        buoc_5.them_thao_tac(
+            "Vậy {} là tiệm cận ngang của đồ thị hàm số".format(xu_ly_chuoi.boc_mathjax("{hs} = {n}".format(
+                hs=phuong_trinh.tao_ten_ham('f', bien),
+                n=xu_ly_chuoi.tao_latex(gioi_han_vo_cuc[1])
+            ))))
+    # todo: tìm tiệm cận dọc
+    t = tinh_xac_dinh.tim_khong_xac_dinh(ham_so, bien)
+    tcd = None
+    k = None
+    if t:
+        for i in t:
+            k = gioi_han.tim_gioi_han_duong(ham_so, bien, i)
+            if k == sympy.oo or k == -sympy.oo:
+                tcd = i
+                break
+    if tcd:
+        buoc_5.them_thao_tac("Ta có " +
+                             xu_ly_chuoi.boc_mathjax("lim_{{{0}\\to{d}}}{1}={2}".format(
+                                 xu_ly_chuoi.tao_latex(bien),
+                                 xu_ly_chuoi.tao_latex(ham_so),
+                                 xu_ly_chuoi.tao_latex(k),
+                                 d=xu_ly_chuoi.tao_latex(tcd) + "^{+}")))
+        buoc_5.them_thao_tac(
+            "Vậy {} là tiệm cận đứng của đồ thị hàm số".format(xu_ly_chuoi.boc_mathjax("{b} = {n}".format(
+                b=xu_ly_chuoi.tao_latex(bien),
+                n=xu_ly_chuoi.tao_latex(i)
+            ))))
     # Ve do thi ham so ra file tam
     file_tam = do_thi_ham_so.ve_do_thi(ham_so, bien)
     # Chen ma html
@@ -161,6 +215,8 @@ def khao_sat_ham_so(ham_so, bien):
 if __name__ == '__main__':
     import sympy
 
-    hs = sympy.sympify("x^3+3*x^2-4", evaluate=False)
+    #
+    # hs = sympy.sympify("-x^3+3*x+2", evaluate=False)
     b = sympy.Symbol('x')
+    hs = sympy.sympify("(x+4)/(3*x-8)")
     khao_sat_ham_so(hs, b).xuat_html("loi_giai.html")

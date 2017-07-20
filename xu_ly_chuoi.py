@@ -16,7 +16,7 @@ def boc_mpl(bieu_thuc):
 
 
 def tao_latex(bieu_thuc):
-    sympy.init_printing(order='old')
+    sympy.init_printing(order='grlex')
     return sympy.latex(bieu_thuc)
 
 
