@@ -472,8 +472,8 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so,
         "Để cực trị là cực đại thì đạo hàm cấp 2 tại điểm đó …")
     da2 = huong_dan_giai.DapAnCauHoi("Nhỏ hơn 0", [('nho hon', '<'), ('khong', '0')])
     ch2.dap_an.append(da2)
-    ch2.cac_goi_y.append('Đạo hàm có nghiệm tại đó')
     ch2.cac_goi_y.append('Quan hệ như thế nào với 0?')
+    ch2.cac_goi_y.append('Nhỏ hơn 0 hay lớn hơn 0 ?')
     loi_giai.cac_cau_hoi.append(ch2)
 
     # ----------------------------DINH NGHIA----------------------------
