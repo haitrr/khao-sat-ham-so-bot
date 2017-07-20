@@ -120,6 +120,14 @@ html {
 .the_trai img {
     max-width: 100%;
 }
+.the_trai::-webkit-scrollbar {
+    width: 10px;
+}
+
+.the_trai::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgba(0, 0, 0, .1);
+}
 
 .the_phai {
     float: right;
