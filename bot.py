@@ -404,7 +404,7 @@ def huong_dan(nguoi_dung_gui):
             elif buoc_hien_tai.cac_dinh_nghia != [] and not buoc_hien_tai.da_neu_dinh_nghia:
                 # In ra cac dinh nghia
                 cau_tra_loi.append(
-                    "Để giải bài toán này , bạn hay ghi nhớ các định nghĩa sau đây"
+                    "Để giải bài toán này , bạn hay ghi nhớ các định lý,định nghĩa,công thức,quy tắc sau đây"
                 )
                 for dn in buoc_hien_tai.cac_dinh_nghia:
                     cau_tra_loi.append(dn.xuat())
