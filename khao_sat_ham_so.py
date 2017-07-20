@@ -52,9 +52,11 @@ def khao_sat_ham_so(ham_so, bien):
     # Them vao loi giai
     loi_giai.them_thao_tac(buoc_1)
 
+    # Buoc 2: Xet su bien thien
+    xet_su_bt = huong_dan_giai.LoiGiai("Xét sự biến thiên của hàm số")
     # Buoc 2: Đạo hàm của hàm số
     buoc_2 = huong_dan_giai.LoiGiai(
-        "Tính đạo hàm và tìm nghiệm của đạo hàm hàm số")
+        "Xét chiều biến thiên của hàm số")
     # Tính đạo hàm
     buoc_2_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
     buoc_2_1.ten_loi_giai = "Tính đạo hàm của hàm số"
@@ -65,10 +67,17 @@ def khao_sat_ham_so(ham_so, bien):
     buoc_2_2 = phuong_trinh.giai_phuong_trinh(dao_ham_cap_1, bien)
     buoc_2_2.ten_loi_giai = "Tìm nghiệm của phương phương trình đạo hàm"
 
+    # todo Khoang dong bien, nghich bien
+    buoc_2_3 = huong_dan_giai.LoiGiai("Khoảng đồng biến,nghịch biến của hàm số")
+    buoc_2_3_1 = huong_dan_giai.LoiGiai("Khoảng đồng biến")
+    
+    buoc_2_3_2 = huong_dan_giai.LoiGiai("Khoảng nghịch biến")
+
     # Them vao loi giai
     buoc_2.dap_an = buoc_2_2.dap_an
     buoc_2.them_thao_tac(buoc_2_2)
-    loi_giai.them_thao_tac(buoc_2)
+    xet_su_bt.them_thao_tac(buoc_2)
+    #loi_giai.them_thao_tac(buoc_2)
 
     # Buoc 3: Tim gioi han tai vo cuc
     buoc_3 = huong_dan_giai.LoiGiai("Tìm giới hạn của hàm số tại vô cực ")
@@ -90,7 +99,8 @@ def khao_sat_ham_so(ham_so, bien):
     buoc_3.dap_an = gioi_han_vo_cuc
 
     # Them vao loi giai
-    loi_giai.them_thao_tac(buoc_3)
+    #loi_giai.them_thao_tac(buoc_3)
+    xet_su_bt.them_thao_tac(buoc_3)
 
     # Buoc 4 : Ve bang bien thien
     buoc_4 = huong_dan_giai.LoiGiai("Vẽ bảng biến thiên")
@@ -131,7 +141,8 @@ def khao_sat_ham_so(ham_so, bien):
     # Diem uon
     diem_uon_hs = diem_uon.tim_diem_uon(ham_so, bien)
     if len(diem_uon_hs) == 0:
-        buoc_4.them_thao_tac("Hàm số không có điểm uốn")
+        #buoc_4.them_thao_tac("Hàm số không có điểm uốn")
+        pass
     else:
         if len(diem_uon_hs) > 1:
             cac_diem = xu_ly_chuoi.tao_ngoac_nhon(diem_uon_hs)
@@ -142,7 +153,8 @@ def khao_sat_ham_so(ham_so, bien):
 
     # Them vao loi giai
     buoc_4.dap_an = None
-    loi_giai.them_thao_tac(buoc_4)
+    xet_su_bt.them_thao_tac(buoc_4)
+    loi_giai.them_thao_tac(xet_su_bt)
 
     # Buoc 5: Do thi ham so
     buoc_5 = huong_dan_giai.LoiGiai("Vẽ đồ thị của hàm số")
