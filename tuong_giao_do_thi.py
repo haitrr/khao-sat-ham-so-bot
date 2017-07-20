@@ -456,17 +456,21 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_co_he_so_goc(ham_so, bien,
         format(
             hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_f)),
             hsg=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(he_so_goc))))
-    
+
     # ------------------------------CAU HOI------------------------
-    ch1 = huong_dan_giai.HoiDap("Tiếp tuyến của có hệ số góc là k vậy ta có giá trị nào bằng k ?")
+    ch1 = huong_dan_giai.HoiDap(
+        "Tiếp tuyến của có hệ số góc là k vậy ta có giá trị nào bằng k ?")
     ch1.cac_goi_y.append("Đạo hàm tại điểm nào ?")
-    da1 = huong_dan_giai.DapAnCauHoi("Đạo hàm của hàm số tại tiếp điểm",['dao ham',['tiep diem']])
+    da1 = huong_dan_giai.DapAnCauHoi("Đạo hàm của hàm số tại tiếp điểm",
+                                     ['dao ham', ['tiep diem']])
     ch1.dap_an.append(da1)
     loi_giai.cac_cau_hoi.append(ch1)
 
     # -----------------------------DINH NGHIA----------------------
-    loi_giai.cac_dinh_nghia.append(dinh_nghia.GIA_TRI_CUA_DAO_HAM_TAI_TIEP_DIEM)
-    loi_giai.cac_dinh_nghia.append(dinh_nghia.PHUONG_TRINH_TIEP_TUYEN_TAI_MOT_DIEM_CHO_TRUOC)
+    loi_giai.cac_dinh_nghia.append(
+        dinh_nghia.GIA_TRI_CUA_DAO_HAM_TAI_TIEP_DIEM)
+    loi_giai.cac_dinh_nghia.append(
+        dinh_nghia.PHUONG_TRINH_TIEP_TUYEN_TAI_MOT_DIEM_CHO_TRUOC)
 
     # ------------------------------MAU------------------------------
     hs_mau = sympy.sympify("x^3-2*x^2+1")
@@ -476,7 +480,7 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_co_he_so_goc(ham_so, bien,
     if hs_mau - ham_so != 0 or hsg_mau != hsg_mau:
         loi_giai.loi_giai_mau = viet_phuong_trinh_tiep_tuyen_voi_do_thi_co_he_so_goc(
             hs_mau, bien_mau, hsg_mau)
-    
+
     # ----------------------------BAI GIAI------------------------------
     # Buoc 1 : Tinh dao ham
     buoc_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien)
@@ -566,17 +570,19 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(ham_so,
     # ---------------------------CAU HOI-----------------------------
     ch1 = huong_dan_giai.HoiDap("Làm sao để tìm được tiếp điểm ?")
     ch1.cac_goi_y.append("Phải lập phương trình gì ?")
-    da1 = huong_dan_giai.DapAnCauHoi("Lập phương trình hoành độ giao điểm.",['phuong trinh',['hoanh do giao diem']])
+    da1 = huong_dan_giai.DapAnCauHoi("Lập phương trình hoành độ giao điểm.",
+                                     ['phuong trinh', ['hoanh do giao diem']])
     ch1.dap_an.append(da1)
     loi_giai.cac_cau_hoi.append(ch1)
 
     #-----------------------------DINH NGHIA-------------------
-    loi_giai.cac_dinh_nghia.append(dinh_nghia.PHUONG_TRINH_TIEP_TUYEN_TAI_MOT_DIEM_CHO_TRUOC)
+    loi_giai.cac_dinh_nghia.append(
+        dinh_nghia.PHUONG_TRINH_TIEP_TUYEN_TAI_MOT_DIEM_CHO_TRUOC)
 
     # -----------------------------MAU--------------------------
     hs_mau = sympy.sympify("x^3 - 3*x + 1")
     bien_mau = sympy.Symbol('x')
-    diem_mau = [1,-1]
+    diem_mau = [1, -1]
 
     if hs_mau - ham_so != 0 or diem_mau != diem:
         loi_giai.loi_giai_mau = viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(
@@ -674,6 +680,22 @@ def viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(ham_so,
     loi_giai.them_thao_tac(buoc_4)
     loi_giai.them_thao_tac(buoc_5)
     return loi_giai
+
+# Todo: Hoan thanh
+def tim_tham_so_de_do_thi_ham_so_cat_truc_tung_tai_3_diem_tao_thanh_cap_so_cong(
+        ham_so, bien, tham_so):
+    loi_giai = huong_dan_giai.LoiGiai(
+        "Tìm tham số để hàm số {hs} cắt trục tung tại 3 điểm tạo thành cấp số cộng".
+        format(hs=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_so))))
+
+    # ---------------------------------HOI DAP----------------------------
+
+
+    # ----------------------------------DINH NGHIA--------------------------
+
+    # -------------------------------BAI TOAN MAU---------------------------
+
+    # -----------------------------LOI GIAI-----------------------------
 
 
 if __name__ == "__main__":

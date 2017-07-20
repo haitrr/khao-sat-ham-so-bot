@@ -9,7 +9,7 @@ import phuong_trinh_bac_2
 import tap_hop
 import tinh_xac_dinh
 import xu_ly_chuoi
-
+import sympy
 
 def tim_diem_cuc_tieu(ham_so, bien):
     dao_ham_cap_1 = dao_ham.tinh_dao_ham_cap_1(ham_so, bien).dap_an
@@ -201,10 +201,11 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung(ham_so, bien, tham_so):
     # ---------------------Cau hoi -----------------------
     # todo: Can bo sung them cau hoi (neu co)
     ch_1 = huong_dan_giai.HoiDap("Đầu tiên ta phải làm gì ?")
-    da_1 = huong_dan_giai.DapAn("Tìm tham số để hàm số có cực trị",
-                                ["tim", "co cuc tri"])
-    gy_1 = "Để có cực trị năm ở hai phía trục hoành , thì ta phải có gì trước?"
-
+    da_1 = huong_dan_giai.DapAnCauHoi("Tìm tham số để hàm số có cực trị",
+                                      ["tim", "co cuc tri"])
+    ch_1.cac_goi_y.append("Để có cực trị năm ở hai phía trục hoành , thì ta phải có gì trước?")
+    ch_1.dap_an.append(da_1)
+    loi_giai.cac_cau_hoi.append(ch_1)
     loi_giai.cac_cau_hoi.append(ch_1)
 
     # --------------------Dinh ly-----------------------
@@ -281,7 +282,8 @@ def tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_hoanh(ham_so, bien, tham_so):
     da_1 = huong_dan_giai.DapAn("Tìm tham số để hàm số có cực trị",
                                 ["tim", "co cuc tri"])
     gy_1 = "Để có cực trị năm ở hai phía trục hoành , thì ta phải có gì trước?"
-
+    ch_1.dap_an.append(da_1)
+    ch_1.cac_goi_y.append(gy_1)
     loi_giai.cac_cau_hoi.append(ch_1)
 
     # ----------------------------DINH NGHIA-----------------------
@@ -411,8 +413,8 @@ def tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem(ham_so, bien, tham_so,
     # buoc 2 : de ham so dat cuc tri tai x0 , f'(x0) = 0
     pt = bat_dang_thuc.bang(phuong_trinh.tao_ten_ham('f', diem), 0)
     buoc_2 = huong_dan_giai.LoiGiai(
-        'Để hàm số đạt cực trị tại điểm {d} thì {pt}'.format(
-            d=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(diem)),
+        'Tìm {ts} để {pt}'.format(
+            ts=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(tham_so)),
             pt=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(pt))))
 
     # buoc 2.1 thay x0 vao
@@ -449,8 +451,6 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so,
     Co tham so
     :return: LoiGiai
     """
-    if isinstance(diem, sympy.Interval):
-        diem = (diem.left, diem.right)
     # Loi giai
     ham_f = phuong_trinh.tao_ham('f', ham_so, bien)
     loi_giai = huong_dan_giai.LoiGiai(
@@ -461,7 +461,7 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so,
                 xu_ly_chuoi.tao_latex(bat_dang_thuc.bang(bien, diem)))))
     # ---------------------CAU HOI-----------------------------
     ch1 = huong_dan_giai.HoiDap(
-        "Để biết cực trị là cực đại hay cực tiều ta cần làm gì?")
+        "Để biết cực trị là cực đại hay cực tiểu ta cần làm gì?")
     da1 = huong_dan_giai.DapAnCauHoi("Xét đạo hàm cấp 2",
                                      ['dao ham', ('hai', '2')])
     ch1.dap_an.append(da1)
@@ -470,7 +470,7 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so,
 
     ch2 = huong_dan_giai.HoiDap(
         "Để cực trị là cực đại thì đạo hàm cấp 2 tại điểm đó …")
-    da2 = huong_dan_giai.DapAnCauHoi("Nhỏ hơn 0", [('nho hon 0', '<0')])
+    da2 = huong_dan_giai.DapAnCauHoi("Nhỏ hơn 0", [('nho hon', '<'), ('khong', '0')])
     ch2.dap_an.append(da2)
     ch2.cac_goi_y.append('Đạo hàm có nghiệm tại đó')
     ch2.cac_goi_y.append('Quan hệ như thế nào với 0?')
@@ -481,7 +481,7 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so,
         dinh_nghia.DE_HAM_SO_CO_CUC_DAI_TAI_MOT_DIEM)
 
     # ----------------------------BAI TOAN MAU-----------------
-    hs_mau = sympy.sympify("x^3 + m*x + 2")
+    hs_mau = sympy.sympify("x**3 + m*x + 2")
     bien_mau = sympy.Symbol('x')
     ts_mau = sympy.Symbol('m')
     diem_mau = 1
@@ -532,6 +532,7 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so,
         ket_qua = list()
         for ts in buoc_1.dap_an:
             the_ts = phuong_trinh.thay_bien(buoc_3_1.dap_an, tham_so, ts)
+            buoc_3.dap_an = the_ts
             buoc_3_2.cac_buoc_giai += the_ts.cac_buoc_giai
             if the_ts.dap_an < 0:
                 buoc_3_2.cac_buoc_giai[-1] += xu_ly_chuoi.boc_mathjax('<0')
@@ -544,6 +545,7 @@ def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so,
                 buoc_3_2.them_thao_tac(
                     'Vậy hàm số đạt không có cực trị tại điểm này')
         buoc_3.them_thao_tac(buoc_3_2)
+        buoc_3.dap_an = buoc_3_2.dap_an
         loi_giai.them_thao_tac(buoc_3)
 
         # Buoc 4: Ket luan
@@ -731,10 +733,10 @@ if __name__ == "__main__":
             hs, x, m, d).xuat_html("loi_giai.html")
 
     def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem_test():
-        # hs = sympy.sympify("(x^3)/3 - x**2 +(2*m+1)*x-5")
-        # d = -1
-        hs = sympy.sympify("x^3+m*x+2")
-        d = 1
+        hs = sympy.sympify("(x^3)/3 - x**2 +(2*m+1)*x-5")
+        d = -1
+        # hs = sympy.sympify("x^3+m*x+2")
+        # d = 1
         tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(
             hs, x, m, d).xuat_html("loi_giai.html")
 
@@ -754,7 +756,7 @@ if __name__ == "__main__":
 
     # tim_tham_so_de_ham_so_co_cuc_tri_test()
     # tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem_test()
-    # tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem_test()
+    tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem_test()
     # tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem_test()
     # tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung_test()
-    tim_tham_so_de_ham_so_khong_co_cuc_tri_test()
+    # tim_tham_so_de_ham_so_khong_co_cuc_tri_test()

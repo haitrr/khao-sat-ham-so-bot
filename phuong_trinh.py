@@ -1,5 +1,4 @@
 import sympy
-
 import bat_dang_thuc
 import hang_so
 import huong_dan_giai
@@ -193,6 +192,12 @@ def tao_ham(ten_ham, ham_so, bien):
 
 
 def thay_bien(ham_so, bien, thay):
+    """
+    Thay danh sach cac bien bang danh sach cac gia tri
+    """
+    if not isinstance(bien, list):
+        bien = [bien]
+        thay = [thay]
     if isinstance(bien, list):
         if len(bien) != len(thay):
             raise ValueError
@@ -213,7 +218,7 @@ def thay_bien(ham_so, bien, thay):
             ham_the = the_bien(ham_the, bien[i], thay[i])
         loi_giai.them_thao_tac(
             xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_the)))
-        ham_the = tach_ra(ham_the)
+        ham_the = rut_gon(ham_the)
         loi_giai.them_thao_tac(
             xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG +
                                     xu_ly_chuoi.tao_latex(ham_the)))

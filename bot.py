@@ -91,7 +91,7 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
                 huy(nguoi_dung_gui)
                 return 'Không có bài toán nào hỗ trợ biểu thức này,bạn hãy thử nhập biểu thức khác'
             return xu_ly_chuoi.tao_du_lieu_hop_chon(
-                cac_dang_toan_co_the, 'Bạn muốn làm gì với biểu thức này')
+                cac_dang_toan_co_the, 'Bạn muốn làm gì với hàm số này')
 
     # Nhan vao dap an trac nghiem
     elif nguoi_dung_gui.cho == hang_so.TrangThai.DAP_AN_TRAC_NGHIEM:
@@ -116,7 +116,7 @@ def lay_cau_tra_loi(tin_nhan, nguoi_dung_gui):
                 nguoi_dung_gui.de_bai.du_kien['ham_so'],
                 nguoi_dung_gui.de_bai.du_kien['bien'], True)
             return xu_ly_chuoi.tao_du_lieu_hop_chon(
-                cac_dang_toan_co_the, 'Bạn muốn làm gì với biểu thức này')
+                cac_dang_toan_co_the, 'Bạn muốn làm gì với hàm số này')
 
     # Cho nguoi dung nhap vao mot du kien cua bai toan
     elif nguoi_dung_gui.cho in nguoi_dung_gui.de_bai.du_kien.keys():
@@ -321,7 +321,7 @@ def huong_dan(nguoi_dung_gui):
         elif buoc_hien_tai.cac_dinh_nghia != [] and not buoc_hien_tai.da_neu_dinh_nghia:
             # In ra cac dinh nghia
             cau_tra_loi.append(
-                "Để giải bài toán này , bạn hay ghi nhớ các định nghĩa sau đây")
+                "Để giải bài toán này , bạn hãy ghi nhớ các định lý,định nghĩa,công thức,quy tắc sau đây")
             for dn in buoc_hien_tai.cac_dinh_nghia:
                 cau_tra_loi.append(dn.xuat())
             buoc_hien_tai.da_neu_dinh_nghia = True
