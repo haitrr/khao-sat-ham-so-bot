@@ -70,6 +70,7 @@ def khao_sat_ham_so(ham_so, bien):
     # Khoang dong bien, nghich bien
     buoc_2_3 = huong_dan_giai.LoiGiai("Khoảng đồng biến,nghịch biến của hàm số")
     db,nb = tim_khoang_dong_bien_nghich_bien(ham_so,bien)
+    buoc_2_3.dap_an = db,nb
     if db== buoc_1.dap_an:
         buoc_2_3.them_thao_tac("Hàm số đồng biến trên tập xác định")
     elif nb == buoc_1.dap_an:
@@ -80,12 +81,14 @@ def khao_sat_ham_so(ham_so, bien):
         buoc_2_3_1.them_thao_tac("Hàm số đồng biến trên khoảng {k}".format(
             k=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(db))
         ))
+        buoc_2_3_1.dap_an = db
         buoc_2_3.them_thao_tac(buoc_2_3_1)
         # Tim khoang nghich bien
         buoc_2_3_2 = huong_dan_giai.LoiGiai("Khoảng nghịch biến")
         buoc_2_3_2.them_thao_tac("Hàm số nghịch biến trên khoảng {k}".format(
             k=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(nb))
         ))
+        buoc_2_3_2.dap_an = nb
         buoc_2_3.them_thao_tac(buoc_2_3_2)
 
     # Them vao loi giai
