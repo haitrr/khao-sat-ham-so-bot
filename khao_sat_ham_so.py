@@ -26,8 +26,9 @@ def khao_sat_ham_so(ham_so, bien):
 
     # -------------------------------CAU HOI------------------------------
     cau_hoi_1 = huong_dan_giai.HoiDap("Khảo sát hàm số gồm bao nhiêu bước?")
-    dap_an_cau_1 = huong_dan_giai.DapAnCauHoi("5 bước", [("5", "nam")])
+    dap_an_cau_1 = huong_dan_giai.DapAnCauHoi("3 bước", [("3", "ba")])
     cau_hoi_1.dap_an.append(dap_an_cau_1)
+    cau_hoi_1.cac_goi_y.append("Ba hay bốn ?")
     loi_giai.cac_cau_hoi.append(cau_hoi_1)
 
     cau_hoi_2 = huong_dan_giai.HoiDap("Đầu tiên chúng ta cần làm gì ?")
@@ -36,6 +37,11 @@ def khao_sat_ham_so(ham_so, bien):
     cau_hoi_2.dap_an.append(dap_an_cau_2)
     loi_giai.cac_cau_hoi.append(cau_hoi_2)
 
+    ch3 = huong_dan_giai.HoiDap("Trong bài toán ta cần vẽ bảng gì?")
+    ch3.cac_goi_y.append("Bảng biến ...")
+    da_ch3 = huong_dan_giai.DapAnCauHoi('Bảng biến thiên',['bien thien'])
+    ch3.dap_an.append(da_ch3)
+    loi_giai.cac_cau_hoi.append(ch3)
     # ----------------------------------BAI TOAN MAU--------------------
     ham_so_mau = sympy.sympify("x**3+3*(x**2)-4")
     bien_mau = sympy.Symbol('x')
@@ -54,6 +60,7 @@ def khao_sat_ham_so(ham_so, bien):
 
     # Buoc 2: Xet su bien thien
     xet_su_bt = huong_dan_giai.LoiGiai("Xét sự biến thiên của hàm số")
+    #xet_su_bt.can_huong_dan = True
     # Buoc 2: Đạo hàm của hàm số
     buoc_2 = huong_dan_giai.LoiGiai(
         "Xét chiều biến thiên của hàm số")
@@ -70,6 +77,7 @@ def khao_sat_ham_so(ham_so, bien):
     # Khoang dong bien, nghich bien
     buoc_2_3 = huong_dan_giai.LoiGiai("Khoảng đồng biến,nghịch biến của hàm số")
     db,nb = tim_khoang_dong_bien_nghich_bien(ham_so,bien)
+    buoc_2_3.dap_an = db, nb
     if db== buoc_1.dap_an:
         buoc_2_3.them_thao_tac("Hàm số đồng biến trên tập xác định")
     elif nb == buoc_1.dap_an:
@@ -80,12 +88,14 @@ def khao_sat_ham_so(ham_so, bien):
         buoc_2_3_1.them_thao_tac("Hàm số đồng biến trên khoảng {k}".format(
             k=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(db))
         ))
+        buoc_2_3_1.dap_an = db
         buoc_2_3.them_thao_tac(buoc_2_3_1)
         # Tim khoang nghich bien
         buoc_2_3_2 = huong_dan_giai.LoiGiai("Khoảng nghịch biến")
         buoc_2_3_2.them_thao_tac("Hàm số nghịch biến trên khoảng {k}".format(
             k=xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(nb))
         ))
+        buoc_2_3_2.dap_an = nb
         buoc_2_3.them_thao_tac(buoc_2_3_2)
 
     # Them vao loi giai

@@ -442,7 +442,6 @@ def tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem(ham_so, bien, tham_so,
     return loi_giai
 
 
-# todo: them cau hoi , dinh nghia ,bai toan mau
 def tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem(ham_so, bien, tham_so,
                                                    diem):
     """
@@ -754,9 +753,9 @@ if __name__ == "__main__":
         tim_tham_so_de_ham_so_khong_co_cuc_tri(hs, x,
                                                m).xuat_html("loi_giai.html")
 
-    # tim_tham_so_de_ham_so_co_cuc_tri_test()
-    # tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem_test()
+    #tim_tham_so_de_ham_so_co_cuc_tri_test()
+    #tim_tham_so_de_ham_so_dat_cuc_tri_tai_mot_diem_test()
     tim_tham_so_de_ham_so_dat_cuc_dai_tai_mot_diem_test()
-    # tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem_test()
-    # tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung_test()
-    # tim_tham_so_de_ham_so_khong_co_cuc_tri_test()
+    #tim_tham_so_de_ham_so_dat_cuc_tieu_tai_mot_diem_test()
+    #tim_tham_so_de_cuc_tri_nam_o_hai_phia_truc_tung_test()
+    #tim_tham_so_de_ham_so_khong_co_cuc_tri_test()

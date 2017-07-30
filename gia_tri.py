@@ -229,4 +229,5 @@ if __name__ == "__main__":
         tim_gia_tri_lon_nhat_va_nho_nhat_cua_ham_so_trong_mot_khoang_cho_truoc(
             hs, x, k).xuat_html("loi_giai.html")
 
-    tim_gia_tri_lon_nhat_va_nho_nhat_cua_ham_so_trong_khoang_cho_truoc_test()
+    #tim_gia_tri_lon_nhat_va_nho_nhat_cua_ham_so_trong_khoang_cho_truoc_test()
+    tim_gia_tri_lon_nhat_va_nho_nhat_cua_ham_so_test()

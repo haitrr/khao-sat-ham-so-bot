@@ -33,7 +33,7 @@ def tim_toa_do_giao_diem_voi_duong_thang(ham_so, bien, duong_thang):
     ch1.cac_goi_y.append("Lập phương trình gì?")
     da = huong_dan_giai.DapAnCauHoi("Lập phương trình hoành độ giao điểm",
                                     ["hoanh do giao diem"])
-    ch1.da_an.append(da)
+    ch1.dap_an.append(da)
     loi_giai.cac_cau_hoi.append(ch1)
 
     # --------------------------DINH NGHIA------------------
@@ -733,8 +733,8 @@ if __name__ == "__main__":
         viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem(
             hs, b, diem).xuat_html("loi_giai.html")
 
-    # tim_toa_do_giao_diem_voi_duong_thang_test()
-    # viet_phuong_trinh_tiep_voi_do_thi_ham_so_tai_mot_diem_test()
-    # tim_tham_so_de_ham_so_cat_truc_hoanh_tai_1_diem_duy_nhat_test()
+    tim_toa_do_giao_diem_voi_duong_thang_test()
+    #viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_tai_mot_diem_test()
+    #tim_tham_so_de_ham_so_cat_truc_hoanh_tai_1_diem_duy_nhat_test()
     #viet_phuong_trinh_tiep_tuyen_voi_do_thi_co_he_so_goc_test()
-    viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem_test()
+    #viet_phuong_trinh_tiep_tuyen_voi_do_thi_ham_so_di_qua_mot_diem_test()

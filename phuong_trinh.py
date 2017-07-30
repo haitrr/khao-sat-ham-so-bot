@@ -216,8 +216,11 @@ def thay_bien(ham_so, bien, thay):
         ham_the = ham_so
         for i in range(len(bien)):
             ham_the = the_bien(ham_the, bien[i], thay[i])
-        loi_giai.them_thao_tac(
-            xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_the)))
+        try:
+            loi_giai.them_thao_tac(
+                xu_ly_chuoi.boc_mathjax(xu_ly_chuoi.tao_latex(ham_the)))
+        except:
+            pass
         ham_the = rut_gon(ham_the)
         loi_giai.them_thao_tac(
             xu_ly_chuoi.boc_mathjax(ky_hieu_latex.DAU_TUONG_DUONG +

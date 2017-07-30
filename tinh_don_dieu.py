@@ -21,8 +21,8 @@ def tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh(ham_so, bien, tham_so):
     ch1 = huong_dan_giai.HoiDap("Hàm số đồng biến tại một điểm khi nào ?")
     ch1.cac_goi_y.append("Giá trị của đạo hàm tại điểm đó như thế nào ?")
     da1 = huong_dan_giai.DapAnCauHoi(
-        ("Đạo hàm có giá trị dương tại điểm đó!",
-         [('dao ham', "f'"), ('duong', 'lon hon 0', '>0', '> 0')]))
+        "Đạo hàm có giá trị dương tại điểm đó!",
+         [('dao ham', "f'"), ('duong', 'lon hon 0', '>0', '> 0')])
     ch1.dap_an.append(da1)
 
     # ---------------------DINH NGHIA----------------------------
@@ -312,6 +312,6 @@ if __name__ == '__main__':
         tim_tham_so_de_ham_so_don_dieu_tren_1_khoang_co_do_dai_k(
             hs, b, ts, k).xuat_html('loi_giai.html')
 
-    # tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh_test()
-    # tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh_test()
-    tim_tham_so_de_ham_so_don_dieu_tren_1_khoang_co_do_dai_k_test()
+    tim_tham_so_de_ham_so_dong_bien_tren_tap_xac_dinh_test()
+    #tim_tham_so_de_ham_so_nghich_bien_tren_tap_xac_dinh_test()
+    #tim_tham_so_de_ham_so_don_dieu_tren_1_khoang_co_do_dai_k_test()
