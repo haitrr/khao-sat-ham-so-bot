@@ -1,3 +1,9 @@
+![DEMO Video](https://www.youtube.com/watch?v=npkwifxELMg)
+<br>
+![Screenshot](../master/screenshot/1.PNG?raw=true "Screenshot")
+![Screenshot](../master/screenshot/2.PNG?raw=true "Screenshot")
+![Screenshot](../master/screenshot/3.PNG?raw=true "Screenshot")
+<br>
 <b>Install:</b><br>
 GhoshScipt<br>
 MIKTex<br>
